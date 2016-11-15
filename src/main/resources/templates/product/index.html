@@ -38,7 +38,7 @@
 
     <!-- Dropdown button for product categories -->
     <div class="btn-group">
-        <button type="button" class="btn btn-primary">Categories</button>
+        <button type="button" class="btn btn-primary" th:text="${category} ? ${category.name} : 'Categories'">Categories</button>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Product Category Dropdown</span>
@@ -52,7 +52,7 @@
 
     <!-- Dropdown button for suppliers -->
     <div class="btn-group">
-        <button type="button" class="btn btn-primary">Suppliers</button>
+        <button type="button" class="btn btn-primary" th:text="${supplier} ? ${supplier.name} : 'Suppliers'">Suppliers</button>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Supplier Dropdown</span>
