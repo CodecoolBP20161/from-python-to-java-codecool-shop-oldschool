@@ -15,18 +15,15 @@ public class Main {
         staticFileLocation("/public");
         port(8888);
 
-        // populate some data for the memory storage
+        // Test data for the memory storage
         ExampleData.populateDate();
 
-        // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
-
-        // Always add generic routes to the end
-        get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-
+        // Route for products by product category
         get("/product-category/:id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
-        // Add this line to your project to enable the debug screen
+        // Route for main index page
+        get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
+
         enableDebugScreen();
     }
 
