@@ -11,9 +11,6 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 
-/**
- * Created by szilard on 2016.11.15..
- */
 public class ProductFactory {
 
     private static ProductFactory instance = null;
@@ -25,17 +22,19 @@ public class ProductFactory {
         return instance;
     }
 
-    public void product(String name, Float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier){
+    public void product(String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         productDataStore.add(new Product(name, defaultPrice, defaultCurrency, description, productCategory, supplier));
     }
-    public ProductCategory productCategory(String name, String deparment, String description){
+
+    public ProductCategory productCategory(String name, String department, String description) {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        ProductCategory result  =new ProductCategory(name, deparment, description);
+        ProductCategory result = new ProductCategory(name, department, description);
         productCategoryDataStore.add(result);
         return result;
     }
-    public Supplier supplier(String name, String description){
+
+    public Supplier supplier(String name, String description) {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         Supplier result = new Supplier(name, description);
         supplierDataStore.add(result);
