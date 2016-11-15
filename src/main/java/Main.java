@@ -3,11 +3,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.exampleData.ExampleData;
-import com.codecool.shop.factory.ProductFactory;
-import com.codecool.shop.model.*;
+import com.codecool.shop.example.ExampleData;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {

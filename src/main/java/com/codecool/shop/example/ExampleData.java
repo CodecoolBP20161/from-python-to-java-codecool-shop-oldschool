@@ -1,4 +1,4 @@
-package com.codecool.shop.exampleData;
+package com.codecool.shop.example;
 
 
 import com.codecool.shop.factory.ProductFactory;
