@@ -19,6 +19,7 @@ public class SupplierController {
         Map params = new HashMap<>();
         params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":id")))));
         params.put("suppliers", supplierDataStore.getAll());
+        params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":id"))));
         return new ModelAndView(params, "product/index");
     }
 
