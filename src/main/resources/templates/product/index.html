@@ -37,6 +37,7 @@
     <div class="well well-sm">
 
     <!-- Dropdown button for product categories -->
+
     <div class="btn-group">
         <button type="button" class="btn btn-primary" th:text="${category} ? ${category.name} : 'Categories'">Categories</button>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,6 +92,7 @@
 </div>
 
 <div th:replace="footer :: copy"></div>
+<!--<div th:replace="example :: copy(message='${category.name}')"></div>-->
 
 </body>
 </html>
