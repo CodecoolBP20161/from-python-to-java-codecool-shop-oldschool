@@ -49,6 +49,21 @@
             <li><a th:href="'/'">All</a></li>
         </ul>
     </div>
+
+    <!-- Dropdown button for suppliers -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">Suppliers</button>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Supplier Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li th:each="supplier, iterStat: ${suppliers}"><a th:href="'/supplier/' + ${supplier.getId()}" th:text="${supplier.name}"></a></li>
+            <li role="separator" class="divider"></li>
+            <li><a th:href="'/'">All</a></li>
+        </ul>
+    </div>
+
     </div>
 
 
