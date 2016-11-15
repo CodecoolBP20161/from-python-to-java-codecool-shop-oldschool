@@ -3,6 +3,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.SupplierController;
 import com.codecool.shop.example.ExampleData;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -20,6 +21,9 @@ public class Main {
 
         // Route for products by product category
         get("/product-category/:id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
+
+        // Route for products by supplier
+        get("/supplier/:id", SupplierController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
