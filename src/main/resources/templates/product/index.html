@@ -45,6 +45,8 @@
         </button>
         <ul class="dropdown-menu">
             <li th:each="category, iterStat: ${categories}"><a th:href="'/product-category/' + ${category.getId()}" th:text="${category.name}"></a></li>
+            <li role="separator" class="divider"></li>
+            <li><a th:href="'/'">All</a></li>
         </ul>
     </div>
     </div>
