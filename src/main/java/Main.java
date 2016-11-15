@@ -1,6 +1,7 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
@@ -24,6 +25,8 @@ public class Main {
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
+
+        get("/product-category/:id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
