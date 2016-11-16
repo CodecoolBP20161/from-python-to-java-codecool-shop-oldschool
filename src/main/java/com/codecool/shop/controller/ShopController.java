@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public abstract class Controller {
+public abstract class ShopController {
 
     protected static ProductDaoMem productDataStore = ProductDaoMem.getInstance();
     protected static ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -24,7 +24,7 @@ public abstract class Controller {
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", supplierDataStore.getAll());
 
-        if (req.params(":category-id")!= null) {
+        if (req.params(":category-id") != null) {
             params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":category-id")))));
             params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":category-id"))));
         }

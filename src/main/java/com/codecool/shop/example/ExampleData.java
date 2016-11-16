@@ -1,13 +1,12 @@
 package com.codecool.shop.example;
 
 
-import com.codecool.shop.factory.ProductFactory;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 public class ExampleData {
 
-    public static  void populateDate(){
+    public static void populateData() {
         Supplier amazon = ProductFactory.getInstance().supplier("Amazon", "Digital content and services");
         Supplier lenovo = ProductFactory.getInstance().supplier("Lenovo", "Computers");
         Supplier codecool = ProductFactory.getInstance().supplier("Codecool", "Course");

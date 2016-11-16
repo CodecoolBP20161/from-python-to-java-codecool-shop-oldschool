@@ -1,11 +1,11 @@
-import static spark.Spark.*;
-import static spark.debug.DebugScreen.enableDebugScreen;
-
 import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.controller.SupplierController;
 import com.codecool.shop.example.ExampleData;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import static spark.Spark.*;
+import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
@@ -17,7 +17,7 @@ public class Main {
         port(8888);
 
         // Test data for the memory storage
-        ExampleData.populateDate();
+        ExampleData.populateData();
 
         // Route for products by product category
         get("/product-category/:category-id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
@@ -30,8 +30,6 @@ public class Main {
 
         enableDebugScreen();
     }
-
-
 
 
 }
