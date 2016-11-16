@@ -20,10 +20,10 @@ public class Main {
         ExampleData.populateDate();
 
         // Route for products by product category
-        get("/product-category/:id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
+        get("/product-category/:category-id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         // Route for products by supplier
-        get("/supplier/:id", SupplierController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+        get("/supplier/:supplier-id", SupplierController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());

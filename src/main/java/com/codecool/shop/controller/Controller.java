@@ -11,24 +11,29 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public abstract class Controller {
 
     protected static ProductDaoMem productDataStore = ProductDaoMem.getInstance();
     protected static ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     protected static SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
-//    protected static Map params = new HashMap<>();
 
-    public static ModelAndView render(Request req, Response res){
+    public static ModelAndView render(Request req, Response res) {
         Map params = new HashMap<>();
         params.put("products", productDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", supplierDataStore.getAll());
 
-        if (req.params(":id")!=null) {
-            params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":id")))));
-            params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
-            params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":id"))));
+        if (req.params(":category-id")!= null) {
+            params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":category-id")))));
+            params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":category-id"))));
+        }
+
+        if (req.params(":supplier-id") != null) {
+            params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
+            params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
         return new ModelAndView(params, "product/index");
     }
+
 }
