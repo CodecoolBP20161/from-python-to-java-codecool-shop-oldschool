@@ -18,10 +18,9 @@ public class OrderController extends ShopController {
         Product orderedProduct = productDataStore.find(Integer.parseInt(req.params(":product-id")));
         order.addProduct(orderedProduct);
 
-//        if (req.session().attribute("order") == null){
-//
-//            req.session().attribute("order", order);
-//        }
+        if (req.session().attribute("order") == null){
+            req.session().attribute("order", order);
+        }
 
         return render(req, res);
     }
