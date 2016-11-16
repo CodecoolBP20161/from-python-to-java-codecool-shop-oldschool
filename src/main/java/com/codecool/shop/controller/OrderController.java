@@ -16,17 +16,18 @@ public class OrderController extends ShopController{
 
         System.out.println("OrderControll");
         Orderable order = new Order();
+
+        if (req.session().attribute("order") == null){
+
+            req.session().attribute("order", order);
+        }
+
         req.queryParams(":product-id");
 
         Product orderedProduct = productDataStore.find(Integer.parseInt(req.queryParams(":product-id")));
         order.addProduct(orderedProduct);
         System.out.println("orderedProduct = " + orderedProduct);
 
-//        if (req.session().attribute("order") != null){
-//
-//        }
-//        else {
-//            req.session().attribute("order", order);}
 
 
         return render(req, res);
