@@ -1,8 +1,9 @@
 package com.codecool.shop.controller;
 
-import spark.ModelAndView;
+
 import spark.Request;
 import spark.Response;
+import spark.ModelAndView;
 
 public class ProductController extends ShopController {
 
