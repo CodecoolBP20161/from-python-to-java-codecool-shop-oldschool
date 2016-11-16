@@ -4,10 +4,9 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class ProductCategoryController extends ShopController {
+public class SupplierController extends ShopController {
 
-    public static ModelAndView renderProductsByCategory(Request req, Response res) {
-
+    public static ModelAndView renderProductsBySupplier(Request req, Response res) {
         return render(req, res);
     }
 
