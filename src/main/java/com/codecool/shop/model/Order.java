@@ -10,6 +10,10 @@ public class Order implements Orderable {
         return lineItems;
     }
 
+    public Order(){
+
+    }
+
     public void addProduct(Product product) {
         LineItem newItem = new LineItem(product);
         LineItem chosenItem;
@@ -21,5 +25,15 @@ public class Order implements Orderable {
             lineItems.add(newItem);
         }
         System.out.println("lineItems = " + lineItems);
+    }
+
+    public long sumLineItem(){
+        long result = 0;
+        for (int i = 0; i < lineItems.size(); i++) {
+            LineItem lineItem = (LineItem) lineItems.get(i);
+            result += (long)lineItem.getUnitPrice();
+        }
+
+        return result;
     }
 }
