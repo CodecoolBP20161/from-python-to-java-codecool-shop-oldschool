@@ -10,7 +10,7 @@ public class LineItem {
     public LineItem (Product product) {
         this.product = product;
         this.quantity = 1;
-        this.unitPrice = product.getDefaultPrice() * this.getQuantity();
+        this.unitPrice = product.getDefaultPrice();
     }
 
     public Product getProduct() {
@@ -31,6 +31,10 @@ public class LineItem {
 
     public float getUnitPrice() {
         return unitPrice;
+    }
+
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     @Override
