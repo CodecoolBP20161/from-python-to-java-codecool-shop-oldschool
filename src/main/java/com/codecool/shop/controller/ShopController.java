@@ -18,7 +18,13 @@ public abstract class ShopController {
     protected static ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     protected static SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
 
+    protected void path(Request req){
+        req.session().attribute("path",req.pathInfo());
+    }
+
     public static ModelAndView render(Request req, Response res) {
+
+
         Map params = new HashMap<>();
         params.put("products", productDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
