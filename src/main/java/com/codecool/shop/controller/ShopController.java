@@ -1,6 +1,6 @@
 package com.codecool.shop.controller;
 
-
+import com.codecool.shop.model.Order;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -39,6 +39,12 @@ public abstract class ShopController {
             params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
+
+        if (req.session().attribute("order") != null) {
+            Order order = req.session().attribute("order");
+            params.put("lineitems", order.getNumberOfLineItemsInCart());
+        }
+
         return new ModelAndView(params, "product/index");
     }
 

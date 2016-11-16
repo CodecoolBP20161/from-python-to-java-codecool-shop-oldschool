@@ -17,6 +17,7 @@ public class Order implements Orderable {
     public void addProduct(Product product) {
         LineItem newItem = new LineItem(product);
         LineItem chosenItem;
+
         if (lineItems.contains(newItem)) {
             chosenItem = lineItems.get(lineItems.indexOf(newItem));
             chosenItem.setQuantity(chosenItem.getQuantity() + 1);

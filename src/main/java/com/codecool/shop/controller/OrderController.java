@@ -12,15 +12,14 @@ import spark.Response;
 public class OrderController extends ShopController {
 
     public static ModelAndView renderOrder(Request req, Response res) {
-        Orderable order = new Order();
-        req.params(":product-id");
+//        Orderable order = new Order();
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
 
+        Order order = req.session().attribute("order");
         Product orderedProduct = productDataStore.find(Integer.parseInt(req.params(":product-id")));
         order.addProduct(orderedProduct);
-
-        if (req.session().attribute("order") == null){
-            req.session().attribute("order", order);
-        }
 
         return render(req, res);
     }

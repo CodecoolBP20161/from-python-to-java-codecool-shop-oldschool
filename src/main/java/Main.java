@@ -29,7 +29,6 @@ public class Main {
         // Route for products by supplier
         get("/supplier/:supplier-id", SupplierController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
-
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
