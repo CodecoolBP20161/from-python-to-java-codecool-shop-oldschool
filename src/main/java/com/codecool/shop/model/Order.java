@@ -10,7 +10,16 @@ public class Order implements Orderable {
         return lineItems;
     }
 
-    public void addLineItem(LineItem lineItem) {
-        lineItems.add(lineItem);
+    public void addProduct(Product product) {
+        LineItem newItem = new LineItem(product);
+        LineItem chosenItem;
+        if (lineItems.contains(newItem)){
+           chosenItem = (LineItem)lineItems.get(lineItems.indexOf(newItem));
+           chosenItem.setQuantity(chosenItem.getQuantity() + 1);
+        }
+        else {
+            lineItems.add(newItem);
+        }
+        System.out.println("lineItems = " + lineItems);
     }
 }

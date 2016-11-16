@@ -1,3 +1,4 @@
+import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.controller.SupplierController;
@@ -19,11 +20,14 @@ public class Main {
         // Test data for the memory storage
         ExampleData.populateData();
 
+        post("/add-to-cart", OrderController::renderOrder, new ThymeleafTemplateEngine());
+
         // Route for products by product category
         get("/product-category/:category-id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         // Route for products by supplier
         get("/supplier/:supplier-id", SupplierController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
