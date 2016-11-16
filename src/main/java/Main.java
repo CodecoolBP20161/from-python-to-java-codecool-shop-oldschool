@@ -20,7 +20,8 @@ public class Main {
         // Test data for the memory storage
         ExampleData.populateData();
 
-        post("/add-to-cart", OrderController::renderOrder, new ThymeleafTemplateEngine());
+        // Route for adding products to cart
+        post("/add-to-cart/:product-id", OrderController::renderOrder, new ThymeleafTemplateEngine());
 
         // Route for products by product category
         get("/product-category/:category-id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
