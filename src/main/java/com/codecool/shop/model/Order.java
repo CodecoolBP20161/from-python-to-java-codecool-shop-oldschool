@@ -24,7 +24,6 @@ public class Order implements Orderable {
         } else {
             lineItems.add(newItem);
         }
-        System.out.println("lineItems = " + lineItems);
     }
 
     public int sumLineItem() {
@@ -42,5 +41,12 @@ public class Order implements Orderable {
             sum += lineItems.get(i).getQuantity();
         }
         return sum;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "lineItems=" + lineItems +
+                '}';
     }
 }

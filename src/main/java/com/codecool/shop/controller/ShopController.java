@@ -18,9 +18,9 @@ public abstract class ShopController {
     protected static ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     protected static SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
 
-    protected void path(Request req){
-        req.session().attribute("path",req.pathInfo());
-    }
+//    protected static void path(Request req){
+//        req.session().attribute("path",req.pathInfo());
+//    }
 
     public static ModelAndView render(Request req, Response res) {
 

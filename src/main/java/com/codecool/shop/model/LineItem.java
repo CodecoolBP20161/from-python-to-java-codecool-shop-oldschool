@@ -32,4 +32,13 @@ public class LineItem {
     public float getUnitPrice() {
         return unitPrice;
     }
+
+    @Override
+    public String toString() {
+        return "LineItem{" +
+                "product=" + product +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                '}';
+    }
 }
