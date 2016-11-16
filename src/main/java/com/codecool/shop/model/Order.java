@@ -16,20 +16,25 @@ public class Order implements Orderable {
 
     public void addProduct(Product product) {
         LineItem newItem = new LineItem(product);
-        LineItem chosenItem;
 
-        if (lineItems.contains(newItem)) {
-            chosenItem = lineItems.get(lineItems.indexOf(newItem));
-            chosenItem.setQuantity(chosenItem.getQuantity() + 1);
-        } else {
+        if (lineItems.size() == 0) {
             lineItems.add(newItem);
+        } else {
+            for (int i = 0; i < lineItems.size(); i++) {
+                if (lineItems.get(i).getProduct().getId() == product.getId()) {
+                    lineItems.get(i).setQuantity(lineItems.get(i).getQuantity() + 1);
+                    lineItems.get(i).setUnitPrice(lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity());
+                } else {
+                    lineItems.add(newItem);
+                }
+            }
         }
     }
 
     public int sumLineItem() {
         int result = 0;
         for (int i = 0; i < lineItems.size(); i++) {
-            result += lineItems.get(i).getUnitPrice() * lineItems.get(i).getQuantity();
+            result += lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity();
         }
 
         return result;
