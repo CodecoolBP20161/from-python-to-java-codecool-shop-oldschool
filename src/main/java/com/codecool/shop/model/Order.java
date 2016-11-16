@@ -1,16 +1,16 @@
 package com.codecool.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Orderable {
-    private List LINEITEMS;
+    private List lineItems = new ArrayList();
 
-    public List getLINEITEMS() {
-        return LINEITEMS;
+    public List getLineItems() {
+        return lineItems;
     }
 
-    public void addLineItem(int productId) {
-        LineItem lineItem = new Lineitem(productId);
-        LINEITEMS.add(lineItem);
+    public void addLineItem(LineItem lineItem) {
+        lineItems.add(lineItem);
     }
 }
