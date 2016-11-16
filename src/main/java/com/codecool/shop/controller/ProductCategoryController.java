@@ -11,19 +11,11 @@ import spark.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProductCategoryController {
+public class ProductCategoryController extends Controller{
 
     public static ModelAndView renderProductsByCategory(Request req, Response res) {
-        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
 
-
-        Map params = new HashMap<>();
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":id")))));
-        params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("categories", productCategoryDataStore.getAll());
-        return new ModelAndView(params, "product/index");
+        return render(req, res);
     }
 
 }
