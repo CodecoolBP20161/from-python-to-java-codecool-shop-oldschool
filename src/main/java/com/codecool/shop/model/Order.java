@@ -13,6 +13,7 @@ public class Order implements OrderInterface {
 
     public Order() {}
 
+    //add lineItem to order lineItems attribute if it is new increase quantity if it is exist
     public void addProduct(Product product) {
         LineItem itemToBeAdded = new LineItem(product);
 
@@ -22,7 +23,7 @@ public class Order implements OrderInterface {
             lineItems.add(itemToBeAdded);
         }
     }
-
+    // find lineItem from a list
     public LineItem find(LineItem item) {
         for (int i = 0; i < lineItems.size(); i++) {
             if (lineItems.get(i).equals(item)) {
@@ -32,7 +33,7 @@ public class Order implements OrderInterface {
         return null;
     }
 
-
+    //Total price in for the products in the cart
     public int getTotalPrice() {
         int result = 0;
         for (int i = 0; i < lineItems.size(); i++) {
@@ -40,7 +41,7 @@ public class Order implements OrderInterface {
         }
         return result;
     }
-
+    //sub total for products
     public int sumLineItemQuantitiesInCart() {
         int sum = 0;
         for (int i = 0; i < lineItems.size(); i++) {
