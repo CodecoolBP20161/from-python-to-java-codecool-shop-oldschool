@@ -7,7 +7,7 @@ public class LineItem {
     private int quantity;
     private float unitPrice;
 
-    public LineItem (Product product) {
+    public LineItem(Product product) {
         this.product = product;
         this.quantity = 1;
         this.unitPrice = product.getDefaultPrice();
@@ -37,6 +37,10 @@ public class LineItem {
         this.unitPrice = unitPrice;
     }
 
+    public void increaseQuantity() {
+        quantity += 1;
+    }
+
     @Override
     public String toString() {
         return "LineItem{" +
@@ -44,5 +48,22 @@ public class LineItem {
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!LineItem.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        LineItem other = (LineItem) obj;
+        return this.product.getId() == other.product.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return product.getId();
     }
 }
