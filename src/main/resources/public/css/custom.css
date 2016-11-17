@@ -60,3 +60,9 @@
 {
     margin: 0 0 11px;
 }
+
+.row
+{
+    display: flex;
+    flex-wrap: wrap;
+}

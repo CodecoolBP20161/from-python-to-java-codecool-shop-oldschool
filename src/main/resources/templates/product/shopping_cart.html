@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Header -->
+<div th:replace="header :: copy"></div>
+
+<!-- Content -->
+<div class="container">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-xs-6">
+                <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+            </div>
+            <div class="col-xs-6">
+                <a href="/">
+                <button type="button" class="btn btn-primary btn-sm btn-block">
+                    <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                </button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table for shopping cart items -->
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-hover">
+            <thead class="bg bg-primary">
+                <tr>
+                    <th>Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Sub Total</th>
+                </tr>
+            </thead>
+
+            <tbody class="order-tbody">
+                <tr th:each="item, iterStat: ${lineitems}">
+                    <td th:text="${item.getProduct().getName()}"></td>
+                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
+                    <td th:text="${item.getQuantity()}"></td>
+                    <td th:text="${item.getSubtotalPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="table-footer">
+            <div class="row text-center">
+                <div class="col-xs-9">
+                    <h4 class="text-right">Total: <strong th:text="${total} + ' $'"></strong></h4>
+                </div>
+                <div class="col-xs-3">
+                    <a href="#">
+                    <button type="button" class="btn btn-success btn-block">
+                        Checkout
+                    </button></a>
+                </div>
+            </div>
+        </div> <!-- table-footer -->
+    </div> <!-- table-responsive -->
+
+</div> <!-- container -->
+
+<!-- Footer -->
+<div th:replace="footer :: copy"></div>
+
+</html>
