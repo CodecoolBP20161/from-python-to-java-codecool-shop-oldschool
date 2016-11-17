@@ -1,7 +1,8 @@
 package com.codecool.shop.model;
 
 
-public interface Orderable {
+public interface OrderInterface {
 
     void addProduct(Product product);
+
 }

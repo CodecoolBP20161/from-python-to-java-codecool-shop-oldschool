@@ -7,6 +7,7 @@ public class LineItem {
     private int quantity;
     private float subtotalPrice;
 
+    //constructor
     public LineItem(Product product) {
         this.product = product;
         this.quantity = 1;
@@ -37,6 +38,7 @@ public class LineItem {
         this.subtotalPrice = subtotalPrice;
     }
 
+
     public void increaseQuantity() {
         quantity += 1;
         setSubtotalPrice(quantity * product.getDefaultPrice());
@@ -50,7 +52,7 @@ public class LineItem {
                 ", subtotalPrice=" + subtotalPrice +
                 '}';
     }
-
+    //overrided equals and hashcode method for comparison by id
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
