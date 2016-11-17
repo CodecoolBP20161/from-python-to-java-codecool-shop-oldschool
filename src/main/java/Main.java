@@ -23,12 +23,25 @@ public class Main {
         // Route for adding products to cart
         post("/add-to-cart/:product-id", OrderController::renderOrder, new ThymeleafTemplateEngine());
 
+        //store route for redirect after order
+        before("/product-category/:category-id", (req, res) -> {
+            req.session().attribute("path",req.pathInfo());
+        });
+
         // Route for products by product category
         get("/product-category/:category-id", ProductCategoryController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
+        //store route for redirect after order
+        before("/supplier/:supplier-id", (req, res) -> {
+            req.session().attribute("path",req.pathInfo());
+        });
         // Route for products by supplier
         get("/supplier/:supplier-id", SupplierController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
+        //store route for redirect after order
+        before("/", (req, res) -> {
+            req.session().attribute("path",req.pathInfo());
+        });
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
