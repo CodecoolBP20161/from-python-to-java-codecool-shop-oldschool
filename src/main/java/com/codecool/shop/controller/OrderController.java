@@ -17,7 +17,8 @@ public class OrderController extends ShopController {
             order = new Order();
             req.session().attribute("order", order);
         }
-        //find product by product id
+
+        //find product by product id from request
         Product orderedProduct = productDataStore.find(Integer.parseInt(req.params(":product-id")));
         order.addProduct(orderedProduct);
         //redirect to the last path
