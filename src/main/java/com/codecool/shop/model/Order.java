@@ -15,21 +15,24 @@ public class Order implements Orderable {
     }
 
     public void addProduct(Product product) {
-        LineItem newItem = new LineItem(product);
+        LineItem itemToBeAdded = new LineItem(product);
 
-        if (lineItems.size() == 0) {
-            lineItems.add(newItem);
+        if (lineItems.contains(itemToBeAdded)) {
+            find(itemToBeAdded).increaseQuantity();
         } else {
-            for (int i = 0; i < lineItems.size(); i++) {
-                if (lineItems.get(i).getProduct().getId() == product.getId()) {
-                    lineItems.get(i).setQuantity(lineItems.get(i).getQuantity() + 1);
-                    lineItems.get(i).setUnitPrice(lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity());
-                } else {
-                    lineItems.add(newItem);
-                }
-            }
+            lineItems.add(itemToBeAdded);
         }
     }
+
+    public LineItem find(LineItem item) {
+        for (int i = 0; i < lineItems.size(); i++) {
+            if (lineItems.get(i).equals(item)) {
+                return lineItems.get(i);
+            }
+        }
+        return null;
+    }
+
 
     public int sumLineItem() {
         int result = 0;
@@ -40,7 +43,7 @@ public class Order implements Orderable {
         return result;
     }
 
-    public int getNumberOfLineItemsInCart() {
+    public int sumLineItemQuantitiesInCart() {
         int sum = 0;
         for (int i = 0; i < lineItems.size(); i++) {
             sum += lineItems.get(i).getQuantity();
