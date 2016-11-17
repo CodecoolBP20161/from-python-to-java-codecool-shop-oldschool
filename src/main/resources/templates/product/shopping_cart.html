@@ -29,10 +29,10 @@
 
 <body>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+<!-- Header -->
+<div th:replace="header :: copy"></div>
 
+<!-- Shopping cart items -->
 <div class="container">
 
     <div class="table-responsive">
@@ -53,10 +53,11 @@
         </table>
     </div> <!-- order-container -->
 
+
 </div>
 
-    <!-- footer -->
-    <div th:replace="footer :: copy"></div>
+<!-- Footer -->
+<div th:replace="footer :: copy"></div>
 
 </body>
 </html>

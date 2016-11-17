@@ -29,9 +29,7 @@
 
 <body>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+<div th:replace="header :: copy"></div>
 
 <div class="container">
     <div class="well well-sm">
@@ -105,7 +103,6 @@
 </div>
 
 <div th:replace="footer :: copy"></div>
-<!--<div th:replace="example :: copy(message='${category.name}')"></div>-->
 
 </body>
 </html>
