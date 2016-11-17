@@ -14,18 +14,17 @@ import java.util.Map;
 
 public abstract class ShopController {
 
+    //get singleton instance to handle data in memory
     protected static ProductDaoMem productDataStore = ProductDaoMem.getInstance();
     protected static ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     protected static SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
 
-//    protected static void path(Request req){
-//        req.session().attribute("path",req.pathInfo());
-//    }
 
     public static ModelAndView render(Request req, Response res) {
 
 
         Map params = new HashMap<>();
+        //products and product filters
         params.put("products", productDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", supplierDataStore.getAll());
@@ -39,7 +38,7 @@ public abstract class ShopController {
             params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
-
+        // get order items
         if (req.session().attribute("order") != null) {
             Order order = req.session().attribute("order");
             params.put("lineitems", order.getNumberOfLineItemsInCart());
