@@ -19,6 +19,7 @@ public class Order implements Orderable {
 
         if (lineItems.contains(itemToBeAdded)) {
             find(itemToBeAdded).increaseQuantity();
+
         } else {
             lineItems.add(itemToBeAdded);
         }
