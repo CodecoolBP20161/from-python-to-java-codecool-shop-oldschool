@@ -45,14 +45,15 @@
             </tr>
             </thead>
             <tbody class="order-tbody"></tbody>
-            <tr th:each="${lineitems} ? item, iterStat: ${lineitems} : 'You have no items in the cart'">
-                <td th:text="${item.getName()}"></td>
-                <td th:text="${item.getUnitPrice()}"></td>
+            <tr th:each="item, iterStat: ${lineitems}">
+                <td th:text="${item.getProduct().getName()}"></td>
+                <td th:text="${item.getProduct().getDefaultPrice()}"></td>
                 <td th:text="${item.getQuantity()}"></td>
             </tr>
         </table>
     </div> <!-- order-container -->
 
+</div>
 
     <!-- footer -->
     <div th:replace="footer :: copy"></div>
