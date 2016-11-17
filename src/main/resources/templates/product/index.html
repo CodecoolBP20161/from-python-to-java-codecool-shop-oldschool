@@ -67,14 +67,16 @@
 
     <!-- Shopping cart icon -->
     <div class="btn-group pull-right">
-        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>
-            <span class="items" th:text="${lineitems} ?: '0'">0</span></button>
+        <a href="/cart">
+            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>
+                <span class="items" th:text="${lineitems} ?: '0'">0</span></button>
+        </a>
     </div>
 
 
     </div>
 
-
+    <!-- Product list -->
     <div id="products" class="row list-group">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
