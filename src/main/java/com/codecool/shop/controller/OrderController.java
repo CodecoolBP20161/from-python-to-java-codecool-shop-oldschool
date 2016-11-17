@@ -39,6 +39,7 @@ public class OrderController extends ShopController {
         // get items from cart
         if (req.session().attribute("order") != null) {
             Order order = req.session().attribute("order");
+            params.put("total", order.getTotalPrice());
             params.put("lineitems", order.getLineItems());
         }
 

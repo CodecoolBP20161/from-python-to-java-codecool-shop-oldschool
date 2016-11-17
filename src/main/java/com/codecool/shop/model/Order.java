@@ -35,7 +35,7 @@ public class Order implements Orderable {
     }
 
 
-    public int sumLineItem() {
+    public int getTotalPrice() {
         int result = 0;
         for (int i = 0; i < lineItems.size(); i++) {
             result += lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity();
