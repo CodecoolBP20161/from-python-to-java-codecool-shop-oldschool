@@ -5,12 +5,12 @@ public class LineItem {
 
     private Product product;
     private int quantity;
-    private float unitPrice;
+    private float subtotalPrice;
 
     public LineItem(Product product) {
         this.product = product;
         this.quantity = 1;
-        this.unitPrice = product.getDefaultPrice();
+        this.subtotalPrice = product.getDefaultPrice();
     }
 
     public Product getProduct() {
@@ -29,16 +29,17 @@ public class LineItem {
         this.quantity = quantity;
     }
 
-    public float getUnitPrice() {
-        return unitPrice;
+    public float getSubtotalPrice() {
+        return subtotalPrice;
     }
 
-    public void setUnitPrice(float unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setSubtotalPrice(float subtotalPrice) {
+        this.subtotalPrice = subtotalPrice;
     }
 
     public void increaseQuantity() {
         quantity += 1;
+        setSubtotalPrice(quantity * product.getDefaultPrice());
     }
 
     @Override
@@ -46,7 +47,7 @@ public class LineItem {
         return "LineItem{" +
                 "product=" + product +
                 ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
+                ", subtotalPrice=" + subtotalPrice +
                 '}';
     }
 
