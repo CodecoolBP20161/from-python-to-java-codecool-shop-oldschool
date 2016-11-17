@@ -52,6 +52,14 @@
                 <th>SubTotal</th>
             </tr>
             </thead>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td th:text="${total}"></td>
+            </tr>
+            </tfoot>
             <tbody class="order-tbody"></tbody>
             <tr th:each="item, iterStat: ${lineitems}">
                 <td th:text="${item.getProduct().getName()}"></td>
@@ -59,7 +67,7 @@
                 <td th:text="${item.getQuantity()}"></td>
                 <td th:text="${item.getSubtotalPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
             </tr>
-            <tr> <td th:text="${total}"></td></tr>
+            <!--<tr> <td th:text="${total}"></td></tr>-->
         </table>
     </div> <!-- order-container -->
 
