@@ -38,7 +38,8 @@ public abstract class ShopController {
             params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
-        // get order items
+
+        // get cart items for display
         if (req.session().attribute("order") != null) {
             Order order = req.session().attribute("order");
             params.put("lineitems", order.sumLineItemQuantitiesInCart());

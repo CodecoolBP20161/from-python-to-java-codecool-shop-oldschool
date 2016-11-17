@@ -29,8 +29,10 @@
 
 <body>
 
+<!-- Header -->
 <div th:replace="header :: copy"></div>
 
+<!-- Shopping cart items -->
 <div class="container">
 
     <div class="table-responsive">
@@ -43,17 +45,19 @@
             </tr>
             </thead>
             <tbody class="order-tbody"></tbody>
-            <tr th:each="${lineitems} ? item, iterStat: ${lineitems} : 'You have no items in the cart'">
-                <td th:text="${item.getName()}"></td>
-                <td th:text="${item.getUnitPrice()}"></td>
+            <tr th:each="item, iterStat: ${lineitems}">
+                <td th:text="${item.getProduct().getName()}"></td>
+                <td th:text="${item.getProduct().getDefaultPrice()}"></td>
                 <td th:text="${item.getQuantity()}"></td>
             </tr>
         </table>
     </div> <!-- order-container -->
 
-    <!-- footer -->
+
 </div>
-    <div th:replace="footer :: copy"></div>
+
+<!-- Footer -->
+<div th:replace="footer :: copy"></div>
 
 </body>
 </html>
