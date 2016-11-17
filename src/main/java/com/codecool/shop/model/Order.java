@@ -3,23 +3,21 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order implements Orderable {
+public class Order implements OrderInterface {
+
     private List<LineItem> lineItems = new ArrayList();
 
     public List getLineItems() {
         return lineItems;
     }
 
-    public Order() {
-
-    }
+    public Order() {}
 
     public void addProduct(Product product) {
         LineItem itemToBeAdded = new LineItem(product);
 
         if (lineItems.contains(itemToBeAdded)) {
             find(itemToBeAdded).increaseQuantity();
-
         } else {
             lineItems.add(itemToBeAdded);
         }
@@ -40,7 +38,6 @@ public class Order implements Orderable {
         for (int i = 0; i < lineItems.size(); i++) {
             result += lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity();
         }
-
         return result;
     }
 

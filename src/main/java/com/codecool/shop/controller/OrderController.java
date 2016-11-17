@@ -1,16 +1,14 @@
 package com.codecool.shop.controller;
 
 
-import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.model.Orderable;
+import com.codecool.shop.model.OrderInterface;
 import com.codecool.shop.model.Product;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class OrderController extends ShopController {
@@ -18,7 +16,7 @@ public class OrderController extends ShopController {
     public static ModelAndView renderOrder(Request req, Response res) {
 
         // check if session contains order, instantiate if it doesn't
-        Orderable order = req.session().attribute("order");
+        OrderInterface order = req.session().attribute("order");
         if (order == null) {
             order = new Order();
             req.session().attribute("order", order);
