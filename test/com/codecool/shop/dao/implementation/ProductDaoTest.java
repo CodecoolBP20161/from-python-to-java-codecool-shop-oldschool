@@ -62,19 +62,19 @@ public class ProductDaoTest {
 
     }
 
-//    @Test
-//    public void testGetAll() throws Exception{
-//        productDao.add(productFirst);
-//        productDao.add(productSecond);
-//
-//        List<Supplier> products;
-//        products = productDao.getAll();
-//
-//        assertEquals(2, products.size());
-//        assertTrue(products.contains(productFirst));
-//        assertTrue(products.contains(productSecond));
-//
-//    }
+    @Test
+    public void testGetAll() throws Exception{
+        productDao.add(productFirst);
+        productDao.add(productSecond);
+
+        List<Product> products;
+        products = productDao.getAll();
+
+        assertEquals(2, products.size());
+        assertTrue(products.contains(productFirst));
+        assertTrue(products.contains(productSecond));
+
+    }
 
     @Test
     public void testGetBySupplier() throws Exception{
