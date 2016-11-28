@@ -10,23 +10,41 @@ import static org.junit.Assert.*;
 public class SupplierDaoTest {
 
     SupplierDao supplierDao;
-    Supplier supplier;
+    Supplier supplierFirst;
+    Supplier supplierSecond;
 
     @Before
     public void setUp(){
         supplierDao = SupplierDaoMem.getInstance();
-        supplier = new Supplier("codecool", "learning school");
+        supplierFirst = new Supplier("codecool.bp.1", "learning school");
+        supplierSecond = new Supplier("codecool.bp.2", "learning school");
     }
 
     @Test
     public void testAdd() throws Exception{
-        supplierDao.add(supplier);
-        Supplier findFromDao = supplierDao.find(supplier.getId());
-        assertEquals(supplier, findFromDao );
+        supplierDao.add(supplierFirst);
+        Supplier findFromDao = supplierDao.find(supplierFirst.getId());
+        assertEquals(supplierFirst, findFromDao );
+    }
+
+    @Test
+    public void testFindNotFound() throws Exception{
+        Supplier unknown = supplierDao.find(12345);
+
+        assertNull(unknown);
+
     }
 
     @Test
     public void testFind() throws Exception{
+        supplierDao.add(supplierFirst);
+        supplierDao.add(supplierSecond);
+
+        Supplier findFromDaoFirst = supplierDao.find(supplierFirst.getId());
+        Supplier findFromDaoSecond = supplierDao.find(supplierSecond.getId());
+
+        assertEquals(supplierFirst, findFromDaoFirst);
+        assertEquals(supplierSecond, findFromDaoSecond);
 
     }
 

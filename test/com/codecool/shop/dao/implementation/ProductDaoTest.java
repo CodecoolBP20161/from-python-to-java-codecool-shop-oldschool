@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 public class ProductDaoTest {
 
         ProductDao productDao;
-        Product product;
+        Product productFirst;
+        Product productSecond;
         Supplier supplier;
         ProductCategory productCategory;
 
@@ -22,18 +23,35 @@ public class ProductDaoTest {
             productDao = ProductDaoMem.getInstance();
             productCategory = new ProductCategory("test", "oldschool", "first test for dao");
             supplier = new Supplier("codecool", "learning school");
-            product = new Product("daotest",49.9f, "USD", "Newbie to testing", productCategory, supplier);
+            productFirst = new Product("daotest",49.9f, "USD", "Newbie to testing", productCategory, supplier);
+            productSecond = new Product("daotest2",59.9f, "USD", "Getting start for testing", productCategory, supplier);
         }
 
     @Test
     public void testAdd() throws Exception{
-        productDao.add(product);
-        Product findFromDao = productDao.find(product.getId());
-        assertEquals(product, findFromDao );
+        productDao.add(productFirst);
+        Product findFromDao = productDao.find(productFirst.getId());
+        assertEquals(productFirst, findFromDao );
+    }
+
+    @Test
+    public void testFindNotFound() throws Exception{
+        Product unknown = productDao.find(12345);
+
+        assertNull(unknown);
+
     }
 
     @Test
     public void testFind() throws Exception{
+        productDao.add(productFirst);
+        productDao.add(productSecond);
+
+        Product findFromDaoFirst = productDao.find(productFirst.getId());
+        Product findFromDaoSecond = productDao.find(productSecond.getId());
+
+        assertEquals(productFirst, findFromDaoFirst);
+        assertEquals(productSecond, findFromDaoSecond);
 
     }
 

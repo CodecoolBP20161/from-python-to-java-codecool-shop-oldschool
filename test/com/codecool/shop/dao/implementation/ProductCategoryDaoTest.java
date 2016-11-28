@@ -11,24 +11,44 @@ public class ProductCategoryDaoTest {
 
 
     ProductCategoryDao productCategoryDao;
-    ProductCategory productCategory;
+    ProductCategory productCategoryFirst;
+    ProductCategory productCategorySecond;
+
 
     @Before
     public void setUp(){
         productCategoryDao = ProductCategoryDaoMem.getInstance();
-        productCategory = new ProductCategory("test", "oldschool", "first test for dao");
-        System.out.println("productCategory = " + productCategory);
+        productCategoryFirst = new ProductCategory("test", "oldschool", "first test for dao");
+        productCategorySecond = new ProductCategory("test2", "oldschool2", "second test for dao");
+
     }
 
     @Test
     public void testAdd() throws Exception{
-        productCategoryDao.add(productCategory);
-        ProductCategory findFromDao = productCategoryDao.find(productCategory.getId());
-        assertEquals(productCategory, findFromDao);
+        productCategoryDao.add(productCategoryFirst);
+        ProductCategory findFromDao = productCategoryDao.find(productCategoryFirst.getId());
+
+        assertEquals(productCategoryFirst, findFromDao);
+    }
+
+    @Test
+    public void testFindNotFound() throws Exception{
+        ProductCategory unknown = productCategoryDao.find(12345);
+
+        assertNull(unknown);
+
     }
 
     @Test
     public void testFind() throws Exception{
+        productCategoryDao.add(productCategoryFirst);
+        productCategoryDao.add(productCategorySecond);
+
+        ProductCategory findFromDaoFirst = productCategoryDao.find(productCategoryFirst.getId());
+        ProductCategory findFromDaoSecond = productCategoryDao.find(productCategorySecond.getId());
+
+        assertEquals(productCategoryFirst, findFromDaoFirst);
+        assertEquals(productCategorySecond, findFromDaoSecond);
 
     }
 
