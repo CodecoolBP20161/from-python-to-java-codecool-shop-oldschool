@@ -34,7 +34,9 @@ public abstract class DaoTest {
         productCategoryFirst = new ProductCategory("test", "oldschool", "first test for dao");
         productCategorySecond = new ProductCategory("test2", "oldschool2", "second test for dao");
         supplierFirst = new Supplier("codecool.bp.1", "spring class");
+        System.out.println("supplierFirst = " + supplierFirst);
         supplierSecond = new Supplier("codecool.bp.2", "autumn class");
+        System.out.println("supplierSecond = " + supplierSecond);
         productFirst = new Product("daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
         productSecond = new Product("daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
     }

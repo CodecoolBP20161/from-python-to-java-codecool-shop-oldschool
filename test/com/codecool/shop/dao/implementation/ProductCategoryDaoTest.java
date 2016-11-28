@@ -46,10 +46,10 @@ public class ProductCategoryDaoTest extends DaoTest{
 
         productCategoryDao.remove(productCategoryFirst.getId());
 
-        List <ProductCategory> productCategories;
-        productCategories = productCategoryDao.getAll();
+        List <ProductCategory> productCategoriesRemove;
+        productCategoriesRemove = productCategoryDao.getAll();
 
-        assertEquals(1, productCategories.size());
+        assertEquals(1, productCategoriesRemove.size());
     }
 
     @Test
