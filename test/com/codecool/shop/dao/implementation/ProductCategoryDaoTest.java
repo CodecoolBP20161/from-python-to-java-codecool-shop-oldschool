@@ -5,6 +5,8 @@ import com.codecool.shop.model.ProductCategory;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class ProductCategoryDaoTest {
 
 
@@ -13,12 +15,16 @@ public class ProductCategoryDaoTest {
 
     @Before
     public void setUp(){
+        productCategoryDao = ProductCategoryDaoMem.getInstance();
         productCategory = new ProductCategory("test", "oldschool", "first test for dao");
+        System.out.println("productCategory = " + productCategory);
     }
 
     @Test
     public void testAdd() throws Exception{
-
+        productCategoryDao.add(productCategory);
+        ProductCategory findFromDao = productCategoryDao.find(productCategory.getId());
+        assertEquals(productCategory, findFromDao);
     }
 
     @Test
