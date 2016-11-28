@@ -1,30 +1,14 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ProductCategoryDaoTest {
+public class ProductCategoryDaoTest extends DaoTest{
 
-
-    ProductCategoryDao productCategoryDao;
-    ProductCategory productCategoryFirst;
-    ProductCategory productCategorySecond;
-
-
-    @Before
-    public void setUp(){
-        productCategoryDao = ProductCategoryDaoMem.getInstance();
-        productCategoryFirst = new ProductCategory("test", "oldschool", "first test for dao");
-        productCategorySecond = new ProductCategory("test2", "oldschool2", "second test for dao");
-
-    }
 
     @Test
     public void testAdd() throws Exception{

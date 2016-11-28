@@ -1,26 +1,13 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class SupplierDaoTest {
-
-    SupplierDao supplierDao;
-    Supplier supplierFirst;
-    Supplier supplierSecond;
-
-    @Before
-    public void setUp(){
-        supplierDao = SupplierDaoMem.getInstance();
-        supplierFirst = new Supplier("codecool.bp.1", "learning school");
-        supplierSecond = new Supplier("codecool.bp.2", "learning school");
-    }
+public class SupplierDaoTest extends DaoTest{
 
     @Test
     public void testAdd() throws Exception{
