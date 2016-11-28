@@ -14,20 +14,24 @@ import static org.junit.Assert.*;
 
 public class ProductDaoTest {
 
-        ProductDao productDao;
-        Product productFirst;
-        Product productSecond;
-        Supplier supplier;
-        ProductCategory productCategory;
+    ProductDao productDao;
+    Product productFirst;
+    Product productSecond;
+    Supplier supplierFirst;
+    Supplier supplierSecond;
+    ProductCategory productCategoryFirst;
+    ProductCategory productCategorySecond;
 
-        @Before
-        public void setUp(){
-            productDao = ProductDaoMem.getInstance();
-            productCategory = new ProductCategory("test", "oldschool", "first test for dao");
-            supplier = new Supplier("codecool", "learning school");
-            productFirst = new Product("daotest",49.9f, "USD", "Newbie to testing", productCategory, supplier);
-            productSecond = new Product("daotest2",59.9f, "USD", "Getting start for testing", productCategory, supplier);
-        }
+    @Before
+    public void setUp(){
+        productDao = ProductDaoMem.getInstance();
+        productCategoryFirst = new ProductCategory("test", "oldschool", "first test for dao");
+        productCategorySecond = new ProductCategory("test2", "oldschool2", "second test for dao");
+        supplierFirst = new Supplier("codecool.bp.1", "spring class");
+        supplierSecond = new Supplier("codecool.bp.2", "autumn class");
+        productFirst = new Product("daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
+        productSecond = new Product("daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
+    }
 
     @Test
     public void testAdd() throws Exception{
@@ -86,11 +90,23 @@ public class ProductDaoTest {
 
     @Test
     public void testGetBySupplier() throws Exception{
+        productDao.add(productFirst);
+        productDao.add(productSecond);
+
+        List<Product> productBySupplier = productDao.getBy(supplierFirst);
+
+        assertEquals(productFirst, productBySupplier.get(0));
 
     }
 
     @Test
     public void testGetByProductCategory() throws Exception{
+        productDao.add(productFirst);
+        productDao.add(productSecond);
+
+        List<Product> productByCategory = productDao.getBy(productCategorySecond);
+
+        assertEquals(productSecond, productByCategory.get(0));
 
     }
 
