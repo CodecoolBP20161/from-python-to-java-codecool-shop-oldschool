@@ -8,7 +8,7 @@ CREATE TABLE product_categories
   id          VARCHAR(36) PRIMARY KEY,
   name        VARCHAR(40),
   department  VARCHAR(10),
-  description VARCHAR(10)
+  description VARCHAR(500)
 );
 
 CREATE TABLE suppliers
