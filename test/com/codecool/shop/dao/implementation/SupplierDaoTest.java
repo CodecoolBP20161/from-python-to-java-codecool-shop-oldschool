@@ -52,7 +52,15 @@ public class SupplierDaoTest {
 
     @Test
     public void testRemove() throws Exception{
+        supplierDao.add(supplierFirst);
+        supplierDao.add(supplierSecond);
 
+        supplierDao.remove(supplierFirst.getId());
+
+        List <Supplier> suppliers;
+        suppliers = supplierDao.getAll();
+
+        assertEquals(1, suppliers.size());
     }
 
     @Test

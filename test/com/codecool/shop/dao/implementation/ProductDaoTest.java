@@ -59,7 +59,15 @@ public class ProductDaoTest {
 
     @Test
     public void testRemove() throws Exception{
+        productDao.add(productFirst);
+        productDao.add(productSecond);
 
+        productDao.remove(productFirst.getId());
+
+        List <Product> products;
+        products = productDao.getAll();
+
+        assertEquals(1, products.size());
     }
 
     @Test
