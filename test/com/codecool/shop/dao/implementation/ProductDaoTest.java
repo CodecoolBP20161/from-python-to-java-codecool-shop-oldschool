@@ -8,6 +8,8 @@ import com.codecool.shop.model.Supplier;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ProductDaoTest {
@@ -60,10 +62,19 @@ public class ProductDaoTest {
 
     }
 
-    @Test
-    public void testGetAll() throws Exception{
-
-    }
+//    @Test
+//    public void testGetAll() throws Exception{
+//        productDao.add(productFirst);
+//        productDao.add(productSecond);
+//
+//        List<Supplier> products;
+//        products = productDao.getAll();
+//
+//        assertEquals(2, products.size());
+//        assertTrue(products.contains(productFirst));
+//        assertTrue(products.contains(productSecond));
+//
+//    }
 
     @Test
     public void testGetBySupplier() throws Exception{

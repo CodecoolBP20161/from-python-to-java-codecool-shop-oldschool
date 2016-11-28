@@ -5,6 +5,8 @@ import com.codecool.shop.model.Supplier;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class SupplierDaoTest {
@@ -55,6 +57,15 @@ public class SupplierDaoTest {
 
     @Test
     public void testGetAll() throws Exception{
+        supplierDao.add(supplierFirst);
+        supplierDao.add(supplierSecond);
+
+        List<Supplier> suppliers;
+        suppliers = supplierDao.getAll();
+
+        assertEquals(2, suppliers.size());
+        assertTrue(suppliers.contains(supplierFirst));
+        assertTrue(suppliers.contains(supplierSecond));
 
     }
 

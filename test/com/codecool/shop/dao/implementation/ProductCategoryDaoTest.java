@@ -5,6 +5,9 @@ import com.codecool.shop.model.ProductCategory;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ProductCategoryDaoTest {
@@ -59,6 +62,15 @@ public class ProductCategoryDaoTest {
 
     @Test
     public void testGetAll() throws Exception{
+        productCategoryDao.add(productCategoryFirst);
+        productCategoryDao.add(productCategorySecond);
+
+        List <ProductCategory> productCategories;
+        productCategories = productCategoryDao.getAll();
+
+        assertEquals(2, productCategories.size());
+        assertTrue(productCategories.contains(productCategoryFirst));
+        assertTrue(productCategories.contains(productCategorySecond));
 
     }
 
