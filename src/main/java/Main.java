@@ -9,7 +9,9 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
-
+    //TODO: interface for controller IFilter
+    //TODO: session class handle session in one place
+    //TODO: stream
     public static void main(String[] args) {
 
         // default server settings
