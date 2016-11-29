@@ -61,7 +61,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
-        String query = "SELECT * FROM products;";
+        String query = "SELECT * FROM product_categories;";
 
         List<ProductCategory> productCategoryList = new ArrayList<>();
 

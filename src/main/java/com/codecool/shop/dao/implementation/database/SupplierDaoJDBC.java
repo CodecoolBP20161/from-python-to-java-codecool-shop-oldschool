@@ -58,7 +58,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        String query = "SELECT * FROM products;";
+        String query = "SELECT * FROM suppliers;";
 
         List<Supplier> supplierList = new ArrayList<>();
 
