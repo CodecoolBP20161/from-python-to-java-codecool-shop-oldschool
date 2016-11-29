@@ -1,13 +1,36 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
+import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
+import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class SupplierDaoTest extends DaoTest{
+
+    private SupplierDao supplierDao;
+
+    public SupplierDaoTest(SupplierDao supplierDao) {
+        this.supplierDao = supplierDao;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> instancesToTest(){
+        return Arrays.asList(
+                new Object[]{SupplierDaoMem.getInstance()},
+                new Object[]{new SupplierDaoJDBC()}
+        );
+    }
 
     @Test
     public void testAdd() throws Exception{
@@ -62,6 +85,18 @@ public class SupplierDaoTest extends DaoTest{
         assertTrue(suppliers.contains(supplierFirst));
         assertTrue(suppliers.contains(supplierSecond));
 
+    }
+
+    @Override
+    @After
+    public void tearDown(){
+        if ("SupplierDaoMem".equals(supplierDao.getClass().getSimpleName())) {
+            supplierDao.getAll().clear();
+        }
+        if ("SupplierDaoJDBC".equals(supplierDao.getClass().getSimpleName())) {
+            supplierDao.remove(supplierFirst.getId());
+            supplierDao.remove(supplierSecond.getId());
+        }
     }
 
 }

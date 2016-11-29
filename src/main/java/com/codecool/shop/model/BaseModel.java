@@ -9,13 +9,14 @@ public class BaseModel {
     protected String name;
     protected String description;
 
-    public BaseModel(int id, String name){
-        this(name);
-        this.id = id;
-    }
 
     public BaseModel(String name) {
         this.name = name;
+    }
+
+    public BaseModel(int id, String name){
+        this(name);
+        this.id = id;
     }
 
     public BaseModel(String name, String description) {
@@ -24,8 +25,7 @@ public class BaseModel {
     }
 
     public BaseModel(int id, String name, String description) {
-        this.id = id;
-        this.name = name;
+        this(id, name);
         this.description = description;
     }
 

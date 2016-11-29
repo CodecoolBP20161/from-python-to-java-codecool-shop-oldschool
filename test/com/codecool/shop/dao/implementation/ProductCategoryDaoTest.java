@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -32,7 +33,6 @@ public class ProductCategoryDaoTest extends DaoTest{
                 new Object[]{new ProductCategoryDaoJDBC()}
         );
     }
-
 
     @Test
     public void testAdd() throws Exception{
@@ -90,6 +90,19 @@ public class ProductCategoryDaoTest extends DaoTest{
         assertTrue(productCategories.contains(productCategorySecond));
 
     }
+
+    @Override
+    @After
+    public void tearDown(){
+        if ("ProductCategoryDaoMem".equals(productCategoryDao.getClass().getSimpleName())) {
+            productCategoryDao.getAll().clear();
+        }
+        if ("ProductCategoryDaoJDBC".equals(productCategoryDao.getClass().getSimpleName())) {
+            productCategoryDao.remove(productCategoryFirst.getId());
+            productCategoryDao.remove(productCategorySecond.getId());
+        }
+    }
+
 
 
 }

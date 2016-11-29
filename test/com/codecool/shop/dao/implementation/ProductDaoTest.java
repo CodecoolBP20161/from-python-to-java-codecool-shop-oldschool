@@ -1,13 +1,37 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.database.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.model.Product;
+import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class ProductDaoTest extends DaoTest{
+
+    private ProductDao productDao;
+
+    public ProductDaoTest(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> instancesToTest(){
+        return Arrays.asList(
+                new Object[]{ProductDaoMem.getInstance()},
+                new Object[]{new ProductDaoJDBC()}
+        );
+    }
 
     @Test
     public void testAdd() throws Exception{
@@ -84,6 +108,18 @@ public class ProductDaoTest extends DaoTest{
 
         assertEquals(productSecond, productByCategory.get(0));
 
+    }
+
+    @Override
+    @After
+    public void tearDown(){
+        if ("ProductDaoMem".equals(productDao.getClass().getSimpleName())) {
+            productDao.getAll().clear();
+        }
+        if ("ProductDaoJDBC".equals(productDao.getClass().getSimpleName())) {
+            productDao.remove(productFirst.getId());
+            productDao.remove(productSecond.getId());
+        }
     }
 
 

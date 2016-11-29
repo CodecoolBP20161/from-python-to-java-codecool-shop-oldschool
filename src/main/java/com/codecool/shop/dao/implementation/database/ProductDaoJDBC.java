@@ -52,6 +52,7 @@ public class ProductDaoJDBC implements ProductDao {
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
                 return new Product(
+                        id,
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("default_currency"),
@@ -87,6 +88,7 @@ public class ProductDaoJDBC implements ProductDao {
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
                 Product product = new Product(
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("default_currency"),
