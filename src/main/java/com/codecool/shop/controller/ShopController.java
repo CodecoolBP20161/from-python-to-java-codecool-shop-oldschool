@@ -39,7 +39,7 @@ public abstract class ShopController {
         }
 
         if (req.params(":supplier-id") != null) {
-            params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
+            params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
 
