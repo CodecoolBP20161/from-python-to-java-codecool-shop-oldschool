@@ -1,13 +1,37 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class ProductCategoryDaoTest extends DaoTest{
+
+    private ProductCategoryDao productCategoryDao;
+
+    public ProductCategoryDaoTest(ProductCategoryDao productCategoryDao){
+        this.productCategoryDao = productCategoryDao;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> instancesToTest() {
+        return Arrays.asList(
+                new Object[]{ProductCategoryDaoMem.getInstance()},
+                new Object[]{new ProductCategoryDaoJDBC()}
+        );
+    }
 
 
     @Test

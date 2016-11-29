@@ -4,11 +4,17 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
+import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
 
 public abstract class DaoTest {
 
@@ -25,11 +31,13 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
+
+
     @Before
     public void setUp(){
-        productDao = ProductDaoMem.getInstance();
-        productCategoryDao = ProductCategoryDaoMem.getInstance();
-        supplierDao = SupplierDaoMem.getInstance();
+//        productDao = ProductDaoMem.getInstance();
+//        productCategoryDao = ProductCategoryDaoMem.getInstance();
+//        supplierDao = SupplierDaoMem.getInstance();
 
         productCategoryFirst = new ProductCategory("test", "oldschool", "first test for dao");
         productCategorySecond = new ProductCategory("test2", "oldschool2", "second test for dao");
