@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.lang.Math.abs;
+
 
 public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public void add(Product product) {
-        product.setId(UUID.randomUUID().hashCode()); // generating random id for products
+        product.setId(abs(UUID.randomUUID().hashCode())); // generating random id for products
         String query = "INSERT INTO products (id, " +
                                              "name, " +
                                              "description, " +
@@ -51,13 +53,17 @@ public class ProductDaoJDBC implements ProductDao {
             if (resultSet.next()){
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
-                return new Product(
+
+                Product product = new Product(
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("default_currency"),
                         resultSet.getString("description"),
                         productCategory,
                         supplier);
+                product.setId(id);
+
+                return product;
 
             } else {
                 return null;
@@ -86,6 +92,8 @@ public class ProductDaoJDBC implements ProductDao {
             while (resultSet.next()){
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
+                int product_id = resultSet.getInt("id");
+
                 Product product = new Product(
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
@@ -94,6 +102,7 @@ public class ProductDaoJDBC implements ProductDao {
                         productCategory,
                         supplier);
 
+                product.setId(product_id);
                 productList.add(product);
             }
 
@@ -113,13 +122,13 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        String query = "SELECT * FROM products JOIN suppliers ON product_categories products WHERE supplier ='" + supplier.getId() + "';";
+        String query = "SELECT * FROM products WHERE supplier ='" + supplier.getId() + "';";
         return this.getProducts(query);
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        String query = "SELECT * FROM products JOIN suppliers ON product_categories WHERE product_category ='" + productCategory.getId() + "';";
+        String query = "SELECT * FROM products WHERE product_category ='" + productCategory.getId() + "';";
         return this.getProducts(query);
     }
 }

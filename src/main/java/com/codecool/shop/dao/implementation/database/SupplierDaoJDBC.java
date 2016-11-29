@@ -12,15 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.lang.Math.abs;
+
 public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        supplier.setId(UUID.randomUUID().hashCode()); // generating random id for products
+        supplier.setId(abs(UUID.randomUUID().hashCode())); // generating random id for products
         String query = "INSERT INTO suppliers (id, " +
                                               "name, " +
                                               "description)" +
-                "VALUES (" + supplier.getId() + ", '" +
+                        "VALUES (" + supplier.getId() + ", '" +
                 supplier.getName() + "', '" +
                 supplier.getDescription() + "');";
 
@@ -67,10 +69,12 @@ public class SupplierDaoJDBC implements SupplierDao {
              ResultSet resultSet = statement.executeQuery(query)
         ) {
             while (resultSet.next()) {
+                int supplier_id = resultSet.getInt("id");
                 Supplier supplier = new Supplier(
                         resultSet.getString("name"),
                         resultSet.getString("description"));
 
+                supplier.setId(supplier_id);
                 supplierList.add(supplier);
             }
 
