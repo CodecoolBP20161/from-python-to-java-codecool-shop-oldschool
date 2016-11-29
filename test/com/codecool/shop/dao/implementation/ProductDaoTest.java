@@ -42,13 +42,15 @@ public class ProductDaoTest extends DaoTest{
     }
     @Before
     public void setUp2(){
-        supplierDao = new SupplierDaoJDBC();
-        productCategoryDao = new ProductCategoryDaoJDBC();
+        if ("ProductDaoJDBC".equals(productDao.getClass().getSimpleName())) {
+            supplierDao = new SupplierDaoJDBC();
+            productCategoryDao = new ProductCategoryDaoJDBC();
 
-        supplierDao.add(supplierFirst);
-        supplierDao.add(supplierSecond);
-        productCategoryDao.add(productCategoryFirst);
-        productCategoryDao.add(productCategorySecond);
+            supplierDao.add(supplierFirst);
+            supplierDao.add(supplierSecond);
+            productCategoryDao.add(productCategoryFirst);
+            productCategoryDao.add(productCategorySecond);
+        }
     }
 
 
@@ -138,6 +140,10 @@ public class ProductDaoTest extends DaoTest{
         if ("ProductDaoJDBC".equals(productDao.getClass().getSimpleName())) {
             productDao.remove(productFirst.getId());
             productDao.remove(productSecond.getId());
+            supplierDao.remove(supplierFirst.getId());
+            supplierDao.remove(supplierSecond.getId());
+            productCategoryDao.remove(productCategoryFirst.getId());
+            productCategoryDao.remove(productCategorySecond.getId());
         }
     }
 
