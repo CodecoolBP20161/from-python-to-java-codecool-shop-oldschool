@@ -7,14 +7,15 @@ CREATE TABLE product_categories
 (
   id          INT PRIMARY KEY,
   name        VARCHAR(40),
-  department  VARCHAR(10),
-  description VARCHAR(500)
+  description VARCHAR(500),
+  department  VARCHAR(10)
 );
 
 CREATE TABLE suppliers
 (
-  id   INT PRIMARY KEY,
-  name VARCHAR(40)
+  id          INT PRIMARY KEY,
+  name        VARCHAR(40),
+  description VARCHAR(500)
 );
 
 CREATE TABLE products
