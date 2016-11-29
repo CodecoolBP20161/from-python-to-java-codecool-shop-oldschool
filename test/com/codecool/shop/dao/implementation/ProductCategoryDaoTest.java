@@ -38,6 +38,7 @@ public class ProductCategoryDaoTest extends DaoTest{
     public void testAdd() throws Exception{
         productCategoryDao.add(productCategoryFirst);
         ProductCategory findFromDao = productCategoryDao.find(productCategoryFirst.getId());
+        System.out.println("find object:"+findFromDao);
 
         assertEquals(productCategoryFirst, findFromDao);
     }

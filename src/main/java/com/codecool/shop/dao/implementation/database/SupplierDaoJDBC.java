@@ -37,6 +37,7 @@ public class SupplierDaoJDBC implements SupplierDao {
         ) {
             if (resultSet.next()) {
                 return new Supplier(
+                        id,
                         resultSet.getString("name"),
                         resultSet.getString("description"));
             } else {
@@ -68,6 +69,7 @@ public class SupplierDaoJDBC implements SupplierDao {
         ) {
             while (resultSet.next()) {
                 Supplier supplier = new Supplier(
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"));
 

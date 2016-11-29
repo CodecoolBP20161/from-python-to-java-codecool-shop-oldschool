@@ -11,7 +11,7 @@ abstract class DatabaseConnector {
 //    Default database settings
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+    private static final String DB_PASSWORD = "753951";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
@@ -19,6 +19,7 @@ abstract class DatabaseConnector {
                 DB_USER,
                 DB_PASSWORD);
     }
+
 
     public static void executeQuery(String query) {
         try (Connection connection = getConnection();

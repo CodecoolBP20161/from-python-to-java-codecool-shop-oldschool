@@ -56,9 +56,9 @@ public abstract class DaoTest {
         productFirst = null;
         productSecond = null;
 
-        productDao.getAll().clear();
-        productCategoryDao.getAll().clear();
-        supplierDao.getAll().clear();
+        //productDao.getAll().clear();
+        //productCategoryDao.getAll().clear();
+        //supplierDao.getAll().clear();
 
     }
 }
