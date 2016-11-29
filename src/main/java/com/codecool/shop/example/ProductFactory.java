@@ -24,11 +24,6 @@ public class ProductFactory {
         return instance;
     }
 
-    public void product(String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
-        ProductDao productDataStore = DataStorageFactory.productDaoFactory();
-        productDataStore.add(new Product(name, defaultPrice, defaultCurrency, description, productCategory, supplier));
-    }
-
     public ProductCategory productCategory(String name, String department, String description) {
         ProductCategoryDao productCategoryDataStore = DataStorageFactory.productCategoryDaoFactory();
         ProductCategory result = new ProductCategory(name, department, description);
@@ -41,5 +36,10 @@ public class ProductFactory {
         Supplier result = new Supplier(name, description);
         supplierDataStore.add(result);
         return result;
+    }
+
+    public void product(String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
+        ProductDao productDataStore = DataStorageFactory.productDaoFactory();
+        productDataStore.add(new Product(name, defaultPrice, defaultCurrency, description, productCategory, supplier));
     }
 }
