@@ -21,7 +21,7 @@ public abstract class ShopController {
     //
     protected static ProductDao productDataStore = DataStorageFactory.productDaoFactory();
     protected static ProductCategoryDao productCategoryDataStore = DataStorageFactory.productCategoryDaoFactory();
-    protected static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    protected static SupplierDao supplierDataStore = DataStorageFactory.supplierDaoFactory();
 
 
     public static ModelAndView render(Request req, Response res) {
@@ -39,7 +39,7 @@ public abstract class ShopController {
         }
 
         if (req.params(":supplier-id") != null) {
-            params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
+            params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
 

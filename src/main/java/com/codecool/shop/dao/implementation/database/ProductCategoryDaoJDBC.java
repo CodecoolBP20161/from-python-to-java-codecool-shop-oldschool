@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.lang.Math.abs;
+
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-        category.setId(UUID.randomUUID().hashCode()); // generating random id for products
+        category.setId(abs(UUID.randomUUID().hashCode())); // generating random id for products
         String query = "INSERT INTO product_categories (id, " +
                                             "name, " +
                                             "department, " +
@@ -38,11 +40,14 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
              ResultSet resultSet = statement.executeQuery(query)
         ){
             if (resultSet.next()){
-                return new ProductCategory(
-                        id,
+                ProductCategory productCategory = new ProductCategory(
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
+
+                productCategory.setId(id);
+                return productCategory;
+
             } else {
                 return null;
             }
@@ -71,12 +76,14 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
              ResultSet resultSet = statement.executeQuery(query)
         ){
             while (resultSet.next()){
+                int productCategory_id = resultSet.getInt("id");
                 ProductCategory productCategory = new ProductCategory(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
 
+                productCategory.setId(productCategory_id);
                 productCategoryList.add(productCategory);
             }
 
