@@ -1,7 +1,9 @@
 package com.codecool.shop.dao;
 
 
+import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
 import com.codecool.shop.dao.implementation.database.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
@@ -9,7 +11,7 @@ import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 
 public class DataStorageFactory {
 
-    private static DataStorage dataStorage = DataStorage.MEMORY;
+    private static DataStorage dataStorage = DataStorage.DATABASE;
 
     public static ProductDao productDaoFactory(){
         ProductDao result;
@@ -33,7 +35,7 @@ public class DataStorageFactory {
                 result = ProductCategoryDaoMem.getInstance();
                 break;
             case DATABASE:
-                result = null; //new ProductCategoryDaoJDBC();
+                result = new ProductCategoryDaoJDBC();
                 break;
             default:
                 result = null;
@@ -48,7 +50,7 @@ public class DataStorageFactory {
                 result = SupplierDaoMem.getInstance();
                 break;
             case DATABASE:
-                result = null; //new SupplierDaoJDBC();
+                result = new SupplierDaoJDBC();
                 break;
             default:
                 result = null;
