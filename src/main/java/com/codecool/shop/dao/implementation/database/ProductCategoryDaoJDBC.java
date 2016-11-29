@@ -17,14 +17,14 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
         category.setId(UUID.randomUUID().hashCode()); // generating random id for products
-        String query = "INSERT INTO products (id, " +
+        String query = "INSERT INTO product_categories (id, " +
                                             "name, " +
                                             "department, " +
-                                            "description, " +
-                        "VALUES ('" + category.getId() + "', '" +
+                                            "description) " +
+                        "VALUES (" + category.getId() + ", '" +
                                       category.getName() + "', '" +
                                       category.getDepartment() + "', '" +
-                                      category.getDescription() + "', '" ;
+                                      category.getDescription() + "');" ;
 
         DatabaseConnector.executeQuery(query);
     }

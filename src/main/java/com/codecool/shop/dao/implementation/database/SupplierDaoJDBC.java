@@ -18,11 +18,11 @@ public class SupplierDaoJDBC implements SupplierDao {
     public void add(Supplier supplier) {
         supplier.setId(UUID.randomUUID().hashCode()); // generating random id for products
         String query = "INSERT INTO suppliers (id, " +
-                "name, " +
-                "description, " +
-                "VALUES ('" + supplier.getId() + "', '" +
+                                              "name, " +
+                                              "description)" +
+                "VALUES (" + supplier.getId() + ", '" +
                 supplier.getName() + "', '" +
-                supplier.getDescription() + "', '";
+                supplier.getDescription() + "');";
 
         DatabaseConnector.executeQuery(query);
     }
