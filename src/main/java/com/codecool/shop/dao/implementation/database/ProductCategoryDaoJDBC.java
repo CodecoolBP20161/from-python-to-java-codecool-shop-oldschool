@@ -40,10 +40,14 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
              ResultSet resultSet = statement.executeQuery(query)
         ){
             if (resultSet.next()){
-                return new ProductCategory(
+                ProductCategory productCategory = new ProductCategory(
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
+
+                productCategory.setId(id);
+                return productCategory;
+
             } else {
                 return null;
             }
