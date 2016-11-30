@@ -20,7 +20,7 @@ public class Main {
         port(8888);
 
         // Test data for the memory storage
-        ExampleData.populateData();
+        //ExampleData.populateData();
 
         // Route for adding products to cart
         post("/add-to-cart/:product-id", OrderController::renderOrder, new ThymeleafTemplateEngine());

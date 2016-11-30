@@ -9,12 +9,23 @@ public class BaseModel {
     protected String name;
     protected String description;
 
+
     public BaseModel(String name) {
         this.name = name;
     }
 
+    public BaseModel(int id, String name){
+        this(name);
+        this.id = id;
+    }
+
     public BaseModel(String name, String description) {
         this.name = name;
+        this.description = description;
+    }
+
+    public BaseModel(int id, String name, String description) {
+        this(id, name);
         this.description = description;
     }
 
@@ -41,6 +52,22 @@ public class BaseModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseModel)) return false;
+
+        BaseModel baseModel = (BaseModel) o;
+
+        return id == baseModel.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 
     @Override
