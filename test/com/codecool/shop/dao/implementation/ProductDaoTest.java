@@ -87,12 +87,11 @@ public class ProductDaoTest extends DaoTest{
         productDao.add(productFirst);
         productDao.add(productSecond);
 
+        assertNotNull(productDao.find(productFirst.getId()));
+
         productDao.remove(productFirst.getId());
 
-        List <Product> products;
-        products = productDao.getAll();
-
-        assertEquals(1, products.size());
+        assertNull(productDao.find(productFirst.getId()));
     }
 
     @Test
@@ -103,7 +102,6 @@ public class ProductDaoTest extends DaoTest{
         List<Product> products;
         products = productDao.getAll();
 
-        //assertEquals(2, products.size());
         assertTrue(products.contains(productFirst));
         assertTrue(products.contains(productSecond));
 

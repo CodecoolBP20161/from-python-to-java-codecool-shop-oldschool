@@ -74,10 +74,6 @@ public class ProductCategoryDaoTest extends DaoTest{
 
         assertNull(productCategoryDao.find(productCategoryFirst.getId()));
 
-//        List <ProductCategory> productCategoriesRemove;
-//        productCategoriesRemove = productCategoryDao.getAll();
-//        System.out.println("productCategoryDao = " + productCategoryDao.getAll());
-//        assertEquals(1, productCategoriesRemove.size());
     }
 
     @Test
