@@ -21,12 +21,12 @@ public abstract class DaoTest {
     //generate example data before tests to use them
     @Before
     public void setUp(){
-        productCategoryFirst = new ProductCategory(1, "test", "oldschool", "first test for dao");
-        productCategorySecond = new ProductCategory(2, "test2", "oldschool2", "second test for dao");
-        supplierFirst = new Supplier(1, "codecool.bp.1", "spring class");
-        supplierSecond = new Supplier(2, "codecool.bp.2", "autumn class");
-        productFirst = new Product(1, "daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
-        productSecond = new Product(2, "daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
+        productCategoryFirst = new ProductCategory(1111, "test", "oldschool", "first test for dao");
+        productCategorySecond = new ProductCategory(1112, "test2", "oldschool2", "second test for dao");
+        supplierFirst = new Supplier(1111, "codecool.bp.1", "spring class");
+        supplierSecond = new Supplier(1112, "codecool.bp.2", "autumn class");
+        productFirst = new Product(1111, "daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
+        productSecond = new Product(1112, "daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
 
     }
 
