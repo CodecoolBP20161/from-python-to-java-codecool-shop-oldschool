@@ -18,7 +18,6 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-        category.setId(abs(UUID.randomUUID().hashCode())); // generating random id for products
         String query = "INSERT INTO product_categories (id, " +
                                             "name, " +
                                             "department, " +
