@@ -5,6 +5,7 @@ import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
 import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -32,9 +33,14 @@ public class SupplierDaoTest extends DaoTest{
         );
     }
 
+    @Before
+    public void setUp2(){
+        supplierDao.add(supplierFirst);
+        supplierDao.add(supplierSecond);
+    }
+
     @Test
     public void testAdd() throws Exception{
-        supplierDao.add(supplierFirst);
         Supplier findFromDao = supplierDao.find(supplierFirst.getId());
         assertEquals(supplierFirst, findFromDao );
     }
@@ -44,50 +50,32 @@ public class SupplierDaoTest extends DaoTest{
         Supplier unknown = supplierDao.find(12345);
 
         assertNull(unknown);
-
     }
 
     @Test
     public void testFind() throws Exception{
-        supplierDao.add(supplierFirst);
-        supplierDao.add(supplierSecond);
-
         Supplier findFromDaoFirst = supplierDao.find(supplierFirst.getId());
         Supplier findFromDaoSecond = supplierDao.find(supplierSecond.getId());
 
         assertEquals(supplierFirst, findFromDaoFirst);
         assertEquals(supplierSecond, findFromDaoSecond);
-
     }
 
     @Test
     public void testRemove() throws Exception{
-        supplierDao.add(supplierFirst);
-        supplierDao.add(supplierSecond);
-
         assertNotNull(supplierDao.find(supplierFirst.getId()));
 
         supplierDao.remove(supplierFirst.getId());
         assertNull(supplierDao.find(supplierFirst.getId()));
-
-//        List <Supplier> suppliers;
-//        suppliers = supplierDao.getAll();
-//
-//        assertEquals(1, suppliers.size());
     }
 
     @Test
     public void testGetAll() throws Exception{
-        supplierDao.add(supplierFirst);
-        supplierDao.add(supplierSecond);
-
         List<Supplier> suppliers;
         suppliers = supplierDao.getAll();
 
-        //assertEquals(2, suppliers.size());
         assertTrue(suppliers.contains(supplierFirst));
         assertTrue(suppliers.contains(supplierSecond));
-
     }
 
     @Override

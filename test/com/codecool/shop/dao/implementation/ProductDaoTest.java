@@ -48,15 +48,18 @@ public class ProductDaoTest extends DaoTest{
 
             supplierDao.add(supplierFirst);
             supplierDao.add(supplierSecond);
+
             productCategoryDao.add(productCategoryFirst);
             productCategoryDao.add(productCategorySecond);
+
         }
+            productDao.add(productFirst);
+            productDao.add(productSecond);
     }
 
 
     @Test
     public void testAdd() throws Exception{
-        productDao.add(productFirst);
         Product findFromDao = productDao.find(productFirst.getId());
         assertEquals(productFirst, findFromDao );
     }
@@ -71,8 +74,7 @@ public class ProductDaoTest extends DaoTest{
 
     @Test
     public void testFind() throws Exception{
-        productDao.add(productFirst);
-        productDao.add(productSecond);
+
 
         Product findFromDaoFirst = productDao.find(productFirst.getId());
         Product findFromDaoSecond = productDao.find(productSecond.getId());
@@ -84,8 +86,6 @@ public class ProductDaoTest extends DaoTest{
 
     @Test
     public void testRemove() throws Exception{
-        productDao.add(productFirst);
-        productDao.add(productSecond);
 
         assertNotNull(productDao.find(productFirst.getId()));
 
@@ -96,8 +96,6 @@ public class ProductDaoTest extends DaoTest{
 
     @Test
     public void testGetAll() throws Exception{
-        productDao.add(productFirst);
-        productDao.add(productSecond);
 
         List<Product> products;
         products = productDao.getAll();
@@ -109,8 +107,6 @@ public class ProductDaoTest extends DaoTest{
 
     @Test
     public void testGetBySupplier() throws Exception{
-        productDao.add(productFirst);
-        productDao.add(productSecond);
 
         List<Product> productBySupplier = productDao.getBy(supplierFirst);
 
@@ -120,8 +116,6 @@ public class ProductDaoTest extends DaoTest{
 
     @Test
     public void testGetByProductCategory() throws Exception{
-        productDao.add(productFirst);
-        productDao.add(productSecond);
 
         List<Product> productByCategory = productDao.getBy(productCategorySecond);
 

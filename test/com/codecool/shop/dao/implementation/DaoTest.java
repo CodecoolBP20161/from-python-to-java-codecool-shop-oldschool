@@ -18,6 +18,7 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
+    //generate example data before tests to use them
     @Before
     public void setUp(){
         productCategoryFirst = new ProductCategory(1, "test", "oldschool", "first test for dao");
@@ -26,8 +27,10 @@ public abstract class DaoTest {
         supplierSecond = new Supplier(2, "codecool.bp.2", "autumn class");
         productFirst = new Product(1, "daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
         productSecond = new Product(2, "daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
+
     }
 
+    //after tests remove unused elements
     @After
     public void tearDown() throws Exception {
         productCategoryFirst = null;
