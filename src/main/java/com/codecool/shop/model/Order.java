@@ -14,7 +14,6 @@ public class Order implements OrderInterface {
     public Order() {}
 
     //add lineItem to order lineItems attribute if it is new increase quantity if it is exist
-    //TODO: testaddProduct
     public void addProduct(Product product) {
         LineItem itemToBeAdded = new LineItem(product);
 
@@ -25,7 +24,6 @@ public class Order implements OrderInterface {
         }
     }
     // find lineItem from a list
-    //TODO: testFind
     public LineItem find(LineItem item) {
         for (int i = 0; i < lineItems.size(); i++) {
             if (lineItems.get(i).equals(item)) {
@@ -36,7 +34,6 @@ public class Order implements OrderInterface {
     }
 
     //Total price in for the products in the cart
-    //TODO: testGetTotalPrice
     public int getTotalPrice() {
         int result = 0;
         for (int i = 0; i < lineItems.size(); i++) {

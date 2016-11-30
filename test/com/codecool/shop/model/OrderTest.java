@@ -48,16 +48,31 @@ public class OrderTest {
 
     @Test
     public void testGetTotalPrice(){
+        when(product.getDefaultPrice()).thenReturn(100f);
+        when(product2.getDefaultPrice()).thenReturn(200f);
+        when(product.getId()).thenReturn(1);
+        when(product2.getId()).thenReturn(2);
+        order.addProduct(product);
+        order.addProduct(product);
+        order.addProduct(product2);
+
+        assertEquals(400, order.getTotalPrice());
 
     }
 
     @Test
     public void testSumLineItemQuantitiesInCart(){
+        when(product.getId()).thenReturn(1);
+        when(product2.getId()).thenReturn(2);
+        order.addProduct(product);
+        order.addProduct(product);
+        order.addProduct(product2);
+
+        assertEquals(3, order.sumLineItemQuantitiesInCart());
 
     }
     @After
     public void tearDown(){
-        System.out.println("after");
         order.getLineItems().clear();
     }
 
