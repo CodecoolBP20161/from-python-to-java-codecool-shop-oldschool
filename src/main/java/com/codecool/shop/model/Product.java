@@ -17,6 +17,13 @@ public class Product extends BaseModel {
         this.setProductCategory(productCategory);
     }
 
+    public Product(int id, String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+        super(id, name, description);
+        this.setPrice(defaultPrice, currencyString);
+        this.setSupplier(supplier);
+        this.setProductCategory(productCategory);
+    }
+
     public float getDefaultPrice() {
         return defaultPrice;
     }
@@ -59,6 +66,7 @@ public class Product extends BaseModel {
         this.supplier = supplier;
         this.supplier.addProduct(this);
     }
+
 
 
     @Override

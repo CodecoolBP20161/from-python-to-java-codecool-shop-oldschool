@@ -1,8 +1,12 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.DataStorageFactory;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
+import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Order;
 import spark.ModelAndView;
 import spark.Request;
@@ -14,10 +18,10 @@ import java.util.Map;
 
 public abstract class ShopController {
 
-    //get singleton instance to handle data in memory
-    protected static ProductDaoMem productDataStore = ProductDaoMem.getInstance();
-    protected static ProductCategoryDaoMem productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    protected static SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
+    //
+    protected static ProductDao productDataStore = DataStorageFactory.productDaoFactory();
+    protected static ProductCategoryDao productCategoryDataStore = DataStorageFactory.productCategoryDaoFactory();
+    protected static SupplierDao supplierDataStore = DataStorageFactory.supplierDaoFactory();
 
 
     public static ModelAndView render(Request req, Response res) {
@@ -35,7 +39,7 @@ public abstract class ShopController {
         }
 
         if (req.params(":supplier-id") != null) {
-            params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
+            params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":supplier-id")))));
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
 

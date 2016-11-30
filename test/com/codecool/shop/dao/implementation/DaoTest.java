@@ -1,9 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -11,10 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 
 public abstract class DaoTest {
-
-    ProductDao productDao;
-    ProductCategoryDao productCategoryDao;
-    SupplierDao supplierDao;
 
     Product productFirst;
     Product productSecond;
@@ -25,20 +18,19 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
+    //generate example data before tests to use them
     @Before
     public void setUp(){
-        productDao = ProductDaoMem.getInstance();
-        productCategoryDao = ProductCategoryDaoMem.getInstance();
-        supplierDao = SupplierDaoMem.getInstance();
+        productCategoryFirst = new ProductCategory(1, "test", "oldschool", "first test for dao");
+        productCategorySecond = new ProductCategory(2, "test2", "oldschool2", "second test for dao");
+        supplierFirst = new Supplier(1, "codecool.bp.1", "spring class");
+        supplierSecond = new Supplier(2, "codecool.bp.2", "autumn class");
+        productFirst = new Product(1, "daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
+        productSecond = new Product(2, "daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
 
-        productCategoryFirst = new ProductCategory("test", "oldschool", "first test for dao");
-        productCategorySecond = new ProductCategory("test2", "oldschool2", "second test for dao");
-        supplierFirst = new Supplier("codecool.bp.1", "spring class");
-        supplierSecond = new Supplier("codecool.bp.2", "autumn class");
-        productFirst = new Product("daotest",49.9f, "USD", "Newbie to testing", productCategoryFirst, supplierFirst);
-        productSecond = new Product("daotest2",59.9f, "USD", "Getting start for testing", productCategorySecond, supplierSecond);
     }
 
+    //after tests remove unused elements
     @After
     public void tearDown() throws Exception {
         productCategoryFirst = null;
@@ -47,10 +39,6 @@ public abstract class DaoTest {
         supplierSecond = null;
         productFirst = null;
         productSecond = null;
-
-        productDao.getAll().clear();
-        productCategoryDao.getAll().clear();
-        supplierDao.getAll().clear();
 
     }
 }
