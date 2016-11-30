@@ -78,6 +78,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             while (resultSet.next()){
                 int productCategory_id = resultSet.getInt("id");
                 ProductCategory productCategory = new ProductCategory(
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));

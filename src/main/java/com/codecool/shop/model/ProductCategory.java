@@ -13,6 +13,13 @@ public class ProductCategory extends BaseModel {
         this.products = new ArrayList<>();
     }
 
+    public ProductCategory(int id,String name, String department, String description) {
+        super(id, name);
+        this.department = department;
+        this.description = description;
+        this.products = new ArrayList<>();
+    }
+
     public String getDepartment() {
         return department;
     }
@@ -32,6 +39,8 @@ public class ProductCategory extends BaseModel {
     public void addProduct(Product product) {
         this.products.add(product);
     }
+
+
 
     public String toString() {
         return String.format(

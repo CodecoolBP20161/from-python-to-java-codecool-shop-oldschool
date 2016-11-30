@@ -20,6 +20,7 @@ abstract class DatabaseConnector {
                 DB_PASSWORD);
     }
 
+
     public static void executeQuery(String query) {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()
