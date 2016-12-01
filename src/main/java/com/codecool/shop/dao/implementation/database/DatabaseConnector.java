@@ -9,7 +9,6 @@ import java.sql.Statement;
 abstract class DatabaseConnector {
 
 // Initialise database connection based on given configuration file
-
     private static DatabaseConfig databaseConfig = new DatabaseConfig();
     private static final String DATABASE = databaseConfig.getDatabase();
     private static final String DB_USER = databaseConfig.getDbUser();
