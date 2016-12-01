@@ -9,7 +9,7 @@ import java.sql.Statement;
 abstract class DatabaseConnector {
 
 //    Default database settings
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
+    private static final String DATABASE = DatabaseSwitcher.getInstance().database();
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
 
