@@ -38,7 +38,7 @@ public class LineItem {
         this.subtotalPrice = subtotalPrice;
     }
 
-
+    //TODO: testIncreaseQuatntity
     public void increaseQuantity() {
         quantity += 1;
         setSubtotalPrice(quantity * product.getDefaultPrice());

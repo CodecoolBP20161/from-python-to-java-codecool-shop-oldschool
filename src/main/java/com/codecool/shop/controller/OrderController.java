@@ -16,6 +16,7 @@ public class OrderController extends ShopController {
     public static ModelAndView renderOrder(Request req, Response res) {
 
         // check if session contains order, instantiate if it doesn't
+        //TODO: testOrderInterface
         OrderInterface order = req.session().attribute("order");
         if (order == null) {
             order = new Order();
