@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 abstract class DatabaseConnector {
 
 // Initialise database connection based on given configuration file
@@ -20,7 +19,6 @@ abstract class DatabaseConnector {
                 DB_USER,
                 DB_PASSWORD);
     }
-
 
     public static void executeQuery(String query) {
         try (Connection connection = getConnection();

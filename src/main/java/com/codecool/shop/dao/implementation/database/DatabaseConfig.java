@@ -1,11 +1,9 @@
 package com.codecool.shop.dao.implementation.database;
 
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 
 public class DatabaseConfig {
 
