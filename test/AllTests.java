@@ -1,6 +1,8 @@
 import com.codecool.shop.dao.implementation.ProductCategoryDaoTest;
 import com.codecool.shop.dao.implementation.ProductDaoTest;
 import com.codecool.shop.dao.implementation.SupplierDaoTest;
+import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.OrderTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -10,7 +12,9 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         ProductCategoryDaoTest.class,
         ProductDaoTest.class,
-        SupplierDaoTest.class
+        SupplierDaoTest.class,
+        OrderTest.class,
+        LineItem.class
 })
 
 public class AllTests {
