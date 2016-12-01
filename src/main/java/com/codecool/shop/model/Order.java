@@ -25,18 +25,12 @@ public class Order implements OrderInterface {
     }
     // find lineItem from a list
     public LineItem find(LineItem item) {
-        //return lineItems.stream().filter(i -> i.equals(item)).findFirst().orElse(null);
-        for (int i = 0; i < lineItems.size(); i++) {
-            if (lineItems.get(i).equals(item)) {
-                return lineItems.get(i);
-            }
-        }
-        return null;
+        return lineItems.stream().filter(i -> i.equals(item)).findFirst().orElse(null);
     }
 
     //Total price in for the products in the cart
     public int getTotalPrice() {
-        //lineItems.stream().filter()
+        //return lineItems.stream().mapToInt(i -> i.getProduct().getDefaultPrice()*i.getQuantity()).sum();
         int result = 0;
         for (int i = 0; i < lineItems.size(); i++) {
             result += lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity();
@@ -44,7 +38,6 @@ public class Order implements OrderInterface {
         return result;
     }
     //sub total for products
-    //TODO: testSumLineItemQuantitiesInCart
     public int sumLineItemQuantitiesInCart() {
         int sum = 0;
         for (int i = 0; i < lineItems.size(); i++) {

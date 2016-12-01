@@ -39,6 +39,7 @@ public class OrderTest {
     @Test
     public void testFind(){
         order.addProduct(product);
+        order.addProduct(product2);
         when(product.getId()).thenReturn(1);
         LineItem result = new LineItem(product);
         order.find(result);
