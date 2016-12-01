@@ -1,7 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 
-import com.codecool.shop.dao.implementation.database.DatabaseSwitcher;
+import com.codecool.shop.dao.implementation.database.DatabaseConfig;
 import com.codecool.shop.dao.implementation.database.DatabaseType;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -20,10 +20,12 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
+    DatabaseConfig db = DatabaseConfig.getInstance();
+
     //generate example data before tests to use them
     @Before
     public void setUp(){
-        DatabaseSwitcher.getInstance().setDatabaseType(DatabaseType.TEST);
+        DatabaseConfig.getInstance().setDatabaseType(DatabaseType.TEST);
         productCategoryFirst = new ProductCategory(1111, "test", "oldschool", "first test for dao");
         productCategorySecond = new ProductCategory(1112, "test2", "oldschool2", "second test for dao");
         supplierFirst = new Supplier(1111, "codecool.bp.1", "spring class");
