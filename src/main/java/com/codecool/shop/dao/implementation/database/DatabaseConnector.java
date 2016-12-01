@@ -9,9 +9,11 @@ import java.sql.Statement;
 abstract class DatabaseConnector {
 
 // Initialise database connection based on given configuration file
-    private static final String DATABASE = DatabaseConfig.getInstance().getDATABASE();
-    private static final String DB_USER = DatabaseConfig.getInstance().getDB_USER();
-    private static final String DB_PASSWORD = DatabaseConfig.getInstance().getDB_PASSWORD();
+
+    private static DatabaseConfig databaseConfig = new DatabaseConfig();
+    private static final String DATABASE = databaseConfig.getDatabase();
+    private static final String DB_USER = databaseConfig.getDbUser();
+    private static final String DB_PASSWORD = databaseConfig.getDbPassword();
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(

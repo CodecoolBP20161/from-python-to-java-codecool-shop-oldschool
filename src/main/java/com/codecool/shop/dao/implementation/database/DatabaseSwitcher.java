@@ -20,10 +20,10 @@ public class DatabaseSwitcher {
         String result = null;
         switch (databaseType) {
             case TEST:
-                result = "jdbc:postgresql://localhost:5432/codecoolshoptest";
+                result = "src/main/resources/connection.test.properties";
                 break;
             case REAL:
-                result = "jdbc:postgresql://localhost:5432/codecoolshop";
+                result = "src/main/resources/connection.properties";
                 break;
         }
         return result;

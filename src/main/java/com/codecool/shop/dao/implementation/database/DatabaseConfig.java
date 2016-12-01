@@ -10,37 +10,16 @@ import java.util.Properties;
 public class DatabaseConfig {
 
     private static DatabaseConfig instance = null;
-    private DatabaseType databaseType = DatabaseType.REAL;
     private Properties prop = new Properties();
     private InputStream input = null;
 
-    // Singleton pattern to avoid further instantiation
-    public static synchronized DatabaseConfig getInstance() {
-        if (instance == null) {
-            instance = new DatabaseConfig();
-        }
-        return instance;
+    public DatabaseConfig() {
+        this.config();
     }
-
-    // Switch between real database and database for testing purpose
-    public String databaseSwitcher() {
-        String configFile = null;
-        switch (databaseType) {
-            case REAL:
-                configFile = "connection.properties";
-                break;
-            case TEST:
-                configFile = "connection.test.properties";
-                break;
-        }
-        return configFile;
-
-    }
-
 
     private void config() {
         try {
-            input = new FileInputStream(databaseSwitcher());
+            input = new FileInputStream(DatabaseSwitcher.getInstance().database());
 
             // load a properties file
             prop.load(input);
@@ -58,15 +37,15 @@ public class DatabaseConfig {
         }
     }
 
-    public String getDATABASE() {
+    public String getDatabase() {
         return "jdbc:postgresql://" + prop.getProperty("url") + "/" + prop.getProperty("database");
     }
 
-    public String getDB_USER() {
+    public String getDbUser() {
         return prop.getProperty("user");
     }
 
-    public String getDB_PASSWORD() {
+    public String getDbPassword() {
         return prop.getProperty("password");
     }
 

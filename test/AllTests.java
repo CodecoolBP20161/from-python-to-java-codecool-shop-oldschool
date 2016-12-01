@@ -14,7 +14,6 @@ import org.junit.runners.Suite;
         ProductDaoTest.class,
         SupplierDaoTest.class,
         OrderTest.class,
-        LineItem.class
 })
 
 public class AllTests {

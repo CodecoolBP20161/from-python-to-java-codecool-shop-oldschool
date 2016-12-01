@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 
+import com.codecool.shop.dao.implementation.database.DatabaseConfig;
 import com.codecool.shop.dao.implementation.database.DatabaseSwitcher;
 import com.codecool.shop.dao.implementation.database.DatabaseType;
 import com.codecool.shop.model.Product;
