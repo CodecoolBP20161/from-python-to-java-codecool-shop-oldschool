@@ -19,7 +19,7 @@ public class ExampleData {
         //setting up products and printing it
         ProductFactory.getInstance().product(1, "Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
         ProductFactory.getInstance().product(2, "Lenovo IdeaPad Miix 700", 479f, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo);
-        ProductFactory.getInstance().product(3, "Amazon Fire HD 8", 89f, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon);
+        ProductFactory.getInstance().product(3, "Amazon Fire HD 8", 89f, "USD", "Amazon latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon);
         ProductFactory.getInstance().product(4, "Lenovo YogaBook 530", 499.9f, "USD", "The affordable & light Yoga 500 is a multimode laptop with fast, cutting-edge processing power.", laptop, lenovo);
         ProductFactory.getInstance().product(5, "Codecool Programming Course", 2000f, "USD", "Codecool - Where we train programmers with project experience in up to 18 months.", course, codecool);
     }
