@@ -21,8 +21,6 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
-    DatabaseConfig db = DatabaseConfig.getInstance();
-
     //generate example data before tests to use them
     @Before
     public void setUp(){
