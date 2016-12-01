@@ -83,6 +83,16 @@
 
         <fieldset>
             <legend>Shipping Address</legend>
+
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="shippingtoo" class="col-xs-2 col-form-label">Same as billing address?</label>
+                <div class="col-xs-6">
+                    <input type="checkbox" name="shippingtoo" id="shippingtoo" onclick="FillShipping(this.form)"/>
+                </div>
+            </div>
+
+
             <div class="form-group row">
                 <div class="col-xs-2"></div>
                 <label for="customer-shipping-country-input" class="col-xs-2 col-form-label">Country</label>
@@ -126,4 +136,20 @@
 <!-- Footer -->
 <div th:replace="footer :: copy"></div>
 
+<script>
+    function FillShipping(f) {
+        if (f.shippingtoo.checked == true) {
+            f.shippingCountry.value = f.billingCountry.value;
+            f.shippingCity.value = f.billingCity.value;
+            f.shippingZip.value = f.billingZip.value;
+            f.shippingAddr.value = f.billingAddr.value;
+        } else {
+            f.shippingCountry.value = "";
+            f.shippingCity.value = "";
+            f.shippingZip.value = "";
+            f.shippingAddr.value = "";
+        }
+    }
+
+</script>
 </html>
