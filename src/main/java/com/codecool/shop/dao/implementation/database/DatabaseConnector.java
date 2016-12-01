@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 abstract class DatabaseConnector {
 
-//    Default database settings
-    private static final String DATABASE = DatabaseSwitcher.getInstance().database();
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+// Initialise database connection based on given configuration file
+    private static final String DATABASE = DatabaseConfig.getInstance().getDATABASE();
+    private static final String DB_USER = DatabaseConfig.getInstance().getDB_USER();
+    private static final String DB_PASSWORD = DatabaseConfig.getInstance().getDB_PASSWORD();
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
