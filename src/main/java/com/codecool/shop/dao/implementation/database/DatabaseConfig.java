@@ -58,6 +58,10 @@ public class DatabaseConfig {
         }
     }
 
+    public void setDatabaseType(DatabaseType databaseType) {
+        this.databaseType = databaseType;
+    }
+
     public String getDATABASE() {
         return "jdbc:postgresql://" + prop.getProperty("url") + "/" + prop.getProperty("database");
     }
