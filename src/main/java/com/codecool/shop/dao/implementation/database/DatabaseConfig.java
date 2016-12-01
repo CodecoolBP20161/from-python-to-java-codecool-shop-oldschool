@@ -7,7 +7,6 @@ import java.util.Properties;
 
 public class DatabaseConfig {
 
-    private static DatabaseConfig instance = null;
     private Properties prop = new Properties();
     private InputStream input = null;
 
@@ -34,7 +33,6 @@ public class DatabaseConfig {
             }
         }
     }
-
 
     public String getDatabase() {
         return "jdbc:postgresql://" + prop.getProperty("url") + "/" + prop.getProperty("database");

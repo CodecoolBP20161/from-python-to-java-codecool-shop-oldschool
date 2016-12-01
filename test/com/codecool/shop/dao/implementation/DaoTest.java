@@ -1,7 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 
-import com.codecool.shop.dao.implementation.database.DatabaseConfig;
 import com.codecool.shop.dao.implementation.database.DatabaseSwitcher;
 import com.codecool.shop.dao.implementation.database.DatabaseType;
 import com.codecool.shop.model.Product;
@@ -21,7 +20,6 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
-    DatabaseConfig db = DatabaseConfig.getInstance();
 
     //generate example data before tests to use them
     @Before
