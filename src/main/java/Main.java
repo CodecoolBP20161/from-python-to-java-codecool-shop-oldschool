@@ -2,7 +2,6 @@ import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.controller.SupplierController;
-import com.codecool.shop.example.ExampleData;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import static spark.Spark.*;
@@ -18,9 +17,6 @@ public class Main {
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
         port(8888);
-
-        // Test data for the memory storage
-        //ExampleData.populateData();
 
         // Route for adding products to cart
         post("/add-to-cart/:product-id", OrderController::renderOrder, new ThymeleafTemplateEngine());

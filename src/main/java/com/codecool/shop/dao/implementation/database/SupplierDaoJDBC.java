@@ -18,7 +18,6 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        supplier.setId(abs(UUID.randomUUID().hashCode())); // generating random id for products
         String query = "INSERT INTO suppliers (id, " +
                                               "name, " +
                                               "description)" +

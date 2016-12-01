@@ -23,7 +23,6 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public void add(Product product) {
-        product.setId(abs(UUID.randomUUID().hashCode())); // generating random id for products
         String query = "INSERT INTO products (id, " +
                                              "name, " +
                                              "description, " +
@@ -38,7 +37,6 @@ public class ProductDaoJDBC implements ProductDao {
                                      product.getDefaultCurrency() + "', " +
                                      product.getProductCategory().getId() + ", " +
                                      product.getSupplier().getId() + ");";
-        System.out.println(query);
         DatabaseConnector.executeQuery(query);
     }
 

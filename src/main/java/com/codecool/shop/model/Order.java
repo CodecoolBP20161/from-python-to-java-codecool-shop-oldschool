@@ -7,7 +7,7 @@ public class Order implements OrderInterface {
 
     private List<LineItem> lineItems = new ArrayList();
 
-    public List getLineItems() {
+    public List<LineItem> getLineItems() {
         return lineItems;
     }
 
@@ -44,6 +44,7 @@ public class Order implements OrderInterface {
         return result;
     }
     //sub total for products
+    //TODO: testSumLineItemQuantitiesInCart
     public int sumLineItemQuantitiesInCart() {
         int sum = 0;
         for (int i = 0; i < lineItems.size(); i++) {

@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+//parametrized test for DB and Memory use too
 @RunWith(Parameterized.class)
 public class ProductCategoryDaoTest extends DaoTest{
 
@@ -25,7 +27,7 @@ public class ProductCategoryDaoTest extends DaoTest{
     public ProductCategoryDaoTest(ProductCategoryDao productCategoryDao){
         this.productCategoryDao = productCategoryDao;
     }
-
+    //instances to test both db and memory implementations
     @Parameterized.Parameters
     public static Collection<Object[]> instancesToTest() {
         return Arrays.asList(
@@ -34,9 +36,14 @@ public class ProductCategoryDaoTest extends DaoTest{
         );
     }
 
+    @Before
+    public void setUp2(){
+        productCategoryDao.add(productCategoryFirst);
+        productCategoryDao.add(productCategorySecond);
+    }
+
     @Test
     public void testAdd() throws Exception{
-        productCategoryDao.add(productCategoryFirst);
         ProductCategory findFromDao = productCategoryDao.find(productCategoryFirst.getId());
 
         assertEquals(productCategoryFirst, findFromDao);
@@ -52,9 +59,6 @@ public class ProductCategoryDaoTest extends DaoTest{
 
     @Test
     public void testFind() throws Exception{
-        productCategoryDao.add(productCategoryFirst);
-        productCategoryDao.add(productCategorySecond);
-
         ProductCategory findFromDaoFirst = productCategoryDao.find(productCategoryFirst.getId());
         ProductCategory findFromDaoSecond = productCategoryDao.find(productCategorySecond.getId());
 
@@ -65,30 +69,19 @@ public class ProductCategoryDaoTest extends DaoTest{
 
     @Test
     public void testRemove() throws Exception{
-        productCategoryDao.add(productCategoryFirst);
-        productCategoryDao.add(productCategorySecond);
-
         assertNotNull(productCategoryDao.find(productCategoryFirst.getId()));
 
         productCategoryDao.remove(productCategoryFirst.getId());
 
         assertNull(productCategoryDao.find(productCategoryFirst.getId()));
 
-//        List <ProductCategory> productCategoriesRemove;
-//        productCategoriesRemove = productCategoryDao.getAll();
-//        System.out.println("productCategoryDao = " + productCategoryDao.getAll());
-//        assertEquals(1, productCategoriesRemove.size());
     }
 
     @Test
     public void testGetAll() throws Exception{
-        productCategoryDao.add(productCategoryFirst);
-        productCategoryDao.add(productCategorySecond);
-
         List <ProductCategory> productCategories;
         productCategories = productCategoryDao.getAll();
 
-        //assertEquals(2, productCategories.size());
         assertTrue(productCategories.contains(productCategoryFirst));
         assertTrue(productCategories.contains(productCategorySecond));
 
