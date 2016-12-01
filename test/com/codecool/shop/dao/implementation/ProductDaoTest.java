@@ -8,14 +8,11 @@ import com.codecool.shop.dao.implementation.database.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.Supplier;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
