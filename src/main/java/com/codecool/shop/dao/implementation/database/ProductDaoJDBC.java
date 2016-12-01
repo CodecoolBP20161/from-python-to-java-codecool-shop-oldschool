@@ -121,14 +121,12 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        //String query = "SELECT * FROM products RIGHT JOIN suppliers ON products.supplier=suppliers.id WHERE suppliers.id='" + supplier.getId() + "';";
         String query = "SELECT * FROM products WHERE supplier ='" + supplier.getId() + "';";
         return this.getProducts(query);
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        //String query = "SELECT * FROM products RIGHT JOIN product_categories ON products.product_category=product_categories.id WHERE product_categories.id='" + productCategory.getId() + "';";
         String query = "SELECT * FROM products WHERE product_category ='" + productCategory.getId() + "';";
         return this.getProducts(query);
     }

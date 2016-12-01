@@ -20,6 +20,7 @@ public abstract class DaoTest {
     ProductCategory productCategoryFirst;
     ProductCategory productCategorySecond;
 
+
     //generate example data before tests to use them
     @Before
     public void setUp(){
