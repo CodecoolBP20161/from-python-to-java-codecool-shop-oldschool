@@ -7,11 +7,22 @@ public class Order implements OrderInterface {
 
     private List<LineItem> lineItems = new ArrayList();
 
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public List getLineItems() {
         return lineItems;
     }
 
-    public Order() {}
+    public Order() {
+    }
 
     //add lineItem to order lineItems attribute if it is new increase quantity if it is exist
     public void addProduct(Product product) {
@@ -23,6 +34,7 @@ public class Order implements OrderInterface {
             lineItems.add(itemToBeAdded);
         }
     }
+
     // find lineItem from a list
     public LineItem find(LineItem item) {
         for (int i = 0; i < lineItems.size(); i++) {
@@ -41,6 +53,7 @@ public class Order implements OrderInterface {
         }
         return result;
     }
+
     //sub total for products
     public int sumLineItemQuantitiesInCart() {
         int sum = 0;

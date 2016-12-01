@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 
+import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderInterface;
 import com.codecool.shop.model.Product;
@@ -47,6 +48,28 @@ public class OrderController extends ShopController {
     public static ModelAndView renderCheckOut(Request req, Response res) {
         Map params = new HashMap<>();
 
-        return new ModelAndView(params, "checkout");
+        return new ModelAndView(params, "/checkout");
     }
+
+    public static ModelAndView saveCustomerDetails(Request req, Response res) {
+        Map params = new HashMap<>();
+        Order order = req.session().attribute("order");
+        Customer customer = new Customer(
+                req.queryParams("name"),
+                req.queryParams("email"),
+                req.queryParams("tel")
+        );
+        order.setCustomer(customer);
+        res.redirect("/payment");
+        // fixme: what to return here???
+        return new ModelAndView(params, "/payment");
+    }
+
+    public static ModelAndView renderPayment(Request req, Response res) {
+        Map params = new HashMap<>();
+
+        return new ModelAndView(params, "/payment");
+    }
+
+
 }

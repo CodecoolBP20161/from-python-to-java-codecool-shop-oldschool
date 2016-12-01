@@ -7,6 +7,7 @@
 <!-- Content -->
 
 <div class="container">
+
     <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
@@ -15,68 +16,28 @@
         </div>
     </div>
 
-    <!--<form class="form-signin">-->
-    <!--<h2 class="form-signin-heading">Please sign in</h2>-->
-    <!--<label for="inputEmail" class="sr-only">Email address</label>-->
-    <!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="true"-->
-    <!--autofocus="true"/>-->
 
-    <!--<label for="inputPassword" class="sr-only">Password</label>-->
-    <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true"/>-->
-
-    <!--<div class="checkbox">-->
-    <!--<label>-->
-    <!--<input type="checkbox" value="remember-me"/> Remember me-->
-    <!--</label>-->
-    <!--</div>-->
-    <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
-    <!--</form>-->
-
-    <form>
+    <form action="/checkout" method="post">
         <div class="form-group row">
             <label for="customer-name-input" class="col-xs-2 col-form-label">Name</label>
             <div class="col-xs-10">
-                <input class="form-control" type="text" value="Artisanal kale" id="customer-name-input"/>
+                <input class="form-control" type="text" id="customer-name-input" name="name" required="true"/>
             </div>
         </div>
         <div class="form-group row">
             <label for="customer-email-input" class="col-xs-2 col-form-label">Email</label>
             <div class="col-xs-10">
-                <input class="form-control" type="email" value="bootstrap@example.com" id="customer-email-input"/>
+                <input class="form-control" type="email" id="customer-email-input" name="email" required="true"/>
             </div>
         </div>
         <div class="form-group row">
             <label for="customer-tel-input" class="col-xs-2 col-form-label">Telephone</label>
             <div class="col-xs-10">
-                <input class="form-control" type="tel" value="1-(555)-555-5555" id="customer-tel-input"/>
+                <input class="form-control" type="tel" id="customer-tel-input" name="tel" required="true"/>
             </div>
         </div>
 
-
-        <!--<div class="form-group row">-->
-        <!--<label for="example-search-input" class="col-xs-2 col-form-label">Search</label>-->
-        <!--<div class="col-xs-10">-->
-        <!--<input class="form-control" type="search" value="How do I shoot web" id="example-search-input"/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-group row">-->
-        <!--<label for="example-url-input" class="col-xs-2 col-form-label">URL</label>-->
-        <!--<div class="col-xs-10">-->
-        <!--<input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input"/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-group row">-->
-        <!--<label for="example-password-input" class="col-xs-2 col-form-label">Password</label>-->
-        <!--<div class="col-xs-10">-->
-        <!--<input class="form-control" type="password" value="hunter2" id="example-password-input"/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-group row">-->
-        <!--<label for="example-number-input" class="col-xs-2 col-form-label">Number</label>-->
-        <!--<div class="col-xs-10">-->
-        <!--<input class="form-control" type="number" value="42" id="example-number-input"/>-->
-        <!--</div>-->
-        <!--</div>-->
+        <button class="btn btn-success" type="submit">Payment</button>
     </form>
 
 </div> <!-- /container -->

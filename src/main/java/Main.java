@@ -45,6 +45,10 @@ public class Main {
         get("/cart", OrderController::renderShoppingCart, new ThymeleafTemplateEngine());
 
         get("/checkout", OrderController::renderCheckOut, new ThymeleafTemplateEngine());
+        post("/checkout", OrderController::saveCustomerDetails, new ThymeleafTemplateEngine());
+
+        get("/payment", OrderController::renderPayment, new ThymeleafTemplateEngine());
+
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
