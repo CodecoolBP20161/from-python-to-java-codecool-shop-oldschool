@@ -19,9 +19,10 @@ public class Main {
         // Route for adding products to cart
         post("/add-to-cart/:product-id", OrderController::renderOrder, new ThymeleafTemplateEngine());
 
+
         // Store route to be able redirect after adding an order
         before("/product-category/:category-id", (req, res) -> {
-            req.session().attribute("path",req.pathInfo());
+            req.session().attribute("path", req.pathInfo());
         });
 
         // Route for products by product category
@@ -29,7 +30,7 @@ public class Main {
 
         // Store route to be able redirect after adding an order
         before("/supplier/:supplier-id", (req, res) -> {
-            req.session().attribute("path",req.pathInfo());
+            req.session().attribute("path", req.pathInfo());
         });
 
         // Route for products by supplier
@@ -37,11 +38,13 @@ public class Main {
 
         // Store route to be able redirect after adding an order
         before("/", (req, res) -> {
-            req.session().attribute("path",req.pathInfo());
+            req.session().attribute("path", req.pathInfo());
         });
 
         // Route for shopping cart page
         get("/cart", OrderController::renderShoppingCart, new ThymeleafTemplateEngine());
+
+        get("/checkout", OrderController::renderCheckOut, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());

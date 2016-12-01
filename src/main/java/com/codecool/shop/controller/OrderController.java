@@ -43,4 +43,10 @@ public class OrderController extends ShopController {
 
         return new ModelAndView(params, "product/shopping_cart");
     }
+
+    public static ModelAndView renderCheckOut(Request req, Response res) {
+        Map params = new HashMap<>();
+
+        return new ModelAndView(params, "checkout");
+    }
 }
