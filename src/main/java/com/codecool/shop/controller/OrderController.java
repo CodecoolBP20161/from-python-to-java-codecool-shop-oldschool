@@ -57,7 +57,15 @@ public class OrderController extends ShopController {
         Customer customer = new Customer(
                 req.queryParams("name"),
                 req.queryParams("email"),
-                req.queryParams("tel")
+                req.queryParams("tel"),
+                req.queryParams("billingCountry"),
+                req.queryParams("billingCity"),
+                req.queryParams("billingZip"),
+                req.queryParams("billingAddr"),
+                req.queryParams("shippingCountry"),
+                req.queryParams("shippingCity"),
+                req.queryParams("shippingZip"),
+                req.queryParams("shippingAddr")
         );
         order.setCustomer(customer);
         res.redirect("/payment");

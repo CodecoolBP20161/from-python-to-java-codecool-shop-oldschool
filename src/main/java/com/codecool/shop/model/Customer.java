@@ -22,4 +22,30 @@ public class Customer {
         this.email = email;
         this.phone = phone;
     }
+
+    public Customer(
+            String name,
+            String email,
+            String phone,
+            String billingCountry,
+            String billingCity,
+            String billingZipcode,
+            String billingAddress,
+            String shippingCountry,
+            String shippingCity,
+            String shippingZipcode,
+            String shippingAddress
+    ) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.billingCountry = billingCountry;
+        this.billingCity = billingCity;
+        this.billingZipcode = billingZipcode;
+        this.billingAddress = billingAddress;
+        this.shippingCountry = shippingCountry;
+        this.shippingCity = shippingCity;
+        this.shippingZipcode = shippingZipcode;
+        this.shippingAddress = shippingAddress;
+    }
 }
