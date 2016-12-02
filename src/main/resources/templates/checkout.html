@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Header -->
+<div th:replace="header :: copy"></div>
+
+<!-- Content -->
+
+<div class="container">
+
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-xs-6">
+                <h5><span class="glyphicon glyphicon glyphicon-list-alt"></span> Checkout</h5>
+            </div>
+        </div>
+    </div>
+
+
+    <form action="/checkout" method="post">
+        <fieldset>
+            <legend>Contact Information</legend>
+
+
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-name-input" class="col-xs-2 col-form-label">Name</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-name-input" name="name" required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-email-input" class="col-xs-2 col-form-label">Email</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="email" id="customer-email-input" name="email" required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-tel-input" class="col-xs-2 col-form-label">Telephone</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="tel" id="customer-tel-input" name="tel" required="true"/>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Billing Address</legend>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-billing-country-input" class="col-xs-2 col-form-label">Country</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-billing-country-input" name="billingCountry"
+                           required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-billing-city-input" class="col-xs-2 col-form-label">City</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-billing-city-input" name="billingCity"
+                           required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-billing-zip-input" class="col-xs-2 col-form-label">Zip code</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-billing-zip-input" name="billingZip"
+                           required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-billing-addr-input" class="col-xs-2 col-form-label">Address</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-billing-addr-input" name="billingAddr"
+                           required="true"/>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Shipping Address</legend>
+
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="shippingtoo" class="col-xs-2 col-form-label">Same as billing address?</label>
+                <div class="col-xs-6">
+                    <input type="checkbox" name="shippingtoo" id="shippingtoo" onclick="FillShipping(this.form)"/>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-shipping-country-input" class="col-xs-2 col-form-label">Country</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-shipping-country-input" name="shippingCountry"
+                           required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-shipping-city-input" class="col-xs-2 col-form-label">City</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-shipping-city-input" name="shippingCity"
+                           required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-shipping-zip-input" class="col-xs-2 col-form-label">Zip code</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-shipping-zip-input" name="shippingZip"
+                           required="true"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <label for="customer-shipping-addr-input" class="col-xs-2 col-form-label">Address</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" id="customer-shipping-addr-input" name="shippingAddr"
+                           required="true"/>
+                </div>
+            </div>
+        </fieldset>
+        <div class="pull-right">
+            <button class="btn btn-success" type="submit">Payment</button>
+        </div>
+    </form>
+
+</div> <!-- /container -->
+
+<!-- Footer -->
+<div th:replace="footer :: copy"></div>
+
+<script>
+    function FillShipping(f) {
+        if (f.shippingtoo.checked == true) {
+            f.shippingCountry.value = f.billingCountry.value;
+            f.shippingCity.value = f.billingCity.value;
+            f.shippingZip.value = f.billingZip.value;
+            f.shippingAddr.value = f.billingAddr.value;
+        } else {
+            f.shippingCountry.value = "";
+            f.shippingCity.value = "";
+            f.shippingZip.value = "";
+            f.shippingAddr.value = "";
+        }
+    }
+
+</script>
+</html>
