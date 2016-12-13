@@ -5,6 +5,8 @@ public class Email {
 
     private String toAddress;
 
+    private String password;
+
     private String fromAddress;
 
     private String subject;
@@ -13,8 +15,9 @@ public class Email {
 
     private EmailStatus status;
 
-    public Email(String to, String from, String subject, String msg) {
+    public Email(String to, String pwd, String from, String subject, String msg) {
         this.toAddress = to;
+        this.password = pwd;
         this.fromAddress = from;
         this.subject = subject;
         this.message = msg;
@@ -27,6 +30,14 @@ public class Email {
 
     public void setToAddress(String toAddress) {
         this.toAddress = toAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFromAddress() {
