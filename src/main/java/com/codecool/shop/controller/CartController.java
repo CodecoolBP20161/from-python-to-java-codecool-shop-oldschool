@@ -2,7 +2,7 @@ package com.codecool.shop.controller;
 
 
 import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.model.CartInterface;
 import com.codecool.shop.model.Product;
 import spark.ModelAndView;
@@ -20,7 +20,7 @@ public class CartController extends ShopController {
         //TODO: testOrderInterface
         CartInterface cart = req.session().attribute("order");
         if (cart == null) {
-            cart = new Cart();
+            cart = new Order();
             req.session().attribute("order", cart);
         }
 
@@ -38,9 +38,9 @@ public class CartController extends ShopController {
 
         // get items from cart
         if (req.session().attribute("order") != null) {
-            Cart cart = req.session().attribute("order");
-            params.put("total", cart.getTotalPrice());
-            params.put("lineitems", cart.getLineItems());
+            Order order = req.session().attribute("order");
+            params.put("total", order.getTotalPrice());
+            params.put("lineitems", order.getLineItems());
         }
 
         return new ModelAndView(params, "product/shopping_cart");
@@ -54,7 +54,7 @@ public class CartController extends ShopController {
 
     public static ModelAndView saveCustomerDetails(Request req, Response res) {
         Map params = new HashMap<>();
-        Cart cart = req.session().attribute("order");
+        Order order = req.session().attribute("order");
         Customer customer = new Customer(
                 req.queryParams("name"),
                 req.queryParams("email"),
@@ -68,7 +68,7 @@ public class CartController extends ShopController {
                 req.queryParams("shippingZip"),
                 req.queryParams("shippingAddr")
         );
-        cart.setCustomer(customer);
+        order.setCustomer(customer);
         res.redirect("/payment");
         // fixme: what to return here???
         return new ModelAndView(params, "/payment");
