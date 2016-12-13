@@ -4,7 +4,7 @@ import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.Order;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -42,8 +42,8 @@ public abstract class ShopController {
 
         // get cart items for display
         if (req.session().attribute("order") != null) {
-            Cart cart = req.session().attribute("order");
-            params.put("lineitems", cart.sumLineItemQuantitiesInCart());
+            Order order = req.session().attribute("order");
+            params.put("lineitems", order.sumLineItemQuantitiesInCart());
         }
 
         return new ModelAndView(params, "product/index");

@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 
 import static spark.Spark.*;
 
+
 public class EmailSenderService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailSenderService.class);

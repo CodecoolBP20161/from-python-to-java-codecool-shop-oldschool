@@ -3,7 +3,9 @@ package com.codecool.shop.model;
 
 public class LineItem {
 
+    private int id;
     private Product product;
+    private Order order;
     private int quantity;
     private float subtotalPrice;
 
@@ -13,6 +15,16 @@ public class LineItem {
         this.quantity = 1;
         this.subtotalPrice = product.getDefaultPrice();
     }
+
+    public LineItem(Product product, Order order) {
+        this(product);
+        this.order = order;
+    }
+    public LineItem(int id, Product product, Order order, int quantity, float subtotalPrice) {
+        this(product, order);
+        this.id = id;
+    }
+
 
     public Product getProduct() {
         return product;
@@ -36,6 +48,14 @@ public class LineItem {
 
     public void setSubtotalPrice(float subtotalPrice) {
         this.subtotalPrice = subtotalPrice;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     //TODO: testIncreaseQuatntity

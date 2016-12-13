@@ -2,6 +2,7 @@ package com.codecool.shop.model;
 
 
 public class Customer {
+    private int id;
     private String name;
     private String email;
     private String phone;
@@ -47,5 +48,72 @@ public class Customer {
         this.shippingCity = shippingCity;
         this.shippingZipcode = shippingZipcode;
         this.shippingAddress = shippingAddress;
+    }
+
+    public Customer(
+            int id,
+            String name,
+            String email,
+            String phone,
+            String billingCountry,
+            String billingCity,
+            String billingZipcode,
+            String billingAddress,
+            String shippingCountry,
+            String shippingCity,
+            String shippingZipcode,
+            String shippingAddress
+    ) {
+        this(name, email, phone, billingCountry, billingCity, billingZipcode, billingAddress, shippingCountry, shippingCity, shippingZipcode, shippingAddress);
+        this.id = id;
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getBillingCountry() {
+        return billingCountry;
+    }
+
+    public String getBillingCity() {
+        return billingCity;
+    }
+
+    public String getBillingZipcode() {
+        return billingZipcode;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public String getShippingCountry() {
+        return shippingCountry;
+    }
+
+    public String getShippingCity() {
+        return shippingCity;
+    }
+
+    public String getShippingZipcode() {
+        return shippingZipcode;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
     }
 }
