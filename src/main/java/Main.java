@@ -1,4 +1,4 @@
-import com.codecool.shop.controller.OrderController;
+import com.codecool.shop.controller.CartController;
 import com.codecool.shop.controller.ProductCategoryController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.controller.SupplierController;
@@ -17,7 +17,7 @@ public class Main {
         port(8888);
 
         // Route for adding products to cart
-        post("/add-to-cart/:product-id", OrderController::renderOrder, new ThymeleafTemplateEngine());
+        post("/add-to-cart/:product-id", CartController::renderOrder, new ThymeleafTemplateEngine());
 
 
         // Store route to be able redirect after adding an order
@@ -42,12 +42,12 @@ public class Main {
         });
 
         // Route for shopping cart page
-        get("/cart", OrderController::renderShoppingCart, new ThymeleafTemplateEngine());
+        get("/cart", CartController::renderShoppingCart, new ThymeleafTemplateEngine());
 
-        get("/checkout", OrderController::renderCheckOut, new ThymeleafTemplateEngine());
-        post("/checkout", OrderController::saveCustomerDetails, new ThymeleafTemplateEngine());
+        get("/checkout", CartController::renderCheckOut, new ThymeleafTemplateEngine());
+        post("/checkout", CartController::saveCustomerDetails, new ThymeleafTemplateEngine());
 
-        get("/payment", OrderController::renderPayment, new ThymeleafTemplateEngine());
+        get("/payment", CartController::renderPayment, new ThymeleafTemplateEngine());
 
 
         // Route for main index page
