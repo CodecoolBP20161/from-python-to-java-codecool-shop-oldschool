@@ -76,7 +76,7 @@ public class Email {
         this.status = isSentOut() ? EmailStatus.SENT : EmailStatus.IN_PROGRESS;
     }
 
-    public boolean isSentOut() {
+    private boolean isSentOut() {
         return this.status == EmailStatus.SENT;
     }
 
