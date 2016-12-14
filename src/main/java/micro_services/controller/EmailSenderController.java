@@ -40,7 +40,7 @@ public class EmailSenderController {
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
             emailService.sendEmail(email);
         }
-        
+
         logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
         return "Sending emails with given status";
     }
