@@ -18,7 +18,10 @@ public class OrderDaoJDBC implements OrderDao {
                 order.getOrderStatus() + "', '" +
                 order.getCustomer().getId() + "');";
         DatabaseConnector.executeQuery(query);
+
     }
+
+
 
     @Override
     public Order find(int id) {
