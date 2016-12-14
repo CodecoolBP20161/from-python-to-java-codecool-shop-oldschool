@@ -16,9 +16,14 @@ public class Order implements CartInterface {
     public Order() {
     }
 
-    public Order(int id, Customer customer, OrderStatus orderStatus){
+    public Order(int id, Customer customer){
         this.id = id;
         this.customer = customer;
+
+    }
+
+    public Order(int id, Customer customer, OrderStatus orderStatus){
+        this(id, customer);
         this.orderStatus = orderStatus;
 
     }
@@ -88,6 +93,12 @@ public class Order implements CartInterface {
     public int getId() {
         return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 
     @Override
     public String toString() {

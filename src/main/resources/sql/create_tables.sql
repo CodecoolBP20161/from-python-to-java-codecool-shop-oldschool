@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS product_categories;
 DROP TABLE IF EXISTS suppliers;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS customers;
-
+DROP TABLE IF EXISTS line_items;
 
 CREATE TABLE product_categories
 (
@@ -30,6 +30,21 @@ CREATE TABLE products
   product_category INT REFERENCES product_categories (id),
   supplier         INT REFERENCES suppliers (id)
 );
+CREATE TABLE customers
+(
+  id               INT PRIMARY KEY,
+  name             VARCHAR(100),
+  email            VARCHAR(40),
+  phone            VARCHAR(20),
+  billing_country  VARCHAR(100),
+  billing_city     VARCHAR(100),
+  billing_zipcode  VARCHAR(100),
+  billing_address   VARCHAR(100),
+  shipping_country VARCHAR(100),
+  shipping_city    VARCHAR(100),
+  shipping_zipcode VARCHAR(100),
+  shipping_address  VARCHAR(100)
+);
 
 CREATE TABLE orders
 (
@@ -49,18 +64,3 @@ CREATE TABLE line_items
 
 
 
-CREATE TABLE customers
-(
-  id               INT PRIMARY KEY,
-  name             VARCHAR(100),
-  email            VARCHAR(40),
-  phone            VARCHAR(20),
-  billing_country  VARCHAR(100),
-  billing_city     VARCHAR(100),
-  billing_zipcode  VARCHAR(100),
-  billing_address   VARCHAR(100),
-  shipping_country VARCHAR(100),
-  shipping_city    VARCHAR(100),
-  shipping_zipcode VARCHAR(100),
-  shipping_address  VARCHAR(100)
-);

@@ -40,12 +40,12 @@ public class CustomerDaoJDBC implements CustomerDao {
 //
 //        DatabaseConnector.executeQuery(query);
 //    }
-        String query =  "INSERT INTO todos (id, name, email, phone, billing_country, billing_city, billing_zipcode," +
+        String query =  "INSERT INTO customers (id, name, email, phone, billing_country, billing_city, billing_zipcode," +
                         " billing_address, shipping_country, shipping_city, shipping_zipcode, shipping_address) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, String.valueOf(customer.getId()));
+            preparedStatement.setInt(1, customer.getId());
             preparedStatement.setString(2, customer.getName());
             preparedStatement.setString(3, customer.getEmail());
             preparedStatement.setString(4, customer.getPhone());
