@@ -1,7 +1,4 @@
-import com.codecool.shop.controller.CartController;
-import com.codecool.shop.controller.ProductCategoryController;
-import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.controller.SupplierController;
+import com.codecool.shop.controller.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import static spark.Spark.*;
@@ -49,6 +46,7 @@ public class Main {
 
         get("/payment", CartController::renderPayment, new ThymeleafTemplateEngine());
 
+        get("/order/:order-id", OrderController::email, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
