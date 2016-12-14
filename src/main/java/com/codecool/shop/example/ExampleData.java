@@ -1,6 +1,7 @@
 package com.codecool.shop.example;
 
 
+import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
@@ -22,5 +23,7 @@ public class ExampleData {
         ProductFactory.getInstance().product(3, "Amazon Fire HD 8", 89f, "USD", "Amazon latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon);
         ProductFactory.getInstance().product(4, "Lenovo YogaBook 530", 499.9f, "USD", "The affordable & light Yoga 500 is a multimode laptop with fast, cutting-edge processing power.", laptop, lenovo);
         ProductFactory.getInstance().product(5, "Codecool Programming Course", 2000f, "USD", "Codecool - Where we train programmers with project experience in up to 18 months.", course, codecool);
+
+        Customer firstCustomer = ProductFactory.getInstance().customer()
     }
 }
