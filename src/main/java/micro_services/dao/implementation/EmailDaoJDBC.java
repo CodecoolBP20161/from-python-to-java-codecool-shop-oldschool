@@ -51,6 +51,7 @@ public class EmailDaoJDBC implements EmailDao {
                         resultSet.getString("message"),
                         resultSet.getString("subject"));
 
+                email.setStatus(status);
                 emailList.add(email);
             }
 
