@@ -48,8 +48,7 @@ public class EmailDaoJDBC implements EmailDao {
                         resultSet.getString("password"),
                         resultSet.getString("from_address"),
                         resultSet.getString("message"),
-                        resultSet.getString("subject"),
-                        resultSet.getString("status");
+                        resultSet.getString("subject"));
 
                 emailList.add(email);
             }
@@ -62,5 +61,4 @@ public class EmailDaoJDBC implements EmailDao {
         return emailList;
         }
 
-    }
 }
