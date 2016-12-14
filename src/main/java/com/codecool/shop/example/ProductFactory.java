@@ -2,10 +2,7 @@ package com.codecool.shop.example;
 
 
 import com.codecool.shop.dao.*;
-import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.*;
 
 
 public class ProductFactory {
@@ -33,12 +30,14 @@ public class ProductFactory {
         return result;
     }
 
-    public void product(int id, String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product product(int id, String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
         ProductDao productDataStore = DataStorageFactory.productDaoFactory();
-        productDataStore.add(new Product(id, name, defaultPrice, defaultCurrency, description, productCategory, supplier));
+        Product result = new Product(id, name, defaultPrice, defaultCurrency, description, productCategory, supplier);
+        productDataStore.add(result);
+        return result;
     }
 
-    public void customer(int id,
+    public Customer customer(int id,
                          String name,
                          String email,
                          String phone,
@@ -51,6 +50,24 @@ public class ProductFactory {
                          String shippingZipcode,
                          String shippingAddress) {
         CustomerDao customerDataStore = DataStorageFactory.customerDaoFactory();
-        customerDataStore.add(new Customer(id, name, email, phone, billingCountry, billingCity, billingZipcode, billingAddress, shippingCountry, shippingCity, shippingZipcode, shippingAddress));
+        Customer result = new Customer(id, name, email, phone, billingCountry, billingCity, billingZipcode, billingAddress, shippingCountry, shippingCity, shippingZipcode, shippingAddress);
+        customerDataStore.add(result);
+        return result;
     }
+
+    public Order order(int id, Customer customer, OrderStatus orderStatus) {
+        OrderDao orderDataStore = DataStorageFactory.orderDaoFactory();
+        Order result = new Order(id, customer, orderStatus);
+        orderDataStore.add(result);
+        return result;
+    }
+
+    public LineItem lineItem(int id, Product product, Order order, int quantity, float subtotalPrice) {
+        LineItemDao lineItemDataStore = DataStorageFactory.lineItemDaoFactory();
+        LineItem result = new LineItem(id, product, order, quantity, subtotalPrice);
+        lineItemDataStore.add(result);
+        return result;
+    }
+
+
 }
