@@ -71,4 +71,14 @@ public class Email {
     public void setStatus(EmailStatus status) {
         this.status = status;
     }
+
+    public void toggleStatus() {
+        this.status = isSentOut() ? EmailStatus.SENT : EmailStatus.IN_PROGRESS;
+    }
+
+    public boolean isSentOut() {
+        return this.status == EmailStatus.SENT;
+    }
+
+
 }
