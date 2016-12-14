@@ -3,6 +3,7 @@ package micro_services.controller;
 
 import micro_services.dao.implementation.EmailDaoJDBC;
 import micro_services.model.Email;
+import micro_services.model.EmailStatus;
 import micro_services.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,15 @@ public class EmailSenderController {
             ));
 
         return "Email saved to the database";
+    }
+
+    public String sendEmail(Request request, Response response) {
+        for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
+            emailService.sendEmail(email);
+        }
+        
+        logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
+        return "Sending emails with given status";
     }
 
     public String status(Request request, Response response) {
