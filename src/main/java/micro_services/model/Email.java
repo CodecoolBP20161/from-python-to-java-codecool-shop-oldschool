@@ -80,5 +80,15 @@ public class Email {
         return this.status == EmailStatus.SENT;
     }
 
-
+    @Override
+    public String toString() {
+        return "Email{" +
+                "toAddress='" + toAddress + '\'' +
+                ", password='" + password + '\'' +
+                ", fromAddress='" + fromAddress + '\'' +
+                ", subject='" + subject + '\'' +
+                ", message='" + message + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
