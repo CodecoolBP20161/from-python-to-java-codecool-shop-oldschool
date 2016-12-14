@@ -3,14 +3,13 @@ package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.OrderStatus;
+import com.codecool.shop.model.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoJDBC implements OrderDao {
@@ -38,13 +37,12 @@ public class OrderDaoJDBC implements OrderDao {
         ){
             if (resultSet.next()){
                 Customer customer = DataStorageFactory.customerDaoFactory().find(resultSet.getInt("customer"));
-                String status = resultSet.getString("order_status");
+                OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
                         resultSet.getInt("id"),
-                        customer);
+                        customer,
+                        orderStatus);
                 order.setId(id);
-                //TODO: problem with order status
-//                order.setOrderStatus((OrderStatus)status);
                 return order;
 
             } else {
@@ -63,6 +61,33 @@ public class OrderDaoJDBC implements OrderDao {
         String query = "DELETE FROM orders WHERE id = '" + id + "';";
         DatabaseConnector.executeQuery(query);
 
+    }
+
+    private List<Order> getOrders(String query) {
+        List<Order> orderList = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)
+        ){
+            while (resultSet.next()){
+                Customer customer = DataStorageFactory.customerDaoFactory().find(resultSet.getInt("customer"));
+                OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
+                Order order = new Order(
+                        resultSet.getInt("id"),
+                        customer,
+                        orderStatus);
+                //lineItem.setId(id);
+                orderList.add(order);
+                return orderList;
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override

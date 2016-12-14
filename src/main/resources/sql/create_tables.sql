@@ -46,12 +46,15 @@ CREATE TABLE customers
   shipping_address  VARCHAR(100)
 );
 
+CREATE TYPE status AS ENUM ('IN_CART','CHECKED_OUT','PAID');
+
 CREATE TABLE orders
 (
   id               INT PRIMARY KEY,
-  order_status     VARCHAR(40),
+  order_status     status DEFAULT 'IN_CART',
   customer         INT REFERENCES customers (id)
 );
+
 
 CREATE TABLE line_items
 (

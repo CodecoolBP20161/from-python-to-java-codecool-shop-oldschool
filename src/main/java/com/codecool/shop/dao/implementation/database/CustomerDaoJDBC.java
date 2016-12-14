@@ -3,6 +3,7 @@ package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.model.Customer;
+import com.codecool.shop.model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -106,6 +107,8 @@ public class CustomerDaoJDBC implements CustomerDao {
         DatabaseConnector.executeQuery(query);
 
     }
+
+
 
     @Override
     public List<Customer> getAll() {

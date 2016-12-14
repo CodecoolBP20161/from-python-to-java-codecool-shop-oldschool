@@ -3,15 +3,14 @@ package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.LineItemDao;
-import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.LineItem;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LineItemDaoJDBC implements LineItemDao {
@@ -70,18 +69,53 @@ public class LineItemDaoJDBC implements LineItemDao {
 
     }
 
+    private List<LineItem> getLineItems(String query) {
+        List<LineItem> lineItemList = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)
+        ){
+            while (resultSet.next()){
+                //int customer_id = resultSet.getInt("id");
+                Order order = DataStorageFactory.orderDaoFactory().find(resultSet.getInt("order_id"));
+                Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
+                LineItem lineItem = new LineItem(
+                        resultSet.getInt("id"),
+                        product,
+                        order,
+                        resultSet.getInt("quantity"),
+                        resultSet.getLong("subtotal_price"));
+                //lineItem.setId(id);
+                lineItemList.add(lineItem);
+                return lineItemList;
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @Override
     public List<LineItem> getAll() {
-        return null;
+        String query = "SELECT * FROM line_items;";
+        return this.getLineItems(query);
     }
 
     @Override
     public List<LineItem> getBy(Order order) {
-        return null;
+
+        String query = "SELECT * FROM line_items WHERE order_id ='" + order.getId() + "';";
+        return this.getLineItems(query);
     }
 
     @Override
     public List<LineItem> getBy(Product product) {
-        return null;
+
+        String query = "SELECT * FROM line_items WHERE product ='" + product.getId() + "';";
+        return this.getLineItems(query);
     }
 }
