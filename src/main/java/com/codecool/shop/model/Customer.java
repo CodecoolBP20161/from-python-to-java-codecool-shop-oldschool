@@ -120,4 +120,22 @@ public class Customer {
     public String getShippingAddress() {
         return shippingAddress;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", billingCountry='" + billingCountry + '\'' +
+                ", billingCity='" + billingCity + '\'' +
+                ", billingZipcode='" + billingZipcode + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
+                ", shippingCountry='" + shippingCountry + '\'' +
+                ", shippingCity='" + shippingCity + '\'' +
+                ", shippingZipcode='" + shippingZipcode + '\'' +
+                ", shippingAddress='" + shippingAddress + '\'' +
+                '}';
+    }
 }

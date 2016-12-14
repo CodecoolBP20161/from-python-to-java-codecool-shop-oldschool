@@ -4,6 +4,7 @@ package com.codecool.shop.dao.implementation.database;
 import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
 import java.sql.Connection;

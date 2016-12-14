@@ -1,10 +1,13 @@
 package com.codecool.shop.controller;
 
 
-import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.CartInterface;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.dao.CustomerDao;
+import com.codecool.shop.dao.LineItemDao;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.database.CustomerDaoJDBC;
+import com.codecool.shop.dao.implementation.database.LineItemDaoJDBC;
+import com.codecool.shop.dao.implementation.database.OrderDaoJDBC;
+import com.codecool.shop.model.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -54,7 +57,12 @@ public class CartController extends ShopController {
 
     public static ModelAndView saveCustomerDetails(Request req, Response res) {
         Map params = new HashMap<>();
+        OrderDao orderDao = new OrderDaoJDBC();
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        LineItemDao lineItemDao = new LineItemDaoJDBC();
+
         Order order = req.session().attribute("order");
+        System.out.println("order = " + req.session().attribute("order"));
         Customer customer = new Customer(
                 req.queryParams("name"),
                 req.queryParams("email"),
@@ -69,8 +77,14 @@ public class CartController extends ShopController {
                 req.queryParams("shippingAddr")
         );
         order.setCustomer(customer);
+        order.setOrderStatus(OrderStatus.IN_CART);
+        
+        orderDao.add(order);
+        customerDao.add(customer);
+        
+        System.out.println("customer = " + customer);
         res.redirect("/payment");
-        // fixme: what to return here???
+        // // FIXME: 2016.12.14. First place where you have to save customer and order to DB
         return new ModelAndView(params, "/payment");
     }
 

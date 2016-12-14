@@ -21,8 +21,11 @@ public class LineItem {
         this.order = order;
     }
     public LineItem(int id, Product product, Order order, int quantity, float subtotalPrice) {
-        this(product, order);
         this.id = id;
+        this.product = product;
+        this.order = order;
+        this.quantity = quantity;
+        this.subtotalPrice = subtotalPrice;
     }
 
 

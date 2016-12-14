@@ -42,7 +42,7 @@ public class OrderDaoJDBC implements OrderDao {
                         resultSet.getInt("id"),
                         customer,
                         orderStatus);
-                order.setId(id);
+               // order.setId(id);
                 return order;
 
             } else {
@@ -92,16 +92,21 @@ public class OrderDaoJDBC implements OrderDao {
 
     @Override
     public List<Order> getAll() {
-        return null;
+        String query = "SELECT * FROM orders;";
+        return this.getOrders(query);
     }
 
     @Override
     public List<Order> getBy(Customer customer) {
-        return null;
+
+        String query = "SELECT * FROM orders WHERE customer ='" + customer.getId() + "';";
+        return this.getOrders(query);
     }
 
     @Override
     public List<Order> getBy(OrderStatus orderStatus) {
-        return null;
+        //// FIXME: 2016.12.14. orderstatus is cool like this is it works????
+        String query = "SELECT * FROM orders WHERE order_status ='" + orderStatus + "';";
+        return this.getOrders(query);
     }
 }

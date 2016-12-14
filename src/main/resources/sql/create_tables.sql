@@ -62,7 +62,7 @@ CREATE TABLE line_items
   order_id         INT REFERENCES orders (id),
   product          INT REFERENCES products (id),
   quantity         INT,
-  subtotal_price   DOUBLE PRECISION
+  subtotal_price   FLOAT
 );
 
 

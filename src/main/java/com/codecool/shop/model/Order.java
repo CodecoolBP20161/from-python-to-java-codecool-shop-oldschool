@@ -14,16 +14,12 @@ public class Order implements CartInterface {
     private int id;
 
     public Order() {
-    }
-
-    public Order(int id, Customer customer){
-        this.id = id;
-        this.customer = customer;
-
+        this.id = IdFactory.getInstance().id(this.getClass());
     }
 
     public Order(int id, Customer customer, OrderStatus orderStatus){
-        this(id, customer);
+        this.id = id;
+        this.customer = customer;
         this.orderStatus = orderStatus;
 
     }
@@ -98,12 +94,13 @@ public class Order implements CartInterface {
         this.id = id;
     }
 
-
-
     @Override
     public String toString() {
-        return "Cart{" +
+        return "Order{" +
                 "lineItems=" + lineItems +
+                ", customer=" + customer +
+                ", orderStatus=" + orderStatus +
+                ", id=" + id +
                 '}';
     }
 }
