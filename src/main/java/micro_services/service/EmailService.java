@@ -17,8 +17,13 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
-
     private static EmailService INSTANCE;
+
+//    Default Gmail SMTP settings
+    private static String MAIL_SMTP_AUTH = "true";
+    private static String MAIL_SMTP_STARTTLS_ENABLE = "true";
+    private static String MAIL_SMTP_HOST = "smtp.gmail.com";
+    private static String MAIL_SMTP_PORT = "587";
 
     public static EmailService getInstance() {
         if (INSTANCE == null) {
@@ -27,27 +32,32 @@ public class EmailService {
         return INSTANCE;
     }
 
-//    TODO: needs refactoring
-    public void sendEmail(Email email) {
-
-        logger.info("Sending emails...");
-
+    private Properties setProperties() {
         Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", MAIL_SMTP_AUTH);
+        props.put("mail.smtp.starttls.enable", MAIL_SMTP_STARTTLS_ENABLE);
+        props.put("mail.smtp.host", MAIL_SMTP_HOST);
+        props.put("mail.smtp.port", MAIL_SMTP_PORT);
 
-        Session session = Session.getInstance(props,
+        return props;
+    }
+
+    private Session getSession(Email email) {
+        return Session.getInstance(setProperties(),
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(email.getFromAddress(), email.getPassword());
                     }
                 });
+    }
+
+    public void sendEmail(Email email) {
+        logger.info("Sending emails...");
+        logger.debug("Trying to send an email from {} to {} with the subject: {} and message: {}",
+                email.getFromAddress(), email.getToAddress(), email.getSubject(), email.getMessage());
 
         try {
-
-            Message message = new MimeMessage(session);
+            Message message = new MimeMessage(getSession(email));
             message.setFrom(new InternetAddress(email.getFromAddress()));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email.getToAddress()));
@@ -56,7 +66,7 @@ public class EmailService {
 
             Transport.send(message);
 
-            logger.debug("Sending email from {} to {} with the subject: {}", email.getFromAddress(), email.getToAddress(), email.getSubject());
+            logger.debug("Sending message {}", message);
 
         } catch (MessagingException e){
             throw new RuntimeException(e);
