@@ -23,12 +23,13 @@ public class EmailDaoJDBC implements EmailDao {
                                             "subject, " +
                                             "message, " +
                                             "status) " +
-                        "VALUES (" + email.getToAddress() + ", '" +
+                        "VALUES ('" + email.getToAddress() + "', '" +
                                      email.getPassword() + "', '" +
-                                     email.getFromAddress() + "', " +
-                                     email.getSubject() + ", '" +
-                                     email.getMessage() + "', " +
-                                     email.getStatus() + ");";
+                                     email.getFromAddress() + "', '" +
+                                     email.getSubject() + "', '" +
+                                     email.getMessage() + "', '" +
+                                     email.getStatus() + "');";
+
         DatabaseConnector.executeQuery(query);
     }
 
