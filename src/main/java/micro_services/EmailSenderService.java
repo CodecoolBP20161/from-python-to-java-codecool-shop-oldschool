@@ -28,7 +28,7 @@ public class EmailSenderService {
 
         // --- MAPPINGS ---
         get("/status", application.controller::status);
-        post("/api/email", application.controller::saveEmail);
+        get("/email", application.controller::saveEmail);
 
         // --- EXCEPTION HANDLING ---
         exception(URISyntaxException.class, (exception, request, response) -> {
