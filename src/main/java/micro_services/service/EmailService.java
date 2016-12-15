@@ -5,15 +5,10 @@ import micro_services.model.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 public class EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
@@ -46,6 +41,7 @@ public class EmailService {
         return Session.getInstance(setProperties(),
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
+                        logger.info("Authentication for: ", email.getFromAddress(), email.getPassword());
                         return new PasswordAuthentication(email.getFromAddress(), email.getPassword());
                     }
                 });
@@ -53,8 +49,8 @@ public class EmailService {
 
     public void sendEmail(Email email) {
         logger.info("Sending emails...");
-        logger.debug("Trying to send an email from {} to {} with the subject: {} and message: {}",
-                email.getFromAddress(), email.getToAddress(), email.getSubject(), email.getMessage());
+        logger.info("Trying to send an email from {} (pwd): {} to {} with the subject: {} and message: {}",
+                email.getFromAddress(), email.getPassword(), email.getToAddress(), email.getSubject(), email.getMessage());
 
         try {
             Message message = new MimeMessage(getSession(email));
