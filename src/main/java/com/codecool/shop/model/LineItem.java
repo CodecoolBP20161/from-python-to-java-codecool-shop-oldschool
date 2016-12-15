@@ -10,7 +10,14 @@ public class LineItem {
     private float subtotalPrice;
 
     //constructor
+
+
+    public LineItem() {
+        this.id = IdFactory.getInstance().id(this.getClass());
+    }
+
     public LineItem(Product product) {
+        this();
         this.product = product;
         this.quantity = 1;
         this.subtotalPrice = product.getDefaultPrice();
@@ -20,8 +27,10 @@ public class LineItem {
         this(product);
         this.order = order;
     }
-    public LineItem(int id, Product product, Order order, int quantity, float subtotalPrice) {
-        this.id = id;
+
+
+    public LineItem( Product product, Order order, int quantity, float subtotalPrice) {
+        this();
         this.product = product;
         this.order = order;
         this.quantity = quantity;
@@ -74,11 +83,14 @@ public class LineItem {
     @Override
     public String toString() {
         return "LineItem{" +
-                "product=" + product +
+                "id=" + id +
+                ", product=" + product +
+                ", order=" + order +
                 ", quantity=" + quantity +
                 ", subtotalPrice=" + subtotalPrice +
                 '}';
     }
+
     //overrided equals and hashcode method for comparison by id
     @Override
     public boolean equals(Object obj) {

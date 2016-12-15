@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS product_categories;
-DROP TABLE IF EXISTS suppliers;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS line_items;
+DROP TABLE IF EXISTS products cascade;
+DROP TABLE IF EXISTS product_categories cascade;
+DROP TABLE IF EXISTS suppliers cascade;
+DROP TABLE IF EXISTS orders cascade;
+DROP TABLE IF EXISTS customers cascade;
+DROP TABLE IF EXISTS line_items cascade;
 
 CREATE TABLE product_categories
 (
@@ -32,7 +32,7 @@ CREATE TABLE products
 );
 CREATE TABLE customers
 (
-  id               INT PRIMARY KEY,
+  id               INT UNIQUE PRIMARY KEY,
   name             VARCHAR(100),
   email            VARCHAR(40),
   phone            VARCHAR(20),
@@ -50,7 +50,7 @@ CREATE TYPE status AS ENUM ('IN_CART','CHECKED_OUT','PAID');
 
 CREATE TABLE orders
 (
-  id               INT PRIMARY KEY,
+  id               INT UNIQUE PRIMARY KEY,
   order_status     status DEFAULT 'IN_CART',
   customer         INT REFERENCES customers (id)
 );
@@ -58,7 +58,7 @@ CREATE TABLE orders
 
 CREATE TABLE line_items
 (
-  id               INT PRIMARY KEY,
+  id               INT UNIQUE primary key,
   order_id         INT REFERENCES orders (id),
   product          INT REFERENCES products (id),
   quantity         INT,

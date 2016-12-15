@@ -39,10 +39,9 @@ public class OrderDaoJDBC implements OrderDao {
                 Customer customer = DataStorageFactory.customerDaoFactory().find(resultSet.getInt("customer"));
                 OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
-                        resultSet.getInt("id"),
                         customer,
                         orderStatus);
-               // order.setId(id);
+                order.setId(id);
                 return order;
 
             } else {
@@ -74,10 +73,9 @@ public class OrderDaoJDBC implements OrderDao {
                 Customer customer = DataStorageFactory.customerDaoFactory().find(resultSet.getInt("customer"));
                 OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
-                        resultSet.getInt("id"),
                         customer,
                         orderStatus);
-                //lineItem.setId(id);
+                order.setId(resultSet.getInt("id"));
                 orderList.add(order);
                 return orderList;
 

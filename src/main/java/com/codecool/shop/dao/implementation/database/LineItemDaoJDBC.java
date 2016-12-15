@@ -44,7 +44,6 @@ public class LineItemDaoJDBC implements LineItemDao {
                 Order order = DataStorageFactory.orderDaoFactory().find(resultSet.getInt("order_id"));
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
-                        resultSet.getInt("id"),
                         product,
                         order,
                         resultSet.getInt("quantity"),
@@ -82,12 +81,11 @@ public class LineItemDaoJDBC implements LineItemDao {
                 Order order = DataStorageFactory.orderDaoFactory().find(resultSet.getInt("order_id"));
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
-                        resultSet.getInt("id"),
                         product,
                         order,
                         resultSet.getInt("quantity"),
                         resultSet.getLong("subtotal_price"));
-                //lineItem.setId(id);
+                lineItem.setId(resultSet.getInt("id"));
                 lineItemList.add(lineItem);
                 return lineItemList;
 

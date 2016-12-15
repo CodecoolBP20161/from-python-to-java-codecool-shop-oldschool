@@ -124,7 +124,6 @@ public class CustomerDaoJDBC implements CustomerDao {
             while (resultSet.next()){
                 int customer_id = resultSet.getInt("id");
                 Customer customer = new Customer(
-                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("email"),
                         resultSet.getString("phone"),

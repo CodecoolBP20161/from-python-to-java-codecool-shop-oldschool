@@ -17,8 +17,8 @@ public class Order implements CartInterface {
         this.id = IdFactory.getInstance().id(this.getClass());
     }
 
-    public Order(int id, Customer customer, OrderStatus orderStatus){
-        this.id = id;
+    public Order( Customer customer, OrderStatus orderStatus){
+        this();
         this.customer = customer;
         this.orderStatus = orderStatus;
 

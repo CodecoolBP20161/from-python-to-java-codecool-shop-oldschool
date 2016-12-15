@@ -13,6 +13,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CartController extends ShopController {
@@ -62,6 +63,8 @@ public class CartController extends ShopController {
         LineItemDao lineItemDao = new LineItemDaoJDBC();
 
         Order order = req.session().attribute("order");
+        List<LineItem> orderLineItems = order.getLineItems();
+        System.out.println("orderLineItems = " + orderLineItems);
         System.out.println("order = " + req.session().attribute("order"));
         Customer customer = new Customer(
                 req.queryParams("name"),
@@ -76,12 +79,11 @@ public class CartController extends ShopController {
                 req.queryParams("shippingZip"),
                 req.queryParams("shippingAddr")
         );
+        customerDao.add(customer);
         order.setCustomer(customer);
         order.setOrderStatus(OrderStatus.IN_CART);
-        
         orderDao.add(order);
-        customerDao.add(customer);
-        
+
         System.out.println("customer = " + customer);
         res.redirect("/payment");
         // // FIXME: 2016.12.14. First place where you have to save customer and order to DB
