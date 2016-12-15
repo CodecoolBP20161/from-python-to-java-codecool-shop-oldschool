@@ -21,14 +21,12 @@ public class EmailDaoJDBC implements EmailDao {
                                             "password, " +
                                             "from_address, " +
                                             "subject, " +
-                                            "message, " +
-                                            "status) " +
+                                            "message) " +
                         "VALUES ('" + email.getToAddress() + "', '" +
                                      email.getPassword() + "', '" +
                                      email.getFromAddress() + "', '" +
                                      email.getSubject() + "', '" +
-                                     email.getMessage() + "', '" +
-                                     email.getStatus() + "');";
+                                     email.getMessage() + "');";
 
         DatabaseConnector.executeQuery(query);
     }
@@ -63,4 +61,16 @@ public class EmailDaoJDBC implements EmailDao {
         return emailList;
         }
 
+    @Override
+    public void changeStatus(EmailStatus status, Email email) {
+        String query = "UPDATE emails " +
+                "SET status = '" + status + "' " +
+                "WHERE to_address = '" + email.getToAddress() + "' AND " +
+                       "password = '" + email.getPassword() + "' AND " +
+                       "from_address = '" + email.getFromAddress() + "' AND " +
+                       "subject = '" + email.getSubject() + "' AND " +
+                       "message = '" + email.getMessage() + "';";
+
+        DatabaseConnector.executeQuery(query);
+    }
 }
