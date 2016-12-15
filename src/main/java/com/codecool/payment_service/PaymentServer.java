@@ -36,6 +36,7 @@ public class PaymentServer {
 
         // --- ROUTES ---
         get("/make-payment", PaymentController::renderPaymentPage, new ThymeleafTemplateEngine(templateResolver));
+        post("/pay", PaymentController::handlePayment, new ThymeleafTemplateEngine(templateResolver));
 
         exception(URISyntaxException.class, (exception, request, response) -> {
             response.status(500);

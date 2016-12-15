@@ -38,7 +38,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" action="/pay" method="post">
                         <div class="form-group">
                             <label for="cardNumber">
                                 CARD NUMBER</label>
@@ -71,17 +71,18 @@
                                 </div>
                             </div>
                         </div>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a href="#"><span class="badge pull-right" th:text="${total + ' &#36;'}"><span
+                                    class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
+                            </li>
+                        </ul>
+                        <br/>
+                        <button class="btn btn-success btn-lg btn-block" role="button" type="submit">Pay</button>
                     </form>
                 </div>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right" th:text="${total + ' &#36;'}"><span
-                        class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
-                </li>
-            </ul>
-            <br/>
-            <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
         </div>
+
     </div>
 </div>
 

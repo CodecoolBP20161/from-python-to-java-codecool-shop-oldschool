@@ -73,9 +73,8 @@ public class OrderController extends ShopController {
         );
         order.setCustomer(customer);
         URIBuilder builder = new URIBuilder(PAYMENT_SERVICE_URI);
-        Order currentOrder = req.session().attribute("order");
-        builder.addParameter("total", String.valueOf(currentOrder.getTotalPrice()));
-        builder.addParameter("return-link", "http://localhost:9000/payment");
+        builder.addParameter("total", String.valueOf(order.getTotalPrice()));
+        builder.addParameter("return-link", "http://localhost:8888/payment");
 
         res.redirect(builder.build().toASCIIString());
         // fixme: what to return here???
