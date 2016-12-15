@@ -82,16 +82,28 @@ public class CartController extends ShopController {
         order.setCustomer(customer);
         order.setOrderStatus(OrderStatus.IN_CART);
         orderDao.add(order);
+        req.session().attribute("order_id", order.getId());
+        System.out.println("orderID = " + order.getId());
         order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
+        // orderDao.setOrderStatus(order.getId(), new OrderStatus.CHECKED_OUT);
+
 
         System.out.println("customer = " + customer);
         res.redirect("/payment");
-        // // FIXME: 2016.12.14. First place where you have to save customer and order to DB
         return new ModelAndView(params, "/payment");
     }
 
+
+
     public static ModelAndView renderPayment(Request req, Response res) {
         Map params = new HashMap<>();
+        OrderDao orderDataStore = new OrderDaoJDBC();
+        Order order;
+        if (req.session().attribute("order_id")!=null) {
+
+            orderDataStore.setOrderStatus(Integer.parseInt(req.session().attribute("order_id")), OrderStatus.PAID);
+            System.out.println("Orderstatus changed to PAID");
+        }
 
         return new ModelAndView(params, "/payment");
     }

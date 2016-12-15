@@ -12,6 +12,7 @@ public interface OrderDao {
     void add(Order order);
     Order find(int id);
     void remove(int id);
+    void setOrderStatus(int id, OrderStatus orderStatus);
 
     List<Order> getAll();
     List<Order> getBy(Customer customer);

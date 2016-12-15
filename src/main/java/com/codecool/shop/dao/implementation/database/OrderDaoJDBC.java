@@ -26,6 +26,14 @@ public class OrderDaoJDBC implements OrderDao {
     }
 
 
+    public void setOrderStatus(int id, OrderStatus orderStatus){
+        String query = "UPDATE orders " +
+                        "SET order_status ='"+orderStatus+"'" +
+                        "WHERE id ='"+id+"';";
+        DatabaseConnector.executeQuery(query);
+    }
+
+
     @Override
     public Order find(int id) {
 
@@ -107,4 +115,5 @@ public class OrderDaoJDBC implements OrderDao {
         String query = "SELECT * FROM orders WHERE order_status ='" + orderStatus + "';";
         return this.getOrders(query);
     }
+
 }
