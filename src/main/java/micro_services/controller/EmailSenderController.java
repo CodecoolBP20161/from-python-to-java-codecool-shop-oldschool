@@ -8,15 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.*;
 
-public class EmailServiceController {
+public class EmailSenderController {
 
     private final EmailService emailService;
 
     private final EmailDaoJDBC emailDatabase = new EmailDaoJDBC();
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailServiceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailSenderController.class);
 
-    public EmailServiceController(EmailService emailService){
+    public EmailSenderController(EmailService emailService){
         this.emailService = emailService;
     }
 
@@ -33,14 +33,6 @@ public class EmailServiceController {
             ));
 
         return "Email saved to the database";
-    }
-
-    public void sendEmail() {
-        for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
-            emailService.sendEmail(email);
-        }
-
-        logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
     }
 
     public String status(Request request, Response response) {
