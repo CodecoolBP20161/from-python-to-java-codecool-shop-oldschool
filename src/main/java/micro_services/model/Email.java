@@ -21,7 +21,6 @@ public class Email {
         this.fromAddress = from;
         this.subject = subject;
         this.message = msg;
-        this.status = EmailStatus.IN_PROGRESS;
     }
 
     public String getToAddress() {
@@ -70,14 +69,6 @@ public class Email {
 
     public void setStatus(EmailStatus status) {
         this.status = status;
-    }
-
-    public void toggleStatus() {
-        this.status = isSentOut() ? EmailStatus.SENT : EmailStatus.IN_PROGRESS;
-    }
-
-    private boolean isSentOut() {
-        return this.status == EmailStatus.SENT;
     }
 
     @Override

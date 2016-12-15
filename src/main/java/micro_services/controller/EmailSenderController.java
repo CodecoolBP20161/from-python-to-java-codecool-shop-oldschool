@@ -3,21 +3,20 @@ package micro_services.controller;
 
 import micro_services.dao.implementation.EmailDaoJDBC;
 import micro_services.model.Email;
-import micro_services.model.EmailStatus;
 import micro_services.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.*;
 
-public class EmailSenderController {
+public class EmailServiceController {
 
     private final EmailService emailService;
 
     private final EmailDaoJDBC emailDatabase = new EmailDaoJDBC();
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailSenderController.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailServiceController.class);
 
-    public EmailSenderController(EmailService emailService){
+    public EmailServiceController(EmailService emailService){
         this.emailService = emailService;
     }
 
@@ -36,13 +35,12 @@ public class EmailSenderController {
         return "Email saved to the database";
     }
 
-    public String sendEmail(Request request, Response response) {
+    public void sendEmail() {
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
             emailService.sendEmail(email);
         }
 
         logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
-        return "Sending emails with given status";
     }
 
     public String status(Request request, Response response) {
