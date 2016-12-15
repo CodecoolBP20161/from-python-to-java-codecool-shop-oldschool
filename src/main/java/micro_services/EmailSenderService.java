@@ -2,11 +2,14 @@ package micro_services;
 
 
 import micro_services.controller.EmailSenderController;
+import micro_services.controller.EmailSendingController;
 import micro_services.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URISyntaxException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static spark.Spark.*;
 
@@ -14,6 +17,10 @@ import static spark.Spark.*;
 public class EmailSenderService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailSenderService.class);
+
+    private static final Timer timer = new Timer();
+
+    private static final int MAX_SECONDS = 100;
 
     private EmailSenderController controller;
 
@@ -25,6 +32,22 @@ public class EmailSenderService {
         EmailSenderService application = new EmailSenderService();
 
         application.controller = new EmailSenderController(EmailService.getInstance());
+
+        TimerTask task = new TimerTask() {
+            int seconds = 0;
+
+            @Override
+            public void run() {
+                if (seconds < MAX_SECONDS) {
+                    EmailSendingController.sendEmail();
+                    seconds++;
+                } else {
+                    cancel();
+                }
+            }
+        };
+
+        timer.schedule(task, 100, 100);
 
         // --- MAPPINGS ---
         get("/status", application.controller::status);
