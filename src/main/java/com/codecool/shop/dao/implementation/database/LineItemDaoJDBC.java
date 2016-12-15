@@ -85,7 +85,6 @@ public class LineItemDaoJDBC implements LineItemDao {
                         resultSet.getLong("subtotal_price"));
                 lineItem.setId(resultSet.getInt("id"));
                 lineItemList.add(lineItem);
-                return lineItemList;
 
             }
 
@@ -93,7 +92,7 @@ public class LineItemDaoJDBC implements LineItemDao {
             e.printStackTrace();
         }
 
-        return null;
+        return lineItemList;
     }
 
     @Override

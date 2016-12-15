@@ -42,19 +42,19 @@ public class OrderController {
     private static final String MESSAGE_PARAM_KEY = "message";
 
     public static ModelAndView renderEmail(Request req, Response res) throws IOException, URISyntaxException {
-        Order order;
-        Customer customer;
-        System.out.println("ORDER");
-        if (req.session().attribute("order_id")!=null){
-            order =  orderDataStore.find((Integer)req.session().attribute("order_id"));
-            customer = customerDataStore.find(order.getCustomer().getId());
-            List<LineItem> orderLineItems = lineItemDataStore.getAll();//getBy(order)
-            System.out.println("orderLineItems = " + orderLineItems);
-            //// FIXME: 2016.12.15. problem in dao with get methods???
-            params = createEmailBody(customer, order, orderLineItems);
-            getEmailService();
-        }
-       // order = orderDataStore.find(Integer.parseInt(req.params(":order-id")));
+//        if (req.session().attribute("order_id")!=null){
+//            order =  orderDataStore.find((Integer)req.session().attribute("order_id"));
+//            customer = customerDataStore.find(order.getCustomer().getId());
+//            List<LineItem> orderLineItems = lineItemDataStore.getBy(order);
+//            System.out.println("orderLineItems = " + orderLineItems);
+//            params = createEmailBody(customer, order, orderLineItems);
+//            getEmailService();
+//        }
+        Order order = orderDataStore.find(Integer.parseInt(req.params(":order-id")));
+        Customer customer = customerDataStore.find(order.getCustomer().getId());
+        List<LineItem> orderLineItems = lineItemDataStore.getBy(order);
+        params = createEmailBody(customer, order, orderLineItems);
+        getEmailService();
 
         return new ModelAndView(params, "/payment");
     }
@@ -68,13 +68,14 @@ public class OrderController {
         builder.addParameter(FROM_ADDRESS_PARAM_KEY, String.valueOf(params.get("from")));
         builder.addParameter(SUBJECT_PARAM_KEY, String.valueOf(params.get("subject")));
         builder.addParameter(MESSAGE_PARAM_KEY, String.valueOf(params.get("message")));
-        System.out.println(builder.build().toString());
         return execute(builder.build());
     }
 
     public static Map createEmailBody(Customer customer, Order order, List<LineItem> orderLineItems){
+        Double totalPrice = 0d;
         Map emailParams = new HashMap<>();
         StringBuilder message = new StringBuilder();
+
         message.append("Dear " + customer.getName() + "\r\n");
         message.append("Your order: " +"\r\n");
 
@@ -83,8 +84,10 @@ public class OrderController {
             message.append("Product name: " + lineItem.getProduct().getName()+
                     "  Quantity: " + lineItem.getQuantity() +
                     "  DefaultPrice: " + lineItem.getProduct().getDefaultPrice()+ "\r\n");
+            totalPrice += (double)lineItem.getSubtotalPrice();
         }
-        message.append("Total price: " + order.getTotalPrice()+ "\r\n");
+
+        message.append("Total price: " + totalPrice+ "\r\n");
         message.append("Best Regards, \r\n");
         message.append("Codecool");
 
@@ -94,8 +97,6 @@ public class OrderController {
         emailParams.put("password", "Girhes2016");
         emailParams.put("subject", "New Order");
         emailParams.put("message", message.toString());
-        System.out.println(customer.getEmail());
-        System.out.println("message = " + message.toString());
         return emailParams;
     }
 

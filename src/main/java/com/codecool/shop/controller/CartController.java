@@ -85,10 +85,6 @@ public class CartController extends ShopController {
         req.session().attribute("order_id", order.getId());
         System.out.println("orderID = " + order.getId());
         order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
-        // orderDao.setOrderStatus(order.getId(), new OrderStatus.CHECKED_OUT);
-
-
-        System.out.println("customer = " + customer);
         res.redirect("/payment");
         return new ModelAndView(params, "/payment");
     }
@@ -98,7 +94,6 @@ public class CartController extends ShopController {
     public static ModelAndView renderPayment(Request req, Response res) {
         Map params = new HashMap<>();
         OrderDao orderDataStore = new OrderDaoJDBC();
-        Order order;
         if (req.session().attribute("order_id")!=null) {
             orderDataStore.setOrderStatus((Integer)req.session().attribute("order_id"), OrderStatus.PAID);
         }

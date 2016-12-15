@@ -85,15 +85,13 @@ public class OrderDaoJDBC implements OrderDao {
                         orderStatus);
                 order.setId(resultSet.getInt("id"));
                 orderList.add(order);
-                return orderList;
-
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return orderList;
     }
 
     @Override
