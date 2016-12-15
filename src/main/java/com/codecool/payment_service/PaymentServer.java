@@ -12,8 +12,8 @@ import java.net.URISyntaxException;
 import static spark.Spark.*;
 
 
-public class Server {
-    private static final Logger logger = LoggerFactory.getLogger(Server.class);
+public class PaymentServer {
+    private static final Logger logger = LoggerFactory.getLogger(PaymentServer.class);
     private static final int PORT = 9000;
 
     public static void main(String[] args) {
@@ -49,6 +49,6 @@ public class Server {
             logger.error("Error while processing request", exception);
         });
 
-        logger.info("Server started on port " + PORT);
+        logger.info("PaymentServer started on port " + PORT);
     }
 }
