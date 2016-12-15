@@ -11,5 +11,6 @@ public interface EmailDao {
 
     void add(Email email);
     List<Email> getBy(EmailStatus status);
+    void changeStatus(EmailStatus status, Email email);
 
 }
