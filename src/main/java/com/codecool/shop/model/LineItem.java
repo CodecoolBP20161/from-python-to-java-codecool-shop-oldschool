@@ -5,7 +5,7 @@ public class LineItem {
 
     private int id;
     private Product product;
-    private Order order;
+    private int order;
     private int quantity;
     private float subtotalPrice;
 
@@ -23,13 +23,13 @@ public class LineItem {
         this.subtotalPrice = product.getDefaultPrice();
     }
 
-    public LineItem(Product product, Order order) {
+    public LineItem(Product product, int order) {
         this(product);
         this.order = order;
     }
 
 
-    public LineItem( Product product, Order order, int quantity, float subtotalPrice) {
+    public LineItem( Product product, int order, int quantity, float subtotalPrice) {
         this();
         this.product = product;
         this.order = order;
@@ -70,8 +70,12 @@ public class LineItem {
         this.id = id;
     }
 
-    public Order getOrder() {
+    public int getOrder() {
         return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     //TODO: testIncreaseQuatntity

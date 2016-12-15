@@ -37,37 +37,6 @@ public class ProductFactory {
         return result;
     }
 
-    public Customer customer(int id,
-                         String name,
-                         String email,
-                         String phone,
-                         String billingCountry,
-                         String billingCity,
-                         String billingZipcode,
-                         String billingAddress,
-                         String shippingCountry,
-                         String shippingCity,
-                         String shippingZipcode,
-                         String shippingAddress) {
-        CustomerDao customerDataStore = DataStorageFactory.customerDaoFactory();
-        Customer result = new Customer( name, email, phone, billingCountry, billingCity, billingZipcode, billingAddress, shippingCountry, shippingCity, shippingZipcode, shippingAddress);
-        customerDataStore.add(result);
-        return result;
-    }
-
-    public Order order(int id, Customer customer, OrderStatus orderStatus) {
-        OrderDao orderDataStore = DataStorageFactory.orderDaoFactory();
-        Order result = new Order( customer, orderStatus);
-        orderDataStore.add(result);
-        return result;
-    }
-
-    public LineItem lineItem(int id, Product product, Order order, int quantity, float subtotalPrice) {
-        LineItemDao lineItemDataStore = DataStorageFactory.lineItemDaoFactory();
-        LineItem result = new LineItem(product, order, quantity, subtotalPrice);
-        lineItemDataStore.add(result);
-        return result;
-    }
 
 
 }

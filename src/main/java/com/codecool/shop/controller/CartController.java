@@ -63,9 +63,8 @@ public class CartController extends ShopController {
         LineItemDao lineItemDao = new LineItemDaoJDBC();
 
         Order order = req.session().attribute("order");
-        List<LineItem> orderLineItems = order.getLineItems();
-        System.out.println("orderLineItems = " + orderLineItems);
-        System.out.println("order = " + req.session().attribute("order"));
+        order.getLineItems().stream().forEach(l -> l.setOrder(order.getId()));
+
         Customer customer = new Customer(
                 req.queryParams("name"),
                 req.queryParams("email"),
@@ -83,6 +82,7 @@ public class CartController extends ShopController {
         order.setCustomer(customer);
         order.setOrderStatus(OrderStatus.IN_CART);
         orderDao.add(order);
+        order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
 
         System.out.println("customer = " + customer);
         res.redirect("/payment");

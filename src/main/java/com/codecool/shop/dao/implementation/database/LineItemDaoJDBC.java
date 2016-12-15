@@ -23,7 +23,7 @@ public class LineItemDaoJDBC implements LineItemDao {
                 "quantity, " +
                 "subtotal_price) " +
                 "VALUES (" + lineItem.getId() + ", '" +
-                lineItem.getOrder().getId() + "', '" +
+                lineItem.getOrder() + "', '" +
                 lineItem.getProduct().getId() + "', '" +
                 lineItem.getQuantity() + "', '" +
                 lineItem.getSubtotalPrice() + "');";
@@ -45,7 +45,7 @@ public class LineItemDaoJDBC implements LineItemDao {
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
                         product,
-                        order,
+                        resultSet.getInt("order_id"),
                         resultSet.getInt("quantity"),
                         resultSet.getLong("subtotal_price"));
                 lineItem.setId(id);
@@ -82,7 +82,7 @@ public class LineItemDaoJDBC implements LineItemDao {
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
                         product,
-                        order,
+                        resultSet.getInt("order_id"),
                         resultSet.getInt("quantity"),
                         resultSet.getLong("subtotal_price"));
                 lineItem.setId(resultSet.getInt("id"));
