@@ -33,7 +33,7 @@ public class EmailDaoJDBC implements EmailDao {
 
     @Override
     public List<Email> getBy(EmailStatus status) {
-        String query = "SELECT * FROM emails WHERE status ='" + status + "';";
+        String query = "SELECT * FROM emails WHERE email_status ='" + status + "';";
 
         List<Email> emailList = new ArrayList<>();
 
@@ -64,13 +64,13 @@ public class EmailDaoJDBC implements EmailDao {
     @Override
     public void changeStatus(EmailStatus status, Email email) {
         String query = "UPDATE emails " +
-                "SET status = '" + status + "' " +
+                "SET email_status = '" + status + "' " +
                 "WHERE to_address = '" + email.getToAddress() + "' AND " +
                        "password = '" + email.getPassword() + "' AND " +
                        "from_address = '" + email.getFromAddress() + "' AND " +
                        "subject = '" + email.getSubject() + "' AND " +
                        "message = '" + email.getMessage() + "';";
-
+        System.out.println("query = " + query);
         DatabaseConnector.executeQuery(query);
     }
 }

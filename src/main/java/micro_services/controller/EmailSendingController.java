@@ -8,9 +8,13 @@ import micro_services.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class EmailSendingController {
     private static final EmailService emailService = EmailService.getInstance();
+    static List<String> sentEmails = new ArrayList<>();
 
     private static final EmailDaoJDBC emailDatabase = new EmailDaoJDBC();
 
@@ -18,12 +22,16 @@ public class EmailSendingController {
 
 
     public static void sendEmail() {
-        logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
+        //logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
 
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
-            emailService.sendEmail(email);
-            emailDatabase.changeStatus(EmailStatus.SENT, email);
-            logger.info("After sending the email, its status is: ", email.getStatus());
+            if (!sentEmails.contains(email.getToAddress().toString())) {
+                emailService.sendEmail(email);
+                sentEmails.add(email.getToAddress().toString());
+                emailDatabase.changeStatus(EmailStatus.SENT, email);
+            }
+            //System.out.println("email status" + email.getStatus());
+            //logger.info("After sending the email, its status is: ", email.getStatus());
         }
     }
 

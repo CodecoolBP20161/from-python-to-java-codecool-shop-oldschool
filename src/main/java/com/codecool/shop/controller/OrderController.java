@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.CustomerDao;
-import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.database.CustomerDaoJDBC;
@@ -14,6 +13,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
+import spark.Request;
 import spark.Response;
 
 import java.io.IOException;
@@ -22,8 +22,6 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import spark.*;
 
 
 public class OrderController {
@@ -43,14 +41,7 @@ public class OrderController {
 
 
     public static ModelAndView renderEmail(Request req, Response res) throws IOException, URISyntaxException {
-//        if (req.session().attribute("order_id")!=null){
-//            order =  orderDataStore.find((Integer)req.session().attribute("order_id"));
-//            customer = customerDataStore.find(order.getCustomer().getId());
-//            List<LineItem> orderLineItems = lineItemDataStore.getBy(order);
-//            System.out.println("orderLineItems = " + orderLineItems);
-//            params = createEmailBody(customer, order, orderLineItems);
-//            getEmailService();
-//        }
+
         Order order = orderDataStore.find(Integer.parseInt(req.params(":order-id")));
         Customer customer = customerDataStore.find(order.getCustomer().getId());
         List<LineItem> orderLineItems = lineItemDataStore.getBy(order);

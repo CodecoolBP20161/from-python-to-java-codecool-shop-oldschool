@@ -47,7 +47,7 @@ public class EmailSenderService {
             }
         };
 
-        timer.schedule(task, 100, 100);
+        timer.schedule(task, 1000, 1000);
 
         // --- MAPPINGS ---
         get("/status", application.controller::status);
