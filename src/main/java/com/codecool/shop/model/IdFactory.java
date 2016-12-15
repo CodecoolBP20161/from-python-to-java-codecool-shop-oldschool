@@ -30,16 +30,17 @@ public class IdFactory {
     }
 
     private int createNewId(Class key){
-        this.nextid.put(key, 1);
+        this.nextid.put(key, currentTimeMillis());
         return this.nextid.get(key);
     }
 
     private int getNewId(Class key){
-        this.nextid.put(key, this.nextid.get(key) + 1);
+        this.nextid.put(key, currentTimeMillis());
         return this.nextid.get(key);
     }
+
+    public static int currentTimeMillis() {
+        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
+    }
+
 }
-//    public ProductCategory(){
-//        this.id = IdFactory.getInstance().id(this.getClass());
-//
-//    }

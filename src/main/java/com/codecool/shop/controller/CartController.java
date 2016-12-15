@@ -1,15 +1,19 @@
 package com.codecool.shop.controller;
 
 
-import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.CartInterface;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.dao.CustomerDao;
+import com.codecool.shop.dao.LineItemDao;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.database.CustomerDaoJDBC;
+import com.codecool.shop.dao.implementation.database.LineItemDaoJDBC;
+import com.codecool.shop.dao.implementation.database.OrderDaoJDBC;
+import com.codecool.shop.model.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CartController extends ShopController {
@@ -54,7 +58,13 @@ public class CartController extends ShopController {
 
     public static ModelAndView saveCustomerDetails(Request req, Response res) {
         Map params = new HashMap<>();
+        OrderDao orderDao = new OrderDaoJDBC();
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        LineItemDao lineItemDao = new LineItemDaoJDBC();
+
         Order order = req.session().attribute("order");
+        order.getLineItems().stream().forEach(l -> l.setOrder(order.getId()));
+
         Customer customer = new Customer(
                 req.queryParams("name"),
                 req.queryParams("email"),
@@ -68,14 +78,25 @@ public class CartController extends ShopController {
                 req.queryParams("shippingZip"),
                 req.queryParams("shippingAddr")
         );
+        customerDao.add(customer);
         order.setCustomer(customer);
+        order.setOrderStatus(OrderStatus.IN_CART);
+        orderDao.add(order);
+        req.session().attribute("order_id", order.getId());
+        System.out.println("orderID = " + order.getId());
+        order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
         res.redirect("/payment");
-        // fixme: what to return here???
         return new ModelAndView(params, "/payment");
     }
 
+
+
     public static ModelAndView renderPayment(Request req, Response res) {
         Map params = new HashMap<>();
+        OrderDao orderDataStore = new OrderDaoJDBC();
+        if (req.session().attribute("order_id")!=null) {
+            orderDataStore.setOrderStatus((Integer)req.session().attribute("order_id"), OrderStatus.PAID);
+        }
 
         return new ModelAndView(params, "/payment");
     }

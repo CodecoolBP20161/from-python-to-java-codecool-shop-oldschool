@@ -50,6 +50,7 @@ public class Main {
 
         get("/payment", CartController::renderPayment, new ThymeleafTemplateEngine());
 
+        get("/order/:order-id", OrderController::renderEmail, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());

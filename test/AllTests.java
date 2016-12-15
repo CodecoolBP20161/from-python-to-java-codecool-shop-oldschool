@@ -1,7 +1,6 @@
 import com.codecool.shop.dao.implementation.ProductCategoryDaoTest;
 import com.codecool.shop.dao.implementation.ProductDaoTest;
 import com.codecool.shop.dao.implementation.SupplierDaoTest;
-import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.OrderTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

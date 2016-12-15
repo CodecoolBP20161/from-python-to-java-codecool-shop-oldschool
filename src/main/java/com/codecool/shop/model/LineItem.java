@@ -5,24 +5,36 @@ public class LineItem {
 
     private int id;
     private Product product;
-    private Order order;
+    private int order;
     private int quantity;
     private float subtotalPrice;
 
     //constructor
+
+
+    public LineItem() {
+        this.id = IdFactory.getInstance().id(this.getClass());
+    }
+
     public LineItem(Product product) {
+        this();
         this.product = product;
         this.quantity = 1;
         this.subtotalPrice = product.getDefaultPrice();
     }
 
-    public LineItem(Product product, Order order) {
+    public LineItem(Product product, int order) {
         this(product);
         this.order = order;
     }
-    public LineItem(int id, Product product, Order order, int quantity, float subtotalPrice) {
-        this(product, order);
-        this.id = id;
+
+
+    public LineItem( Product product, int order, int quantity, float subtotalPrice) {
+        this();
+        this.product = product;
+        this.order = order;
+        this.quantity = quantity;
+        this.subtotalPrice = subtotalPrice;
     }
 
 
@@ -54,8 +66,16 @@ public class LineItem {
         return id;
     }
 
-    public Order getOrder() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOrder() {
         return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     //TODO: testIncreaseQuatntity
@@ -67,11 +87,14 @@ public class LineItem {
     @Override
     public String toString() {
         return "LineItem{" +
-                "product=" + product +
+                "id=" + id +
+                ", product=" + product +
+                ", order=" + order +
                 ", quantity=" + quantity +
                 ", subtotalPrice=" + subtotalPrice +
                 '}';
     }
+
     //overrided equals and hashcode method for comparison by id
     @Override
     public boolean equals(Object obj) {

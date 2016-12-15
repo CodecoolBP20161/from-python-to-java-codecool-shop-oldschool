@@ -5,9 +5,6 @@ import com.codecool.shop.dao.implementation.database.*;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
-import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.LineItem;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 public class DataStorageFactory {
