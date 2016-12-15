@@ -1,24 +1,21 @@
 import com.codecool.shop.controller.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
-    public static void main(String[] args) {
-        String to = "eszterkaloz@gmail.com";
-        String password = "Girhes2016";
-        String from = "girhes.cc.2016@gmail.com";
-        String subject = "hello";
-        String message = "hellobello";
-
+    public static void main(String[] args) throws IOException, URISyntaxException {
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
         port(8888);
 
-        get("/send-email/order/:id", OrderController::getEmailService(to, password, from, subject, message));
+        get("/send-email/order/:id", OrderController::redirectToEmailService, new ThymeleafTemplateEngine());
 
         // Route for adding products to cart
         post("/add-to-cart/:product-id", CartController::renderOrder, new ThymeleafTemplateEngine());
