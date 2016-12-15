@@ -77,8 +77,6 @@ public class LineItemDaoJDBC implements LineItemDao {
              ResultSet resultSet = statement.executeQuery(query)
         ){
             while (resultSet.next()){
-                //int customer_id = resultSet.getInt("id");
-                Order order = DataStorageFactory.orderDaoFactory().find(resultSet.getInt("order_id"));
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
                         product,

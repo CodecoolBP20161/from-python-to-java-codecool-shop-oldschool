@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import spark.ModelAndView;
@@ -43,16 +44,19 @@ public class OrderController {
     public static ModelAndView renderEmail(Request req, Response res) throws IOException, URISyntaxException {
         Order order;
         Customer customer;
+        System.out.println("ORDER");
         if (req.session().attribute("order_id")!=null){
-            order =  orderDataStore.find(Integer.parseInt(req.session().attribute("order_id")));
+            order =  orderDataStore.find((Integer)req.session().attribute("order_id"));
             customer = customerDataStore.find(order.getCustomer().getId());
-
-            params = createEmailBody(customer, order);
+            List<LineItem> orderLineItems = lineItemDataStore.getAll();//getBy(order)
+            System.out.println("orderLineItems = " + orderLineItems);
+            //// FIXME: 2016.12.15. problem in dao with get methods???
+            params = createEmailBody(customer, order, orderLineItems);
             getEmailService();
         }
        // order = orderDataStore.find(Integer.parseInt(req.params(":order-id")));
 
-        return new ModelAndView(null, "product/shopping_cart");
+        return new ModelAndView(params, "/payment");
     }
 
     public static String getEmailService() throws IOException, URISyntaxException {
@@ -64,18 +68,18 @@ public class OrderController {
         builder.addParameter(FROM_ADDRESS_PARAM_KEY, String.valueOf(params.get("from")));
         builder.addParameter(SUBJECT_PARAM_KEY, String.valueOf(params.get("subject")));
         builder.addParameter(MESSAGE_PARAM_KEY, String.valueOf(params.get("message")));
-
+        System.out.println(builder.build().toString());
         return execute(builder.build());
     }
 
-    public static Map createEmailBody(Customer customer, Order order){
+    public static Map createEmailBody(Customer customer, Order order, List<LineItem> orderLineItems){
         Map emailParams = new HashMap<>();
         StringBuilder message = new StringBuilder();
         message.append("Dear " + customer.getName() + "\r\n");
         message.append("Your order: " +"\r\n");
 
-        for (int i = 0; i < order.getLineItems().size(); i++) {
-            LineItem lineItem = order.getLineItems().get(i);
+        for (int i = 0; i < orderLineItems.size(); i++) {
+            LineItem lineItem = orderLineItems.get(i);
             message.append("Product name: " + lineItem.getProduct().getName()+
                     "  Quantity: " + lineItem.getQuantity() +
                     "  DefaultPrice: " + lineItem.getProduct().getDefaultPrice()+ "\r\n");

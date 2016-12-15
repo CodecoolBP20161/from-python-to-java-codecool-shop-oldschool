@@ -100,9 +100,7 @@ public class CartController extends ShopController {
         OrderDao orderDataStore = new OrderDaoJDBC();
         Order order;
         if (req.session().attribute("order_id")!=null) {
-
-            orderDataStore.setOrderStatus(Integer.parseInt(req.session().attribute("order_id")), OrderStatus.PAID);
-            System.out.println("Orderstatus changed to PAID");
+            orderDataStore.setOrderStatus((Integer)req.session().attribute("order_id"), OrderStatus.PAID);
         }
 
         return new ModelAndView(params, "/payment");
