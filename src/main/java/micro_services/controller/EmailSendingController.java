@@ -14,7 +14,6 @@ import java.util.List;
 
 public class EmailSendingController {
     private static final EmailService emailService = EmailService.getInstance();
-    static List<String> sentEmails = new ArrayList<>();
 
     private static final EmailDaoJDBC emailDatabase = new EmailDaoJDBC();
 
@@ -22,18 +21,14 @@ public class EmailSendingController {
 
 
     public static void sendEmail() {
-        //logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
+        logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
 
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
-            if (!sentEmails.contains(email.getToAddress())) {
 
                 emailService.sendEmail(email);
                 emailDatabase.changeStatus(EmailStatus.SENT, email);
 
-                sentEmails.add(email.getToAddress());
-            }
-            //System.out.println("email status" + email.getStatus());
-            //logger.info("After sending the email, its status is: ", email.getStatus());
+            logger.info("After sending the email, its status is: ", email.getStatus());
         }
     }
 
