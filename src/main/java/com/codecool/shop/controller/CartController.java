@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-
 import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
@@ -22,7 +21,6 @@ public class CartController extends ShopController {
     public static ModelAndView renderOrder(Request req, Response res) {
 
         // check if session contains order, instantiate if it doesn't
-        //TODO: testOrderInterface
         CartInterface cart = req.session().attribute("order");
         if (cart == null) {
             cart = new Order();
@@ -61,14 +59,36 @@ public class CartController extends ShopController {
 
     public static ModelAndView saveCustomerDetails(Request req, Response res) throws URISyntaxException {
         String PAYMENT_SERVICE_URI = "http://localhost:9000/make-payment";
+        String ORDER_SERVICE_URI = "http://localhost:8888/order/";
+
         Map params = new HashMap<>();
         OrderDao orderDao = new OrderDaoJDBC();
-        CustomerDao customerDao = new CustomerDaoJDBC();
-        LineItemDao lineItemDao = new LineItemDaoJDBC();
 
+        Customer customer = setCustomer(req);
+
+        Order order = setOrder(req, orderDao, customer);
+
+        URIBuilder serviceURIBuilder = new URIBuilder(PAYMENT_SERVICE_URI);
+        serviceURIBuilder.addParameter("total", String.valueOf(order.getTotalPrice()));
+        serviceURIBuilder.addParameter("return-link", ORDER_SERVICE_URI + order.getId());
+
+        res.redirect(serviceURIBuilder.build().toASCIIString());
+        return new ModelAndView(params, "/payment");
+    }
+
+    private static Order setOrder(Request req, OrderDao orderDao, Customer customer) {
+        LineItemDao lineItemDao = new LineItemDaoJDBC();
         Order order = req.session().attribute("order");
         order.getLineItems().stream().forEach(l -> l.setOrder(order.getId()));
+        order.setCustomer(customer);
+        order.setOrderStatus(OrderStatus.IN_CART);
+        orderDao.add(order);
+        order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
+        return order;
+    }
 
+    private static Customer setCustomer(Request req) {
+        CustomerDao customerDao = new CustomerDaoJDBC();
         Customer customer = new Customer(
                 req.queryParams("name"),
                 req.queryParams("email"),
@@ -84,20 +104,8 @@ public class CartController extends ShopController {
         );
 
         customerDao.add(customer);
-        order.setCustomer(customer);
-        order.setOrderStatus(OrderStatus.IN_CART);
-        orderDao.add(order);
-
-        order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
-
-        URIBuilder serviceURIBuilder = new URIBuilder(PAYMENT_SERVICE_URI);
-        serviceURIBuilder.addParameter("total", String.valueOf(order.getTotalPrice()));
-        serviceURIBuilder.addParameter("return-link", "http://localhost:8888/order/" + order.getId());
-
-        res.redirect(serviceURIBuilder.build().toASCIIString());
-        return new ModelAndView(params, "/payment");
+        return customer;
     }
-
 
     public static ModelAndView renderPayment(Request req, Response res) {
         Map params = new HashMap<>();
