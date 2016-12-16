@@ -8,12 +8,13 @@ import com.codecool.shop.dao.implementation.database.CustomerDaoJDBC;
 import com.codecool.shop.dao.implementation.database.LineItemDaoJDBC;
 import com.codecool.shop.dao.implementation.database.OrderDaoJDBC;
 import com.codecool.shop.model.*;
+import org.apache.http.client.utils.URIBuilder;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CartController extends ShopController {
@@ -56,7 +57,8 @@ public class CartController extends ShopController {
         return new ModelAndView(params, "/checkout");
     }
 
-    public static ModelAndView saveCustomerDetails(Request req, Response res) {
+    public static ModelAndView saveCustomerDetails(Request req, Response res) throws URISyntaxException {
+        String PAYMENT_SERVICE_URI = "http://localhost:9000/make-payment";
         Map params = new HashMap<>();
         OrderDao orderDao = new OrderDaoJDBC();
         CustomerDao customerDao = new CustomerDaoJDBC();
@@ -85,17 +87,22 @@ public class CartController extends ShopController {
         req.session().attribute("order_id", order.getId());
         System.out.println("orderID = " + order.getId());
         order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
-        res.redirect("/payment");
+
+        URIBuilder serviceURIBuilder = new URIBuilder(PAYMENT_SERVICE_URI);
+        serviceURIBuilder.addParameter("total", String.valueOf(order.getTotalPrice()));
+        serviceURIBuilder.addParameter("return-link", "http://localhost:8888/order/" + order.getId());
+
+        res.redirect(serviceURIBuilder.build().toASCIIString());
+//        res.redirect("/payment");
         return new ModelAndView(params, "/payment");
     }
-
 
 
     public static ModelAndView renderPayment(Request req, Response res) {
         Map params = new HashMap<>();
         OrderDao orderDataStore = new OrderDaoJDBC();
-        if (req.session().attribute("order_id")!=null) {
-            orderDataStore.setOrderStatus((Integer)req.session().attribute("order_id"), OrderStatus.PAID);
+        if (req.session().attribute("order_id") != null) {
+            orderDataStore.setOrderStatus((Integer) req.session().attribute("order_id"), OrderStatus.PAID);
         }
 
         return new ModelAndView(params, "/payment");
