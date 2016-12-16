@@ -41,8 +41,8 @@ public class LineItemDaoJDBC implements LineItemDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
                         product,
@@ -76,8 +76,8 @@ public class LineItemDaoJDBC implements LineItemDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            while (resultSet.next()){
+        ) {
+            while (resultSet.next()) {
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
                         product,
