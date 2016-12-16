@@ -26,22 +26,19 @@ import java.util.Map;
 
 public class OrderController {
 
-    protected static CustomerDao customerDataStore = new CustomerDaoJDBC();
-    protected static OrderDao orderDataStore = new OrderDaoJDBC();
-    protected static LineItemDao lineItemDataStore = new LineItemDaoJDBC();
-    static Map params = new HashMap<>();
-
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
     private static final String SERVICE_URL = "http://localhost:60000";
     private static final String CENTRAL_EMAIL = "girhes.cc.2016@gmail.com";
     private static final String PASSWORD = "Girhes2016";
-
     private static final String TO_ADDRESS_PARAM_KEY = "to";
     private static final String PASSWORD_PARAM_KEY = "password";
     private static final String FROM_ADDRESS_PARAM_KEY = "from";
     private static final String SUBJECT_PARAM_KEY = "subject";
     private static final String MESSAGE_PARAM_KEY = "message";
-
+    protected static CustomerDao customerDataStore = new CustomerDaoJDBC();
+    protected static OrderDao orderDataStore = new OrderDaoJDBC();
+    protected static LineItemDao lineItemDataStore = new LineItemDaoJDBC();
+    static Map params = new HashMap<>();
 
     public static ModelAndView renderEmail(Request req, Response res) throws IOException, URISyntaxException {
 
@@ -52,7 +49,6 @@ public class OrderController {
         getEmailService();
         req.session().removeAttribute("order");
         req.session().removeAttribute("order_id");
-
 
         return new ModelAndView(params, "/payment");
     }
@@ -71,26 +67,10 @@ public class OrderController {
         return execute(builder.build());
     }
 
-    public static Map createEmailBody(Customer customer, List<LineItem> orderLineItems){
-        Double totalPrice = 0d;
+    public static Map createEmailBody(Customer customer, List<LineItem> orderLineItems) {
         Map emailParams = new HashMap<>();
-        StringBuilder message = new StringBuilder();
 
-        message.append("Dear " + customer.getName() + "\r\n");
-        message.append("Your order: " +"\r\n");
-
-        for (int i = 0; i < orderLineItems.size(); i++) {
-            LineItem lineItem = orderLineItems.get(i);
-            message.append("Product name: " + lineItem.getProduct().getName()+
-                    "  Quantity: " + lineItem.getQuantity() +
-                    "  DefaultPrice: " + lineItem.getProduct().getDefaultPrice()+ "\r\n");
-            totalPrice += (double)lineItem.getSubtotalPrice();
-        }
-
-        message.append("Total price: " + totalPrice+ "\r\n");
-        message.append("Best Regards, \r\n");
-        message.append("Codecool");
-
+        StringBuilder message = setEmailMessage(customer, orderLineItems);
 
         emailParams.put("to", customer.getEmail());
         emailParams.put("from", CENTRAL_EMAIL);
@@ -100,6 +80,26 @@ public class OrderController {
         return emailParams;
     }
 
+    private static StringBuilder setEmailMessage(Customer customer, List<LineItem> orderLineItems) {
+        Double totalPrice = 0d;
+        StringBuilder message = new StringBuilder();
+
+        message.append("Dear " + customer.getName() + "\r\n");
+        message.append("Your order: " + "\r\n");
+
+        for (int i = 0; i < orderLineItems.size(); i++) {
+            LineItem lineItem = orderLineItems.get(i);
+            message.append("Product name: " + lineItem.getProduct().getName() +
+                    "  Quantity: " + lineItem.getQuantity() +
+                    "  DefaultPrice: " + lineItem.getProduct().getDefaultPrice() + "\r\n");
+            totalPrice += (double) lineItem.getSubtotalPrice();
+        }
+
+        message.append("Total price: " + totalPrice + "\r\n");
+        message.append("Best Regards, \r\n");
+        message.append("Codecool");
+        return message;
+    }
 
     private static String execute(URI url) throws IOException, URISyntaxException {
         logger.debug("The URL built to send email with details: " + url);

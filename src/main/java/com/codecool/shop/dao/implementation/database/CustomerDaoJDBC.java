@@ -41,9 +41,9 @@ public class CustomerDaoJDBC implements CustomerDao {
 //
 //        DatabaseConnector.executeQuery(query);
 //    }
-        String query =  "INSERT INTO customers (id, name, email, phone, billing_country, billing_city, billing_zipcode," +
-                        " billing_address, shipping_country, shipping_city, shipping_zipcode, shipping_address) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO customers (id, name, email, phone, billing_country, billing_city, billing_zipcode," +
+                " billing_address, shipping_country, shipping_city, shipping_zipcode, shipping_address) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, customer.getId());
@@ -73,8 +73,8 @@ public class CustomerDaoJDBC implements CustomerDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 Customer customer = new Customer(
                         resultSet.getString("name"),
                         resultSet.getString("email"),
@@ -109,7 +109,6 @@ public class CustomerDaoJDBC implements CustomerDao {
     }
 
 
-
     @Override
     public List<Customer> getAll() {
 
@@ -120,8 +119,8 @@ public class CustomerDaoJDBC implements CustomerDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            while (resultSet.next()){
+        ) {
+            while (resultSet.next()) {
                 int customer_id = resultSet.getInt("id");
                 Customer customer = new Customer(
                         resultSet.getString("name"),
