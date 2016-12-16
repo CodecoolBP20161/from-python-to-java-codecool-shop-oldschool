@@ -1,4 +1,4 @@
-package com.codecool.payment_service.controller;
+package micro_services.payment_service.controller;
 
 import org.apache.http.client.utils.URIBuilder;
 import spark.ModelAndView;

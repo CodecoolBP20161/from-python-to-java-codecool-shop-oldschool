@@ -1,4 +1,4 @@
-package micro_services.model;
+package micro_services.email_sender.model;
 
 
 public class Email {

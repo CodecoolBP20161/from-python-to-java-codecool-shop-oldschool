@@ -15,6 +15,7 @@ public class Main {
         staticFileLocation("/public");
         port(8888);
 
+       // get("/send-email/order/:id", OrderController::redirectToEmailService, new ThymeleafTemplateEngine());
         //get("/send-email/order/:id", OrderController::redirectToEmailService, new ThymeleafTemplateEngine());
 
         // Route for adding products to cart

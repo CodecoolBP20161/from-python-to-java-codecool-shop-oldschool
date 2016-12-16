@@ -1,10 +1,10 @@
-package micro_services.controller;
+package micro_services.email_sender.controller;
 
 
-import micro_services.dao.implementation.EmailDaoJDBC;
-import micro_services.model.Email;
-import micro_services.model.EmailStatus;
-import micro_services.service.EmailService;
+import micro_services.email_sender.dao.implementation.EmailDaoJDBC;
+import micro_services.email_sender.model.Email;
+import micro_services.email_sender.model.EmailStatus;
+import micro_services.email_sender.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +20,12 @@ public class EmailSendingController {
     public static void sendEmail() {
         logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
 
+        System.out.println("Email to send");
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
+
             emailService.sendEmail(email);
             emailDatabase.changeStatus(EmailStatus.SENT, email);
+
             logger.info("After sending the email, its status is: ", email.getStatus());
         }
     }

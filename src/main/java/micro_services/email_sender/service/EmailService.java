@@ -1,7 +1,7 @@
-package micro_services.service;
+package micro_services.email_sender.service;
 
 
-import micro_services.model.Email;
+import micro_services.email_sender.model.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
-package com.codecool.payment_service;
+package micro_services.payment_service;
 
-import com.codecool.payment_service.controller.PaymentController;
+import micro_services.payment_service.controller.PaymentController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.resourceresolver.ClassLoaderResourceResolver;

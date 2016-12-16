@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.CustomerDao;
-import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.database.CustomerDaoJDBC;
@@ -14,6 +13,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
+import spark.Request;
 import spark.Response;
 
 import java.io.IOException;
@@ -22,8 +22,6 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import spark.*;
 
 
 public class OrderController {
@@ -35,6 +33,9 @@ public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
     private static final String SERVICE_URL = "http://localhost:60000";
+    private static final String CENTRAL_EMAIL = "girhes.cc.2016@gmail.com";
+    private static final String PASSWORD = "Girhes2016";
+
     private static final String TO_ADDRESS_PARAM_KEY = "to";
     private static final String PASSWORD_PARAM_KEY = "password";
     private static final String FROM_ADDRESS_PARAM_KEY = "from";
@@ -43,19 +44,15 @@ public class OrderController {
 
 
     public static ModelAndView renderEmail(Request req, Response res) throws IOException, URISyntaxException {
-//        if (req.session().attribute("order_id")!=null){
-//            order =  orderDataStore.find((Integer)req.session().attribute("order_id"));
-//            customer = customerDataStore.find(order.getCustomer().getId());
-//            List<LineItem> orderLineItems = lineItemDataStore.getBy(order);
-//            System.out.println("orderLineItems = " + orderLineItems);
-//            params = createEmailBody(customer, order, orderLineItems);
-//            getEmailService();
-//        }
+
         Order order = orderDataStore.find(Integer.parseInt(req.params(":order-id")));
         Customer customer = customerDataStore.find(order.getCustomer().getId());
         List<LineItem> orderLineItems = lineItemDataStore.getBy(order);
-        params = createEmailBody(customer, order, orderLineItems);
+        params = createEmailBody(customer, orderLineItems);
         getEmailService();
+        req.session().removeAttribute("order");
+        req.session().removeAttribute("order_id");
+
 
         return new ModelAndView(params, "/payment");
     }
@@ -74,7 +71,7 @@ public class OrderController {
         return execute(builder.build());
     }
 
-    public static Map createEmailBody(Customer customer, Order order, List<LineItem> orderLineItems){
+    public static Map createEmailBody(Customer customer, List<LineItem> orderLineItems){
         Double totalPrice = 0d;
         Map emailParams = new HashMap<>();
         StringBuilder message = new StringBuilder();
@@ -96,8 +93,8 @@ public class OrderController {
 
 
         emailParams.put("to", customer.getEmail());
-        emailParams.put("from", "girhes.cc.2016@gmail.com");
-        emailParams.put("password", "Girhes2016");
+        emailParams.put("from", CENTRAL_EMAIL);
+        emailParams.put("password", PASSWORD);
         emailParams.put("subject", "New Order");
         emailParams.put("message", message.toString());
         return emailParams;

@@ -1,10 +1,9 @@
-package micro_services.dao.implementation;
+package micro_services.email_sender.dao.implementation;
 
 
-import micro_services.dao.EmailDao;
-import micro_services.dao.implementation.DatabaseConnector;
-import micro_services.model.Email;
-import micro_services.model.EmailStatus;
+import micro_services.email_sender.dao.EmailDao;
+import micro_services.email_sender.model.Email;
+import micro_services.email_sender.model.EmailStatus;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,7 +32,7 @@ public class EmailDaoJDBC implements EmailDao {
 
     @Override
     public List<Email> getBy(EmailStatus status) {
-        String query = "SELECT * FROM emails WHERE status ='" + status + "';";
+        String query = "SELECT * FROM emails WHERE email_status ='" + status + "';";
 
         List<Email> emailList = new ArrayList<>();
 
@@ -46,8 +45,8 @@ public class EmailDaoJDBC implements EmailDao {
                         resultSet.getString("to_address"),
                         resultSet.getString("password"),
                         resultSet.getString("from_address"),
-                        resultSet.getString("message"),
-                        resultSet.getString("subject"));
+                        resultSet.getString("subject"),
+                        resultSet.getString("message"));
 
                 email.setStatus(status);
                 emailList.add(email);
@@ -64,13 +63,10 @@ public class EmailDaoJDBC implements EmailDao {
     @Override
     public void changeStatus(EmailStatus status, Email email) {
         String query = "UPDATE emails " +
-                "SET status = '" + status + "' " +
+                "SET email_status = '" + status + "' " +
                 "WHERE to_address = '" + email.getToAddress() + "' AND " +
-                       "password = '" + email.getPassword() + "' AND " +
-                       "from_address = '" + email.getFromAddress() + "' AND " +
-                       "subject = '" + email.getSubject() + "' AND " +
-                       "message = '" + email.getMessage() + "';";
-
+                       "subject = '" + email.getSubject() + "';";
+        System.out.println("query = " + query);
         DatabaseConnector.executeQuery(query);
     }
 }

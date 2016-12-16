@@ -56,50 +56,5 @@ public class DataStorageFactory {
         return result;
     }
 
-    public static CustomerDao customerDaoFactory()  {
-        CustomerDao result;
-        switch (dataStorage) {
-//            case MEMORY:
-//                result = throws new NotImplementedException();
-//                break;
-            case DATABASE:
-                result = new CustomerDaoJDBC();
-                break;
-            default:
-                result = null;
-        }
-        return result;
-    }
-
-    public static OrderDao orderDaoFactory()  {
-        OrderDao result;
-        switch (dataStorage) {
-//            case MEMORY:
-//                result = throws new NotImplementedException();
-//                break;
-            case DATABASE:
-                result = new OrderDaoJDBC();
-                break;
-            default:
-                result = null;
-        }
-        return result;
-    }
-
-    public static LineItemDao lineItemDaoFactory()  {
-        LineItemDao result;
-        switch (dataStorage) {
-//            case MEMORY:
-//                result = throws new NotImplementedException();
-//                break;
-            case DATABASE:
-                result = new LineItemDaoJDBC();
-                break;
-            default:
-                result = null;
-        }
-        return result;
-    }
-
 
 }
