@@ -1,9 +1,7 @@
 package com.codecool.shop.dao;
 
 
-import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
-import com.codecool.shop.dao.implementation.database.ProductDaoJDBC;
-import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
+import com.codecool.shop.dao.implementation.database.*;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
@@ -57,5 +55,51 @@ public class DataStorageFactory {
         }
         return result;
     }
+
+    public static CustomerDao customerDaoFactory()  {
+        CustomerDao result;
+        switch (dataStorage) {
+//            case MEMORY:
+//                result = throws new NotImplementedException();
+//                break;
+            case DATABASE:
+                result = new CustomerDaoJDBC();
+                break;
+            default:
+                result = null;
+        }
+        return result;
+    }
+
+    public static OrderDao orderDaoFactory()  {
+        OrderDao result;
+        switch (dataStorage) {
+//            case MEMORY:
+//                result = throws new NotImplementedException();
+//                break;
+            case DATABASE:
+                result = new OrderDaoJDBC();
+                break;
+            default:
+                result = null;
+        }
+        return result;
+    }
+
+    public static LineItemDao lineItemDaoFactory()  {
+        LineItemDao result;
+        switch (dataStorage) {
+//            case MEMORY:
+//                result = throws new NotImplementedException();
+//                break;
+            case DATABASE:
+                result = new LineItemDaoJDBC();
+                break;
+            default:
+                result = null;
+        }
+        return result;
+    }
+
 
 }
