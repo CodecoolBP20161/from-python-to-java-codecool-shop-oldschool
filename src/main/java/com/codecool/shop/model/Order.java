@@ -3,26 +3,28 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order implements OrderInterface {
+public class Order implements CartInterface {
 
     private List<LineItem> lineItems = new ArrayList();
 
     private Customer customer;
 
-    public Customer getCustomer() {
-        return customer;
-    }
+    private OrderStatus orderStatus;
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public List<LineItem> getLineItems() {
-        return lineItems;
-    }
+    private int id;
 
     public Order() {
+        this.id = IdFactory.getInstance().id(this.getClass());
     }
+
+    public Order( Customer customer, OrderStatus orderStatus){
+        this();
+        this.customer = customer;
+        this.orderStatus = orderStatus;
+
+    }
+
+
 
     //add lineItem to order lineItems attribute if it is new increase quantity if it is exist
     public void addProduct(Product product) {
@@ -64,10 +66,41 @@ public class Order implements OrderInterface {
         return sum;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+
+    public List<LineItem> getLineItems() {
+        return lineItems;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "lineItems=" + lineItems +
+                ", customer=" + customer +
+                ", orderStatus=" + orderStatus +
+                ", id=" + id +
                 '}';
     }
 }
