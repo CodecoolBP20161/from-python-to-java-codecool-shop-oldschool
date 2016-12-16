@@ -34,20 +34,15 @@ public class EmailSenderService {
         application.controller = new EmailSenderController(EmailService.getInstance());
 
         TimerTask task = new TimerTask() {
-            int seconds = 0;
 
             @Override
             public void run() {
-                if (seconds < MAX_SECONDS) {
+                    System.out.println("every secound" );
                     EmailSendingController.sendEmail();
-                    seconds++;
-                } else {
-                    cancel();
-                }
             }
         };
 
-        timer.schedule(task, 100, 100);
+        timer.schedule(task, 1000, 1000);
 
         // --- MAPPINGS ---
         get("/status", application.controller::status);

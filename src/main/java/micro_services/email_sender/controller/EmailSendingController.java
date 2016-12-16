@@ -20,10 +20,11 @@ public class EmailSendingController {
     public static void sendEmail() {
         logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
 
+        System.out.println("Email to send");
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
 
-                emailService.sendEmail(email);
-                emailDatabase.changeStatus(EmailStatus.SENT, email);
+            emailService.sendEmail(email);
+            emailDatabase.changeStatus(EmailStatus.SENT, email);
 
             logger.info("After sending the email, its status is: ", email.getStatus());
         }

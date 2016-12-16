@@ -43,7 +43,6 @@ public class LineItemDaoJDBC implements LineItemDao {
              ResultSet resultSet = statement.executeQuery(query)
         ){
             if (resultSet.next()){
-                Order order = orderDao.find(resultSet.getInt("order_id"));
                 Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
                 LineItem lineItem = new LineItem(
                         product,

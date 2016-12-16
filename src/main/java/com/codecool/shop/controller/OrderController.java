@@ -50,6 +50,9 @@ public class OrderController {
         List<LineItem> orderLineItems = lineItemDataStore.getBy(order);
         params = createEmailBody(customer, orderLineItems);
         getEmailService();
+        req.session().removeAttribute("order");
+        req.session().removeAttribute("order_id");
+
 
         return new ModelAndView(params, "/payment");
     }
