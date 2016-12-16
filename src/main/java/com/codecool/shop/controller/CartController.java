@@ -46,6 +46,8 @@ public class CartController extends ShopController {
             Order order = req.session().attribute("order");
             params.put("total", order.getTotalPrice());
             params.put("lineitems", order.getLineItems());
+            req.session().attribute("order_id", order.getId());
+            System.out.println("orderID = " + order.getId());
         }
 
         return new ModelAndView(params, "product/shopping_cart");
@@ -80,12 +82,12 @@ public class CartController extends ShopController {
                 req.queryParams("shippingZip"),
                 req.queryParams("shippingAddr")
         );
+
         customerDao.add(customer);
         order.setCustomer(customer);
         order.setOrderStatus(OrderStatus.IN_CART);
         orderDao.add(order);
-        req.session().attribute("order_id", order.getId());
-        System.out.println("orderID = " + order.getId());
+
         order.getLineItems().stream().forEach(l -> lineItemDao.add(l));
 
         URIBuilder serviceURIBuilder = new URIBuilder(PAYMENT_SERVICE_URI);
@@ -93,7 +95,6 @@ public class CartController extends ShopController {
         serviceURIBuilder.addParameter("return-link", "http://localhost:8888/order/" + order.getId());
 
         res.redirect(serviceURIBuilder.build().toASCIIString());
-//        res.redirect("/payment");
         return new ModelAndView(params, "/payment");
     }
 

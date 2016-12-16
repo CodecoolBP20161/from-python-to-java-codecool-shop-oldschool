@@ -2,7 +2,6 @@ package micro_services.dao.implementation;
 
 
 import micro_services.dao.EmailDao;
-import micro_services.dao.implementation.DatabaseConnector;
 import micro_services.model.Email;
 import micro_services.model.EmailStatus;
 
@@ -46,8 +45,8 @@ public class EmailDaoJDBC implements EmailDao {
                         resultSet.getString("to_address"),
                         resultSet.getString("password"),
                         resultSet.getString("from_address"),
-                        resultSet.getString("message"),
-                        resultSet.getString("subject"));
+                        resultSet.getString("subject"),
+                        resultSet.getString("message"));
 
                 email.setStatus(status);
                 emailList.add(email);
@@ -66,10 +65,7 @@ public class EmailDaoJDBC implements EmailDao {
         String query = "UPDATE emails " +
                 "SET email_status = '" + status + "' " +
                 "WHERE to_address = '" + email.getToAddress() + "' AND " +
-                       "password = '" + email.getPassword() + "' AND " +
-                       "from_address = '" + email.getFromAddress() + "' AND " +
-                       "subject = '" + email.getSubject() + "' AND " +
-                       "message = '" + email.getMessage() + "';";
+                       "subject = '" + email.getSubject() + "';";
         System.out.println("query = " + query);
         DatabaseConnector.executeQuery(query);
     }

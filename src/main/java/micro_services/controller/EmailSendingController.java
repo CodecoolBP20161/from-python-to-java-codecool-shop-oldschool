@@ -25,10 +25,12 @@ public class EmailSendingController {
         //logger.debug("Mails that should be sent out: ", emailDatabase.getBy(EmailStatus.IN_PROGRESS));
 
         for (Email email : emailDatabase.getBy(EmailStatus.IN_PROGRESS)) {
-            if (!sentEmails.contains(email.getToAddress().toString())) {
+            if (!sentEmails.contains(email.getToAddress())) {
+
                 emailService.sendEmail(email);
-                sentEmails.add(email.getToAddress().toString());
                 emailDatabase.changeStatus(EmailStatus.SENT, email);
+
+                sentEmails.add(email.getToAddress());
             }
             //System.out.println("email status" + email.getStatus());
             //logger.info("After sending the email, its status is: ", email.getStatus());
