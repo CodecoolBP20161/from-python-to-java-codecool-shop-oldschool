@@ -1,9 +1,9 @@
-package micro_services.dao.implementation;
+package micro_services.email_sender.dao.implementation;
 
 
-import micro_services.dao.EmailDao;
-import micro_services.model.Email;
-import micro_services.model.EmailStatus;
+import micro_services.email_sender.dao.EmailDao;
+import micro_services.email_sender.model.Email;
+import micro_services.email_sender.model.EmailStatus;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

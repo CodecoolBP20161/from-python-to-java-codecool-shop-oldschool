@@ -1,15 +1,12 @@
-package micro_services.controller;
+package micro_services.email_sender.controller;
 
 
-import micro_services.dao.implementation.EmailDaoJDBC;
-import micro_services.model.Email;
-import micro_services.model.EmailStatus;
-import micro_services.service.EmailService;
+import micro_services.email_sender.dao.implementation.EmailDaoJDBC;
+import micro_services.email_sender.model.Email;
+import micro_services.email_sender.model.EmailStatus;
+import micro_services.email_sender.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class EmailSendingController {

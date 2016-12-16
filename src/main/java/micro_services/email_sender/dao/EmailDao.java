@@ -1,8 +1,8 @@
-package micro_services.dao;
+package micro_services.email_sender.dao;
 
 
-import micro_services.model.Email;
-import micro_services.model.EmailStatus;
+import micro_services.email_sender.model.Email;
+import micro_services.email_sender.model.EmailStatus;
 
 import java.util.List;
 

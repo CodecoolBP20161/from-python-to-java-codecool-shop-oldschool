@@ -1,4 +1,4 @@
-package micro_services.dao.implementation;
+package micro_services.email_sender.dao.implementation;
 
 
 import java.sql.Connection;

@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation.database;
 
 
+import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.*;
@@ -38,13 +39,14 @@ public class OrderDaoJDBC implements OrderDao {
     public Order find(int id) {
 
         String query = "SELECT * FROM orders WHERE id ='" + id + "';";
+        CustomerDao customerDao = new CustomerDaoJDBC();
 
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
         ){
             if (resultSet.next()){
-                Customer customer = DataStorageFactory.customerDaoFactory().find(resultSet.getInt("customer"));
+                Customer customer = customerDao.find(resultSet.getInt("customer"));
                 OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
                         customer,
@@ -72,13 +74,14 @@ public class OrderDaoJDBC implements OrderDao {
 
     private List<Order> getOrders(String query) {
         List<Order> orderList = new ArrayList<>();
+        CustomerDao customerDao = new CustomerDaoJDBC();
 
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
         ){
             while (resultSet.next()){
-                Customer customer = DataStorageFactory.customerDaoFactory().find(resultSet.getInt("customer"));
+                Customer customer = customerDao.find(resultSet.getInt("customer"));
                 OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
                         customer,
