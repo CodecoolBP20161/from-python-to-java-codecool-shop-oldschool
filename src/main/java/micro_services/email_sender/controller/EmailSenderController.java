@@ -10,13 +10,11 @@ import spark.*;
 
 public class EmailSenderController {
 
+    private static final Logger logger = LoggerFactory.getLogger(EmailSenderController.class);
     private final EmailService emailService;
-
     private final EmailDaoJDBC emailDatabase = new EmailDaoJDBC();
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailSenderController.class);
-
-    public EmailSenderController(EmailService emailService){
+    public EmailSenderController(EmailService emailService) {
         this.emailService = emailService;
     }
 
@@ -25,12 +23,12 @@ public class EmailSenderController {
 
         emailDatabase.add(
                 new Email(
-                    request.queryParams("to"),
-                    request.queryParams("password"),
-                    request.queryParams("from"),
-                    request.queryParams("subject"),
-                    request.queryParams("message")
-            ));
+                        request.queryParams("to"),
+                        request.queryParams("password"),
+                        request.queryParams("from"),
+                        request.queryParams("subject"),
+                        request.queryParams("message")
+                ));
 
         return "Email saved to the database";
     }

@@ -27,10 +27,10 @@ public class OrderDaoJDBC implements OrderDao {
     }
 
 
-    public void setOrderStatus(int id, OrderStatus orderStatus){
+    public void setOrderStatus(int id, OrderStatus orderStatus) {
         String query = "UPDATE orders " +
-                        "SET order_status ='"+orderStatus+"'" +
-                        "WHERE id ='"+id+"';";
+                "SET order_status ='" + orderStatus + "'" +
+                "WHERE id ='" + id + "';";
         DatabaseConnector.executeQuery(query);
     }
 
@@ -44,10 +44,10 @@ public class OrderDaoJDBC implements OrderDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 Customer customer = customerDao.find(resultSet.getInt("customer"));
-                OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
+                OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
                         customer,
                         orderStatus);
@@ -79,10 +79,10 @@ public class OrderDaoJDBC implements OrderDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            while (resultSet.next()){
+        ) {
+            while (resultSet.next()) {
                 Customer customer = customerDao.find(resultSet.getInt("customer"));
-                OrderStatus orderStatus =  OrderStatus.valueOf(resultSet.getString("order_status"));
+                OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("order_status"));
                 Order order = new Order(
                         customer,
                         orderStatus);
