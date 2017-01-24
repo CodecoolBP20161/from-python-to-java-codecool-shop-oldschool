@@ -1,17 +1,16 @@
-package com.codecool.shop.dao.implementation.database;
+package micro_services.email_sender.dao.implementation;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-abstract class DatabaseConnector {
-
-// Initialise database connection based on given configuration file
-    private static DatabaseConfig databaseConfig = new DatabaseConfig();
-    private static final String DATABASE = databaseConfig.getDatabase();
-    private static final String DB_USER = databaseConfig.getDbUser();
-    private static final String DB_PASSWORD = databaseConfig.getDbPassword();
+public class DatabaseConnector {
+    // Initialise database connection with default settings
+    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop_emailservice";
+    private static final String DB_USER = "postgres";
+    private static final String DB_PASSWORD = "postgres";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(

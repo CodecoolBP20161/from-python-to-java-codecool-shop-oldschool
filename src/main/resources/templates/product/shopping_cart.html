@@ -13,9 +13,10 @@
             </div>
             <div class="col-xs-6">
                 <a href="/">
-                <button type="button" class="btn btn-primary btn-sm btn-block">
-                    <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-                </button></a>
+                    <button type="button" class="btn btn-primary btn-sm btn-block">
+                        <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                    </button>
+                </a>
             </div>
         </div>
     </div>
@@ -24,21 +25,21 @@
     <div class="table-responsive">
         <table class="table table-sm table-bordered table-hover">
             <thead class="bg bg-primary">
-                <tr>
-                    <th>Name</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Sub Total</th>
-                </tr>
+            <tr>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+            </tr>
             </thead>
 
             <tbody class="order-tbody">
-                <tr th:each="item, iterStat: ${lineitems}">
-                    <td th:text="${item.getProduct().getName()}"></td>
-                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
-                    <td th:text="${item.getQuantity()}"></td>
-                    <td th:text="${item.getSubtotalPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
-                </tr>
+            <tr th:each="item, iterStat: ${lineitems}">
+                <td th:text="${item.getProduct().getName()}"></td>
+                <td th:text="${item.getProduct().getDefaultPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
+                <td th:text="${item.getQuantity()}"></td>
+                <td th:text="${item.getSubtotalPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
+            </tr>
             </tbody>
         </table>
 
@@ -48,10 +49,11 @@
                     <h4 class="text-right">Total: <strong th:text="${total} + ' $'"></strong></h4>
                 </div>
                 <div class="col-xs-3">
-                    <a href="#">
-                    <button type="button" class="btn btn-success btn-block">
-                        Checkout
-                    </button></a>
+                    <a href="/checkout">
+                        <button type="button" class="btn btn-success btn-block">
+                            Checkout
+                        </button>
+                    </a>
                 </div>
             </div>
         </div> <!-- table-footer -->

@@ -1,7 +1,7 @@
 package com.codecool.shop.model;
 
 //TODO: testOrderInteface
-public interface OrderInterface {
+public interface CartInterface {
 
     void addProduct(Product product);
 

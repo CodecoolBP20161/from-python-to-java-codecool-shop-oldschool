@@ -1,9 +1,7 @@
 package com.codecool.shop.dao;
 
 
-import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
-import com.codecool.shop.dao.implementation.database.ProductDaoJDBC;
-import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
+import com.codecool.shop.dao.implementation.database.*;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
@@ -57,5 +55,6 @@ public class DataStorageFactory {
         }
         return result;
     }
+
 
 }

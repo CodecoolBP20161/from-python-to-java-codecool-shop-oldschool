@@ -4,9 +4,6 @@ import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
-import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Order;
 import spark.ModelAndView;
 import spark.Request;
@@ -18,14 +15,11 @@ import java.util.Map;
 
 public abstract class ShopController {
 
-    //
     protected static ProductDao productDataStore = DataStorageFactory.productDaoFactory();
     protected static ProductCategoryDao productCategoryDataStore = DataStorageFactory.productCategoryDaoFactory();
     protected static SupplierDao supplierDataStore = DataStorageFactory.supplierDaoFactory();
 
-
     public static ModelAndView render(Request req, Response res) {
-
 
         Map params = new HashMap<>();
         //products and product filters

@@ -4,7 +4,6 @@ package com.codecool.shop.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -27,11 +26,11 @@ public class OrderTest {
     public void testAddProduct() throws Exception{
         order.addProduct(product);
 
-        assertEquals(1,order.getLineItems().size());
+        assertEquals(1, order.getLineItems().size());
 
         order.addProduct(product);
 
-        assertEquals(1,order.getLineItems().size());
+        assertEquals(1, order.getLineItems().size());
         assertEquals(2, order.getLineItems().get(0).getQuantity());
     }
 
@@ -43,7 +42,7 @@ public class OrderTest {
         when(product.getId()).thenReturn(1);
         LineItem result = new LineItem(product);
         order.find(result);
-        assertEquals(result.getProduct().getId(),order.getLineItems().get(0).getProduct().getId() );
+        assertEquals(result.getProduct().getId(), order.getLineItems().get(0).getProduct().getId() );
 
     }
 
