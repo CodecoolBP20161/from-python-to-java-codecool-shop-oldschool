@@ -76,8 +76,10 @@
                             <form th:action="'/add-to-cart/' + ${prod.getId()}" method="post">
                                 <button class="btn btn-success" type="submit">Add to cart</button>
                             </form>
-                            <button class="btn btn-success" id="${prod.getId()}" name="video"><span
-                                    class="glyphicon glyphicon-facetime-video"></span></button>
+                            <a href="#videoModal" class="btn btn-lg btn-primary" data-toggle="modal"><span
+                                    class="glyphicon glyphicon-facetime-video"></span></a>
+                            <!--<button class="btn btn-success" id="${prod.getId()}" name="video"><span-->
+                            <!--class="glyphicon glyphicon-facetime-video"></span></button>-->
                         </div>
 
                     </div>
