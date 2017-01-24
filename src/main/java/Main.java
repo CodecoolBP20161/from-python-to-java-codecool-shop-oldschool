@@ -53,6 +53,8 @@ public class Main {
 
         get("/order/:order-id", OrderController::renderEmail, new ThymeleafTemplateEngine());
 
+        post("/review-order", CartController::renderReviewPage, new ThymeleafTemplateEngine());
+
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
