@@ -15,7 +15,7 @@ public class Main {
         staticFileLocation("/public");
         port(8888);
 
-       // get("/send-email/order/:id", OrderController::redirectToEmailService, new ThymeleafTemplateEngine());
+        // get("/send-email/order/:id", OrderController::redirectToEmailService, new ThymeleafTemplateEngine());
         //get("/send-email/order/:id", OrderController::redirectToEmailService, new ThymeleafTemplateEngine());
 
         // Route for adding products to cart
@@ -52,6 +52,8 @@ public class Main {
         get("/payment", CartController::renderPayment, new ThymeleafTemplateEngine());
 
         get("/order/:order-id", OrderController::renderEmail, new ThymeleafTemplateEngine());
+
+        get("/video/:product-id", VideoController::getModal, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
