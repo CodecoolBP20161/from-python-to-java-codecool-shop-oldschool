@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Header -->
+<div th:replace="header :: copy"></div>
+
+<!-- Content -->
+<div class="container">
+    <section class="panel panel-default">
+        <header class="panel-heading">
+            <h5 class="panel-title"><span class="glyphicon glyphicon glyphicon-list-alt"></span>Shipping details</h5>
+        </header>
+        <div class="panel-body" >
+            <p th:text="${origin}">Origin</p>
+            <p th:text="${destination}">Destination</p>
+            <strong>Please choose one from the following shipping options: </strong>
+        </div>
+
+    <form action="/review-order" method="post">
+        <table id="shippingOptions"
+               class="table table-bordered table-hover"
+               data-toggle="table"
+               data-height="300"
+               data-url=""
+               data-pagination="true"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-toolbar="#toolbar">
+            <thead class="bg bg-default">
+            <tr>
+                <th data-field="shipping" data-checkbox="true"></th>
+                <th data-field="options">Option</th>
+                <th data-field="cost">Cost</th>
+                <th data-field="details">Details</th>
+                <th data-field="time">Time (h)</th>
+                <th data-field="distance">Distance (km)</th>
+            </tr>
+            </thead>
+
+            <tbody class="shipping-tbody">
+            <tr th:each="option, iterStat: ${shippingOptions}">
+                <td><input type="radio" name="shipping-option" th:value="${option.getCost()}" id="shipping-option" /></td>
+                <td th:text="${option.getName()}"></td>
+                <td th:text="${option.getCost()}+ ' '+${option.getCurrency()}"></td>
+                <td th:text="${option.getDetails()}"></td>
+                <td th:text="${option.getTimeInHours()}"></td>
+                <td th:text="${option.getDistanceInKm()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="pull-right">
+            <button class="btn btn-success" type="submit">Complete payment</button>
+        </div>
+    </form>
+    </section>
+
+</div>
+
+<div th:replace="footer :: copy"></div>
+</html>
