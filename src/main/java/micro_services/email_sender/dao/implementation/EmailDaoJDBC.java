@@ -17,15 +17,15 @@ public class EmailDaoJDBC implements EmailDao {
     @Override
     public void add(Email email) {
         String query = "INSERT INTO emails (to_address, " +
-                                            "password, " +
-                                            "from_address, " +
-                                            "subject, " +
-                                            "message) " +
-                        "VALUES ('" + email.getToAddress() + "', '" +
-                                     email.getPassword() + "', '" +
-                                     email.getFromAddress() + "', '" +
-                                     email.getSubject() + "', '" +
-                                     email.getMessage() + "');";
+                "password, " +
+                "from_address, " +
+                "subject, " +
+                "message) " +
+                "VALUES ('" + email.getToAddress() + "', '" +
+                email.getPassword() + "', '" +
+                email.getFromAddress() + "', '" +
+                email.getSubject() + "', '" +
+                email.getMessage() + "');";
 
         DatabaseConnector.executeQuery(query);
     }
@@ -39,8 +39,8 @@ public class EmailDaoJDBC implements EmailDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            while (resultSet.next()){
+        ) {
+            while (resultSet.next()) {
                 Email email = new Email(
                         resultSet.getString("to_address"),
                         resultSet.getString("password"),
@@ -58,14 +58,14 @@ public class EmailDaoJDBC implements EmailDao {
         }
 
         return emailList;
-        }
+    }
 
     @Override
     public void changeStatus(EmailStatus status, Email email) {
         String query = "UPDATE emails " +
                 "SET email_status = '" + status + "' " +
                 "WHERE to_address = '" + email.getToAddress() + "' AND " +
-                       "subject = '" + email.getSubject() + "';";
+                "subject = '" + email.getSubject() + "';";
         System.out.println("query = " + query);
         DatabaseConnector.executeQuery(query);
     }

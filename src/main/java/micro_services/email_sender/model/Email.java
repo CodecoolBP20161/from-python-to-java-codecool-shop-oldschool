@@ -27,41 +27,26 @@ public class Email {
         return toAddress;
     }
 
-    public void setToAddress(String toAddress) {
-        this.toAddress = toAddress;
-    }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getFromAddress() {
         return fromAddress;
     }
 
-    public void setFromAddress(String fromAddress) {
-        this.fromAddress = fromAddress;
-    }
 
     public String getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public EmailStatus getStatus() {
         return status;
