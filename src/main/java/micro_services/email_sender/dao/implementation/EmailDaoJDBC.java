@@ -5,12 +5,11 @@ import micro_services.email_sender.dao.EmailDao;
 import micro_services.email_sender.model.Email;
 import micro_services.email_sender.model.EmailStatus;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static micro_services.email_sender.dao.implementation.DatabaseConnector.getConnection;
 
 public class EmailDaoJDBC implements EmailDao {
 
@@ -21,25 +20,33 @@ public class EmailDaoJDBC implements EmailDao {
                 "from_address, " +
                 "subject, " +
                 "message) " +
-                "VALUES ('" + email.getToAddress() + "', '" +
-                email.getPassword() + "', '" +
-                email.getFromAddress() + "', '" +
-                email.getSubject() + "', '" +
-                email.getMessage() + "');";
+                "VALUES (?, ?, ?, ?, ?);";
 
-        DatabaseConnector.executeQuery(query);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, email.getToAddress());
+            preparedStatement.setString(2, email.getPassword());
+            preparedStatement.setString(3, email.getFromAddress());
+            preparedStatement.setString(4, email.getSubject());
+            preparedStatement.setString(5, email.getMessage());
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<Email> getBy(EmailStatus status) {
-        String query = "SELECT * FROM emails WHERE email_status ='" + status + "';";
+        String query = "SELECT * FROM emails WHERE email_status =?;";
 
         List<Email> emailList = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setString(1, status.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Email email = new Email(
                         resultSet.getString("to_address"),
@@ -63,10 +70,19 @@ public class EmailDaoJDBC implements EmailDao {
     @Override
     public void changeStatus(EmailStatus status, Email email) {
         String query = "UPDATE emails " +
-                "SET email_status = '" + status + "' " +
-                "WHERE to_address = '" + email.getToAddress() + "' AND " +
-                "subject = '" + email.getSubject() + "';";
-        System.out.println("query = " + query);
-        DatabaseConnector.executeQuery(query);
+                "SET email_status = ?" +
+                "WHERE to_address = ? AND " +
+                "subject = ?;";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, status.toString());
+            preparedStatement.setString(2, email.getToAddress());
+            preparedStatement.setString(3, email.getSubject());
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
