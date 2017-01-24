@@ -3,12 +3,11 @@ package com.codecool.shop.dao.implementation.database;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.codecool.shop.dao.implementation.database.DatabaseConnector.getConnection;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
@@ -18,12 +17,19 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
                 "name, " +
                 "department, " +
                 "description) " +
-                "VALUES (" + category.getId() + ", '" +
-                category.getName() + "', '" +
-                category.getDepartment() + "', '" +
-                category.getDescription() + "');";
+                "VALUES (?, ?, ?, ?);";
 
-        DatabaseConnector.executeQuery(query);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, category.getId());
+            preparedStatement.setString(2, category.getName());
+            preparedStatement.setString(3,  category.getDepartment());
+            preparedStatement.setString(4,  category.getDescription());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

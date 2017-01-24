@@ -7,12 +7,11 @@ import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderStatus;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.codecool.shop.dao.implementation.database.DatabaseConnector.getConnection;
 
 public class OrderDaoJDBC implements OrderDao {
     @Override
@@ -20,10 +19,19 @@ public class OrderDaoJDBC implements OrderDao {
         String query = "INSERT INTO orders (id, " +
                 "order_status, " +
                 "customer) " +
-                "VALUES (" + order.getId() + ", '" +
-                order.getOrderStatus() + "', '" +
-                order.getCustomer().getId() + "');";
-        DatabaseConnector.executeQuery(query);
+                "VALUES (?, ?, ?);";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, order.getId());
+            preparedStatement.setObject(2, order.getOrderStatus());
+            preparedStatement.setInt(3,  order.getCustomer().getId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -77,10 +85,10 @@ public class OrderDaoJDBC implements OrderDao {
         List<Order> orderList = new ArrayList<>();
         CustomerDao customerDao = new CustomerDaoJDBC();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Customer customer = customerDao.find(resultSet.getInt("customer"));
                 OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("order_status"));

@@ -7,12 +7,11 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.codecool.shop.dao.implementation.database.DatabaseConnector.getConnection;
 
 
 public class ProductDaoJDBC implements ProductDao {
@@ -26,14 +25,21 @@ public class ProductDaoJDBC implements ProductDao {
                 "default_currency, " +
                 "product_category, " +
                 "supplier) " +
-                "VALUES (" + product.getId() + ", '" +
-                product.getName() + "', '" +
-                product.getDescription() + "', " +
-                product.getDefaultPrice() + ", '" +
-                product.getDefaultCurrency() + "', " +
-                product.getProductCategory().getId() + ", " +
-                product.getSupplier().getId() + ");";
-        DatabaseConnector.executeQuery(query);
+                "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, product.getId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(3,  product.getDescription());
+            preparedStatement.setFloat(4,  product.getDefaultPrice());
+            preparedStatement.setObject(5,  product.getDefaultCurrency());
+            preparedStatement.setInt(6,  product.getProductCategory().getId());
+            preparedStatement.setInt(7,  product.getSupplier().getId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -40,12 +40,13 @@ public class CustomerDaoJDBC implements CustomerDao {
     @Override
     public Customer find(int id) {
 
-        String query = "SELECT * FROM customers WHERE id ='" + id + "';";
+        String query = "SELECT * FROM customers WHERE id = ?;";
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Customer customer = new Customer(
                         resultSet.getString("name"),
@@ -75,8 +76,17 @@ public class CustomerDaoJDBC implements CustomerDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM customers WHERE id = '" + id + "';";
-        DatabaseConnector.executeQuery(query);
+        String query = "DELETE FROM customers WHERE id = ?;";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -88,10 +98,10 @@ public class CustomerDaoJDBC implements CustomerDao {
 
         List<Customer> customers = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int customer_id = resultSet.getInt("id");
                 Customer customer = new Customer(

@@ -4,12 +4,11 @@ package com.codecool.shop.dao.implementation.database;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.codecool.shop.dao.implementation.database.DatabaseConnector.getConnection;
 
 public class SupplierDaoJDBC implements SupplierDao {
 
@@ -18,11 +17,18 @@ public class SupplierDaoJDBC implements SupplierDao {
         String query = "INSERT INTO suppliers (id, " +
                 "name, " +
                 "description)" +
-                "VALUES (" + supplier.getId() + ", '" +
-                supplier.getName() + "', '" +
-                supplier.getDescription() + "');";
+                "VALUES (?, ?, ?);";
 
-        DatabaseConnector.executeQuery(query);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, supplier.getId());
+            preparedStatement.setString(2, supplier.getName());
+            preparedStatement.setString(3,  supplier.getDescription());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
