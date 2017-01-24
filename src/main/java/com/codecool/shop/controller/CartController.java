@@ -27,11 +27,8 @@ public class CartController extends ShopController {
             req.session().attribute("order", cart);
         }
 
-        // find product by product_id from request
         Product orderedProduct = productDataStore.find(Integer.parseInt(req.params(":product-id")));
-        // add lineitem to the order
         cart.addProduct(orderedProduct);
-        // redirect to the last path
         res.redirect(req.session().attribute("path"));
         return render(req, res);
     }
@@ -102,7 +99,6 @@ public class CartController extends ShopController {
                 req.queryParams("shippingZip"),
                 req.queryParams("shippingAddr")
         );
-
         customerDao.add(customer);
         return customer;
     }
@@ -111,7 +107,7 @@ public class CartController extends ShopController {
         Map params = new HashMap<>();
         OrderDao orderDataStore = new OrderDaoJDBC();
         if (req.session().attribute("order_id") != null) {
-            orderDataStore.setOrderStatus((Integer) req.session().attribute("order_id"), OrderStatus.PAID);
+            orderDataStore.setOrderStatus(req.session().attribute("order_id"), OrderStatus.PAID);
         }
 
         return new ModelAndView(params, "/payment");

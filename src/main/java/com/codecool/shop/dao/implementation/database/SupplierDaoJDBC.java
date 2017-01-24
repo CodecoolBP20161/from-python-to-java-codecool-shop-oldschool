@@ -10,18 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static java.lang.Math.abs;
 
 public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
         String query = "INSERT INTO suppliers (id, " +
-                                              "name, " +
-                                              "description)" +
-                        "VALUES (" + supplier.getId() + ", '" +
+                "name, " +
+                "description)" +
+                "VALUES (" + supplier.getId() + ", '" +
                 supplier.getName() + "', '" +
                 supplier.getDescription() + "');";
 
@@ -42,7 +39,6 @@ public class SupplierDaoJDBC implements SupplierDao {
                         resultSet.getString("name"),
                         resultSet.getString("description"));
 
-                //supplier.setId(id);
                 return supplier;
             } else {
                 return null;
@@ -81,7 +77,6 @@ public class SupplierDaoJDBC implements SupplierDao {
                 supplier.setId(supplier_id);
                 supplierList.add(supplier);
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();

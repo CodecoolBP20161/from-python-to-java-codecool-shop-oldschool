@@ -2,7 +2,6 @@ package com.codecool.shop.dao.implementation.database;
 
 
 import com.codecool.shop.dao.DataStorageFactory;
-import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -14,9 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static java.lang.Math.abs;
 
 
 public class ProductDaoJDBC implements ProductDao {
@@ -24,19 +20,19 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public void add(Product product) {
         String query = "INSERT INTO products (id, " +
-                                             "name, " +
-                                             "description, " +
-                                             "default_price, " +
-                                             "default_currency, " +
-                                             "product_category, " +
-                                             "supplier) " +
-                       "VALUES (" + product.getId() + ", '" +
-                                     product.getName() + "', '" +
-                                     product.getDescription() + "', " +
-                                     product.getDefaultPrice() + ", '" +
-                                     product.getDefaultCurrency() + "', " +
-                                     product.getProductCategory().getId() + ", " +
-                                     product.getSupplier().getId() + ");";
+                "name, " +
+                "description, " +
+                "default_price, " +
+                "default_currency, " +
+                "product_category, " +
+                "supplier) " +
+                "VALUES (" + product.getId() + ", '" +
+                product.getName() + "', '" +
+                product.getDescription() + "', " +
+                product.getDefaultPrice() + ", '" +
+                product.getDefaultCurrency() + "', " +
+                product.getProductCategory().getId() + ", " +
+                product.getSupplier().getId() + ");";
         DatabaseConnector.executeQuery(query);
     }
 
@@ -47,8 +43,8 @@ public class ProductDaoJDBC implements ProductDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
 
@@ -86,8 +82,8 @@ public class ProductDaoJDBC implements ProductDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            while (resultSet.next()){
+        ) {
+            while (resultSet.next()) {
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
                 int product_id = resultSet.getInt("id");

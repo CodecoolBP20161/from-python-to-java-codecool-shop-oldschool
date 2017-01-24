@@ -17,7 +17,7 @@ public class Order implements CartInterface {
         this.id = IdFactory.getInstance().id(this.getClass());
     }
 
-    public Order( Customer customer, OrderStatus orderStatus){
+    public Order(Customer customer, OrderStatus orderStatus) {
         this();
         this.customer = customer;
         this.orderStatus = orderStatus;
@@ -25,8 +25,6 @@ public class Order implements CartInterface {
     }
 
 
-
-    //add lineItem to order lineItems attribute if it is new increase quantity if it is exist
     public void addProduct(Product product) {
         LineItem itemToBeAdded = new LineItem(product);
 
@@ -37,14 +35,11 @@ public class Order implements CartInterface {
         }
     }
 
-    // find lineItem from a list
     public LineItem find(LineItem item) {
         return lineItems.stream().filter(i -> i.equals(item)).findFirst().orElse(null);
     }
 
-    //Total price in for the products in the cart
     public int getTotalPrice() {
-        //return lineItems.stream().mapToInt(i -> i.getProduct().getDefaultPrice()*i.getQuantity()).sum();
         int result = 0;
         for (int i = 0; i < lineItems.size(); i++) {
             result += lineItems.get(i).getProduct().getDefaultPrice() * lineItems.get(i).getQuantity();
@@ -52,7 +47,6 @@ public class Order implements CartInterface {
         return result;
     }
 
-    //sub total for products
     public int sumLineItemQuantitiesInCart() {
         int sum = 0;
         for (int i = 0; i < lineItems.size(); i++) {
@@ -68,6 +62,7 @@ public class Order implements CartInterface {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
     public Customer getCustomer() {
         return customer;
     }

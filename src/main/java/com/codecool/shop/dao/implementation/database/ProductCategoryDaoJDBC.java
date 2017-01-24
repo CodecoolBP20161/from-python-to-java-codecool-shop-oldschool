@@ -9,22 +9,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static java.lang.Math.abs;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
         String query = "INSERT INTO product_categories (id, " +
-                                            "name, " +
-                                            "department, " +
-                                            "description) " +
-                        "VALUES (" + category.getId() + ", '" +
-                                      category.getName() + "', '" +
-                                      category.getDepartment() + "', '" +
-                                      category.getDescription() + "');" ;
+                "name, " +
+                "department, " +
+                "description) " +
+                "VALUES (" + category.getId() + ", '" +
+                category.getName() + "', '" +
+                category.getDepartment() + "', '" +
+                category.getDescription() + "');";
 
         DatabaseConnector.executeQuery(query);
     }
@@ -36,8 +33,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 ProductCategory productCategory = new ProductCategory(
                         resultSet.getString("name"),
                         resultSet.getString("department"),
@@ -72,8 +69,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
-        ){
-            while (resultSet.next()){
+        ) {
+            while (resultSet.next()) {
                 int productCategory_id = resultSet.getInt("id");
                 ProductCategory productCategory = new ProductCategory(
                         resultSet.getInt("id"),

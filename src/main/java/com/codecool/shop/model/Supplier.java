@@ -11,18 +11,11 @@ public class Supplier extends BaseModel {
         this.products = new ArrayList<>();
     }
 
-    public Supplier(int id,String name, String description) {
+    public Supplier(int id, String name, String description) {
         super(id, name, description);
         this.products = new ArrayList<>();
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList getProducts() {
-        return this.products;
-    }
 
     public void addProduct(Product product) {
         this.products.add(product);

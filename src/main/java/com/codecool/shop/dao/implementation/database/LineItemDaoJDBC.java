@@ -3,7 +3,6 @@ package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.LineItemDao;
-import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
@@ -36,7 +35,6 @@ public class LineItemDaoJDBC implements LineItemDao {
     public LineItem find(int id) {
 
         String query = "SELECT * FROM line_items WHERE id ='" + id + "';";
-        OrderDao orderDao = new OrderDaoJDBC();
 
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();

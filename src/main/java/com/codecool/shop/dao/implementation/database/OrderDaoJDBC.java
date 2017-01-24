@@ -2,9 +2,10 @@ package com.codecool.shop.dao.implementation.database;
 
 
 import com.codecool.shop.dao.CustomerDao;
-import com.codecool.shop.dao.DataStorageFactory;
 import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.model.*;
+import com.codecool.shop.model.Customer;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.OrderStatus;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -105,14 +106,12 @@ public class OrderDaoJDBC implements OrderDao {
 
     @Override
     public List<Order> getBy(Customer customer) {
-
         String query = "SELECT * FROM orders WHERE customer ='" + customer.getId() + "';";
         return this.getOrders(query);
     }
 
     @Override
     public List<Order> getBy(OrderStatus orderStatus) {
-        //// FIXME: 2016.12.14. orderstatus is cool like this is it works????
         String query = "SELECT * FROM orders WHERE order_status ='" + orderStatus + "';";
         return this.getOrders(query);
     }

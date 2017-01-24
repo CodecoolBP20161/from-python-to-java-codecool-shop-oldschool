@@ -1,8 +1,13 @@
 package com.codecool.shop.example;
 
 
-import com.codecool.shop.dao.*;
-import com.codecool.shop.model.*;
+import com.codecool.shop.dao.DataStorageFactory;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 
 public class ProductFactory {
@@ -36,7 +41,6 @@ public class ProductFactory {
         productDataStore.add(result);
         return result;
     }
-
 
 
 }
