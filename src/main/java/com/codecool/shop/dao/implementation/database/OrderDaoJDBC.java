@@ -27,7 +27,7 @@ public class OrderDaoJDBC implements OrderDao {
             preparedStatement.setObject(2, order.getOrderStatus());
             preparedStatement.setInt(3,  order.getCustomer().getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,22 +38,31 @@ public class OrderDaoJDBC implements OrderDao {
 
     public void setOrderStatus(int id, OrderStatus orderStatus) {
         String query = "UPDATE orders " +
-                "SET order_status ='" + orderStatus + "'" +
-                "WHERE id ='" + id + "';";
-        DatabaseConnector.executeQuery(query);
+                "SET order_status =?" +
+                "WHERE id =?;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, orderStatus.toString());
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Override
     public Order find(int id) {
 
-        String query = "SELECT * FROM orders WHERE id ='" + id + "';";
+        String query = "SELECT * FROM orders WHERE id =?;";
         CustomerDao customerDao = new CustomerDaoJDBC();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Customer customer = customerDao.find(resultSet.getInt("customer"));
                 OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("order_status"));
@@ -76,9 +85,15 @@ public class OrderDaoJDBC implements OrderDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM orders WHERE id = '" + id + "';";
-        DatabaseConnector.executeQuery(query);
-
+        String query = "DELETE FROM orders WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<Order> getOrders(String query) {

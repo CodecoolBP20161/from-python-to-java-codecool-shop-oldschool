@@ -26,7 +26,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             preparedStatement.setString(3,  category.getDepartment());
             preparedStatement.setString(4,  category.getDescription());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,17 +34,19 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
-        String query = "SELECT * FROM product_categories WHERE id ='" + id + "';";
+        String query = "SELECT * FROM product_categories WHERE id =?;";
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 ProductCategory productCategory = new ProductCategory(
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
+
 
                 productCategory.setId(id);
                 return productCategory;
@@ -62,8 +64,15 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM product_categories WHERE id = '" + id + "';";
-        DatabaseConnector.executeQuery(query);
+        String query = "DELETE FROM product_categories WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -72,10 +81,10 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
         List<ProductCategory> productCategoryList = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int productCategory_id = resultSet.getInt("id");
                 ProductCategory productCategory = new ProductCategory(

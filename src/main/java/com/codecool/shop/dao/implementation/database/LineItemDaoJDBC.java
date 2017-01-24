@@ -31,7 +31,7 @@ public class LineItemDaoJDBC implements LineItemDao {
             preparedStatement.setInt(4, lineItem.getQuantity());
             preparedStatement.setFloat(5, lineItem.getSubtotalPrice());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class LineItemDaoJDBC implements LineItemDao {
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();

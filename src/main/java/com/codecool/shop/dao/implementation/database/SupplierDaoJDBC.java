@@ -25,7 +25,7 @@ public class SupplierDaoJDBC implements SupplierDao {
             preparedStatement.setString(2, supplier.getName());
             preparedStatement.setString(3,  supplier.getDescription());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,12 +33,13 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
-        String query = "SELECT * FROM suppliers WHERE id ='" + id + "';";
+        String query = "SELECT * FROM suppliers WHERE id =?;";
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Supplier supplier = new Supplier(
                         resultSet.getInt("id"),
@@ -59,8 +60,15 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM suppliers WHERE id = '" + id + "';";
-        DatabaseConnector.executeQuery(query);
+        String query = "DELETE FROM suppliers WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -69,10 +77,10 @@ public class SupplierDaoJDBC implements SupplierDao {
 
         List<Supplier> supplierList = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int supplier_id = resultSet.getInt("id");
                 Supplier supplier = new Supplier(

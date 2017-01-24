@@ -10,7 +10,7 @@ CREATE TABLE product_categories
   id          INT PRIMARY KEY,
   name        VARCHAR(40),
   description VARCHAR(500),
-  department  VARCHAR(10)
+  department  VARCHAR(50)
 );
 
 CREATE TABLE suppliers
@@ -25,8 +25,8 @@ CREATE TABLE products
   id               INT PRIMARY KEY,
   name             VARCHAR(40),
   description      VARCHAR(500),
-  default_price    VARCHAR(10),
-  default_currency VARCHAR(10),
+  default_price    VARCHAR(50),
+  default_currency VARCHAR(50),
   product_category INT REFERENCES product_categories (id),
   supplier         INT REFERENCES suppliers (id)
 );

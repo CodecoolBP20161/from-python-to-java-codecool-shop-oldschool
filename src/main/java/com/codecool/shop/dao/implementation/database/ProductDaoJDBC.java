@@ -32,11 +32,11 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.setString(2, product.getName());
             preparedStatement.setString(3,  product.getDescription());
             preparedStatement.setFloat(4,  product.getDefaultPrice());
-            preparedStatement.setObject(5,  product.getDefaultCurrency());
+            preparedStatement.setString(5,  product.getDefaultCurrency().toString());
             preparedStatement.setInt(6,  product.getProductCategory().getId());
             preparedStatement.setInt(7,  product.getSupplier().getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,12 +44,13 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public Product find(int id) {
-        String query = "SELECT * FROM products WHERE id ='" + id + "';";
+        String query = "SELECT * FROM products WHERE id =?;";
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
@@ -78,17 +79,24 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM products WHERE id = '" + id + "';";
-        DatabaseConnector.executeQuery(query);
+        String query = "DELETE FROM products WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<Product> getProducts(String query) {
         List<Product> productList = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
                 Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));

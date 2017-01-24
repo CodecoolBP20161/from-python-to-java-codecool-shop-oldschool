@@ -30,7 +30,7 @@ public class CustomerDaoJDBC implements CustomerDao {
             preparedStatement.setString(10, customer.getShippingCity());
             preparedStatement.setString(11, customer.getShippingZipcode());
             preparedStatement.setString(12, customer.getShippingAddress());
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class CustomerDaoJDBC implements CustomerDao {
              PreparedStatement preparedStatement = connection.prepareStatement(query);
         ) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
