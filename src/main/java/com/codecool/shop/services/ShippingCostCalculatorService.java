@@ -18,10 +18,11 @@ import java.util.List;
 
 public class ShippingCostCalculatorService {
     private static final Logger logger = LoggerFactory.getLogger(ShippingCostCalculatorService.class);
-    private static ShippingCostCalculatorService INSTANCE;
     private static final String SERVICE_URL = "http://localhost:65011/shipping-cost";
     private static final String ORIGIN_PARAM_KEY = "origin";
     private static final String DESTINATION_PARAM_KEY = "destination";
+    private static ShippingCostCalculatorService INSTANCE;
+    private List<ShippingCostCalculator> shippingOptions;
 
     public static ShippingCostCalculatorService getInstance() {
         if (INSTANCE == null) {
@@ -39,7 +40,7 @@ public class ShippingCostCalculatorService {
         logger.info("Getting shipping cost options");
         logger.debug("URI built for getting shipping cost options {} ", builder.build());
 
-        List<ShippingCostCalculator> shippingOptions = new ArrayList<>();
+        this.shippingOptions = new ArrayList<>();
 
         try {
             shippingOptions.add(shippingCostModelFromJSON(builder.build(), "expressCourier"));
@@ -78,4 +79,7 @@ public class ShippingCostCalculatorService {
                 .asString();
     }
 
+    public List<ShippingCostCalculator> getShippingOptions() {
+        return shippingOptions;
+    }
 }
