@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ShippingServiceController {
     private ShippingCostCalculatorService shippingCostCalculatorService;
-    public static final String ORIGIN = "Budapest, Nagymező u. 44";
+    public static final String ORIGIN = "Nagymező u. 44, Budapest, 1065 Hungary";
 
     public ShippingServiceController(ShippingCostCalculatorService shippingCostCalculatorService) {
         this.shippingCostCalculatorService = shippingCostCalculatorService;
