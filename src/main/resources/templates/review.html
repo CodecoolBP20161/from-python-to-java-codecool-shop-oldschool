@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<!-- Header -->g
+<!-- Header -->
 <div th:replace="header :: copy"></div>
 
 
 <!-- Content -->
-
 <div class="container">
 
     <section class="panel panel-default">
@@ -29,9 +28,15 @@
                 <tbody class="order-tbody">
                 <tr th:each="item, iterStat: ${lineitems}">
                     <td th:text="${item.getProduct().getName()}"></td>
-                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
+                    <td th:text="${item.getProduct().getDefaultPrice()} + ' '+ ${item.getProduct().getDefaultCurrency()}"></td>
                     <td th:text="${item.getQuantity()}"></td>
-                    <td th:text="${item.getSubtotalPrice()}+ ' '+${item.getProduct().getDefaultCurrency()}"></td>
+                    <td th:text="${item.getSubtotalPrice()} + ' '+ ${item.getProduct().getDefaultCurrency()}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${option.getName()} + ' - ' + ${option.getDetails()}"></td>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${option.getCost()} + ' '+ ${option.getCurrency()}"></td>
                 </tr>
                 </tbody>
             </table>
