@@ -56,6 +56,9 @@ public class Product extends BaseModel {
         this.supplier.addProduct(this);
     }
 
+    public String getPrice() {
+        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+    }
 
     @Override
     public String toString() {
