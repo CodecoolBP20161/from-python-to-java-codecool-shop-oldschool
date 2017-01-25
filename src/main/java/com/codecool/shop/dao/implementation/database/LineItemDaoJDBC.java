@@ -87,23 +87,59 @@ public class LineItemDaoJDBC implements LineItemDao {
 
     }
 
-    private List<LineItem> getLineItems(String query) {
+    @Override
+    public List<LineItem> getAll() {
+        String query = "SELECT * FROM line_items;";
+        List<LineItem> lineItemList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(lineItemList, resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lineItemList;
+    }
+
+    @Override
+    public List<LineItem> getBy(Order order) {
+
+        String query = "SELECT * FROM line_items WHERE order_id =?;";
         List<LineItem> lineItemList = new ArrayList<>();
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, order.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-                Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
-                LineItem lineItem = new LineItem(
-                        product,
-                        resultSet.getInt("order_id"),
-                        resultSet.getInt("quantity"),
-                        resultSet.getLong("subtotal_price"));
-                lineItem.setId(resultSet.getInt("id"));
-                lineItemList.add(lineItem);
+                setResults(lineItemList, resultSet);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lineItemList;
+    }
+
+    @Override
+    public List<LineItem> getBy(Product product) {
+
+        String query = "SELECT * FROM line_items WHERE product =?;";
+        List<LineItem> lineItemList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, product.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(lineItemList, resultSet);
 
             }
 
@@ -111,26 +147,24 @@ public class LineItemDaoJDBC implements LineItemDao {
             e.printStackTrace();
         }
 
+
         return lineItemList;
     }
 
-    @Override
-    public List<LineItem> getAll() {
-        String query = "SELECT * FROM line_items;";
-        return this.getLineItems(query);
+
+    private void setResults(List<LineItem> lineItemList, ResultSet resultSet) throws SQLException {
+        Product product = DataStorageFactory.productDaoFactory().find(resultSet.getInt("product"));
+        LineItem lineItem = new LineItem(
+                product,
+                resultSet.getInt("order_id"),
+                resultSet.getInt("quantity"),
+                resultSet.getLong("subtotal_price"));
+        lineItem.setId(resultSet.getInt("id"));
+        lineItemList.add(lineItem);
     }
 
-    @Override
-    public List<LineItem> getBy(Order order) {
 
-        String query = "SELECT * FROM line_items WHERE order_id ='" + order.getId() + "';";
-        return this.getLineItems(query);
-    }
 
-    @Override
-    public List<LineItem> getBy(Product product) {
 
-        String query = "SELECT * FROM line_items WHERE product ='" + product.getId() + "';";
-        return this.getLineItems(query);
-    }
+
 }

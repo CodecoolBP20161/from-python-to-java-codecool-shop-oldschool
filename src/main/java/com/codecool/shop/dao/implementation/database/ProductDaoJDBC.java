@@ -30,11 +30,11 @@ public class ProductDaoJDBC implements ProductDao {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, product.getId());
             preparedStatement.setString(2, product.getName());
-            preparedStatement.setString(3,  product.getDescription());
-            preparedStatement.setFloat(4,  product.getDefaultPrice());
-            preparedStatement.setString(5,  product.getDefaultCurrency().toString());
-            preparedStatement.setInt(6,  product.getProductCategory().getId());
-            preparedStatement.setInt(7,  product.getSupplier().getId());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setFloat(4, product.getDefaultPrice());
+            preparedStatement.setString(5, product.getDefaultCurrency().toString());
+            preparedStatement.setInt(6, product.getProductCategory().getId());
+            preparedStatement.setInt(7, product.getSupplier().getId());
 
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -90,31 +90,56 @@ public class ProductDaoJDBC implements ProductDao {
         }
     }
 
-    private List<Product> getProducts(String query) {
+    @Override
+    public List<Product> getAll() {
+        String query = "SELECT * FROM products;";
         List<Product> productList = new ArrayList<>();
-
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
-                Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
-                int product_id = resultSet.getInt("id");
-
-                Product product = new Product(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getFloat("default_price"),
-                        resultSet.getString("default_currency"),
-                        resultSet.getString("description"),
-                        productCategory,
-                        supplier);
-
-                product.setId(product_id);
-                productList.add(product);
+                setResults(productList, resultSet);
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    @Override
+    public List<Product> getBy(Supplier supplier) {
+        String query = "SELECT * FROM products WHERE supplier =?;";
+        List<Product> productList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, supplier.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(productList, resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    @Override
+    public List<Product> getBy(ProductCategory productCategory) {
+        String query = "SELECT * FROM products WHERE product_category =?;";
+        List<Product> productList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, productCategory.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(productList, resultSet);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,21 +148,21 @@ public class ProductDaoJDBC implements ProductDao {
         return productList;
     }
 
-    @Override
-    public List<Product> getAll() {
-        String query = "SELECT * FROM products;";
-        return this.getProducts(query);
-    }
 
-    @Override
-    public List<Product> getBy(Supplier supplier) {
-        String query = "SELECT * FROM products WHERE supplier ='" + supplier.getId() + "';";
-        return this.getProducts(query);
-    }
+    private void setResults(List<Product> productList, ResultSet resultSet) throws SQLException {
+        ProductCategory productCategory = DataStorageFactory.productCategoryDaoFactory().find(resultSet.getInt("product_category"));
+        Supplier supplier = DataStorageFactory.supplierDaoFactory().find(resultSet.getInt("supplier"));
 
-    @Override
-    public List<Product> getBy(ProductCategory productCategory) {
-        String query = "SELECT * FROM products WHERE product_category ='" + productCategory.getId() + "';";
-        return this.getProducts(query);
+        Product product = new Product(
+                resultSet.getInt("id"),
+                resultSet.getString("name"),
+                resultSet.getFloat("default_price"),
+                resultSet.getString("default_currency"),
+                resultSet.getString("description"),
+                productCategory,
+                supplier);
+
+        productList.add(product);
     }
 }
+

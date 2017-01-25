@@ -96,47 +96,76 @@ public class OrderDaoJDBC implements OrderDao {
         }
     }
 
-    private List<Order> getOrders(String query) {
-        List<Order> orderList = new ArrayList<>();
-        CustomerDao customerDao = new CustomerDaoJDBC();
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Customer customer = customerDao.find(resultSet.getInt("customer"));
-                OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("order_status"));
-                Order order = new Order(
-                        customer,
-                        orderStatus);
-                order.setId(resultSet.getInt("id"));
-                orderList.add(order);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return orderList;
+    private void setResults(List<Order> orderList, CustomerDao customerDao, ResultSet resultSet) throws SQLException {
+        Customer customer = customerDao.find(resultSet.getInt("customer"));
+        OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("order_status"));
+        Order order = new Order(
+                customer,
+                orderStatus);
+        order.setId(resultSet.getInt("id"));
+        orderList.add(order);
     }
 
     @Override
     public List<Order> getAll() {
         String query = "SELECT * FROM orders;";
-        return this.getOrders(query);
+        List<Order> orderList = new ArrayList<>();
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(orderList, customerDao, resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderList;
     }
 
     @Override
     public List<Order> getBy(Customer customer) {
-        String query = "SELECT * FROM orders WHERE customer ='" + customer.getId() + "';";
-        return this.getOrders(query);
+        String query = "SELECT * FROM orders WHERE customer =?;";
+
+        List<Order> orderList = new ArrayList<>();
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(orderList, customerDao, resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderList;
     }
 
     @Override
     public List<Order> getBy(OrderStatus orderStatus) {
-        String query = "SELECT * FROM orders WHERE order_status ='" + orderStatus + "';";
-        return this.getOrders(query);
+        String query = "SELECT * FROM orders WHERE order_status =?;";
+
+        List<Order> orderList = new ArrayList<>();
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, orderStatus.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                setResults(orderList, customerDao, resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderList;
     }
 
 }
