@@ -1,14 +1,13 @@
 package com.codecool.shop.example;
 
 
-import com.codecool.shop.model.*;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 public class ExampleData {
 
     public static void populateData() {
-        OrderStatus inCart = OrderStatus.IN_CART;
-        OrderStatus checked = OrderStatus.CHECKED_OUT;
-
         Supplier amazon = ProductFactory.getInstance().supplier(1, "Amazon", "Digital content and services");
         Supplier lenovo = ProductFactory.getInstance().supplier(2, "Lenovo", "Computers");
         Supplier codecool = ProductFactory.getInstance().supplier(3, "Codecool", "Course");

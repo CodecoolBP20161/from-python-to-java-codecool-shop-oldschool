@@ -18,10 +18,9 @@ public class DatabaseConfig {
         try {
             input = new FileInputStream(DatabaseSwitcher.getInstance().database());
 
-            // load a properties file
             prop.load(input);
 
-        } catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
             if (input != null) {

@@ -14,7 +14,7 @@ public class BaseModel {
         this.name = name;
     }
 
-    public BaseModel(int id, String name){
+    public BaseModel(int id, String name) {
         this(name);
         this.id = id;
     }

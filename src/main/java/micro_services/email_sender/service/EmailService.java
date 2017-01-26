@@ -14,7 +14,7 @@ public class EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
     private static EmailService INSTANCE;
 
-//    Default Gmail SMTP settings
+    //    Default Gmail SMTP settings
     private static String MAIL_SMTP_AUTH = "true";
     private static String MAIL_SMTP_STARTTLS_ENABLE = "true";
     private static String MAIL_SMTP_HOST = "smtp.gmail.com";
@@ -64,7 +64,7 @@ public class EmailService {
 
             logger.debug("Sending message {}", message);
 
-        } catch (MessagingException e){
+        } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }

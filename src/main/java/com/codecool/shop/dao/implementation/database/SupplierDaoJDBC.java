@@ -4,45 +4,48 @@ package com.codecool.shop.dao.implementation.database;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import static java.lang.Math.abs;
+import static com.codecool.shop.dao.implementation.database.DatabaseConnector.getConnection;
 
 public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
         String query = "INSERT INTO suppliers (id, " +
-                                              "name, " +
-                                              "description)" +
-                        "VALUES (" + supplier.getId() + ", '" +
-                supplier.getName() + "', '" +
-                supplier.getDescription() + "');";
+                "name, " +
+                "description)" +
+                "VALUES (?, ?, ?);";
 
-        DatabaseConnector.executeQuery(query);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, supplier.getId());
+            preparedStatement.setString(2, supplier.getName());
+            preparedStatement.setString(3,  supplier.getDescription());
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Supplier find(int id) {
-        String query = "SELECT * FROM suppliers WHERE id ='" + id + "';";
+        String query = "SELECT * FROM suppliers WHERE id =?;";
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Supplier supplier = new Supplier(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"));
 
-                //supplier.setId(id);
                 return supplier;
             } else {
                 return null;
@@ -57,8 +60,15 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM suppliers WHERE id = '" + id + "';";
-        DatabaseConnector.executeQuery(query);
+        String query = "DELETE FROM suppliers WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -67,10 +77,10 @@ public class SupplierDaoJDBC implements SupplierDao {
 
         List<Supplier> supplierList = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int supplier_id = resultSet.getInt("id");
                 Supplier supplier = new Supplier(
@@ -81,7 +91,6 @@ public class SupplierDaoJDBC implements SupplierDao {
                 supplier.setId(supplier_id);
                 supplierList.add(supplier);
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();

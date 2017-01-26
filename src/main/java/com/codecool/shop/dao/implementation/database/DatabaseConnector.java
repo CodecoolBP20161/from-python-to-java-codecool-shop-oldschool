@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 abstract class DatabaseConnector {
 
-// Initialise database connection based on given configuration file
+    // Initialise database connection based on given configuration file
     private static DatabaseConfig databaseConfig = new DatabaseConfig();
     private static final String DATABASE = databaseConfig.getDatabase();
     private static final String DB_USER = databaseConfig.getDbUser();
@@ -23,7 +23,7 @@ abstract class DatabaseConnector {
     public static void executeQuery(String query) {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()
-        ){
+        ) {
             statement.execute(query);
 
         } catch (SQLException e) {

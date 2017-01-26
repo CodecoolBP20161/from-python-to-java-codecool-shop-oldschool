@@ -9,18 +9,16 @@ public class IdFactory {
     public static IdFactory instance;
     private HashMap<Class, Integer> nextid = new HashMap<Class, Integer>();
 
-    private IdFactory(){
 
-    }
 
-    public static synchronized IdFactory getInstance(){
-        if(instance == null) {
+    public static synchronized IdFactory getInstance() {
+        if (instance == null) {
             instance = new IdFactory();
         }
         return instance;
     }
 
-    public int id(Class key){
+    public int id(Class key) {
         int result;
         if (this.nextid.containsKey(key))
             result = getNewId(key);
@@ -29,12 +27,12 @@ public class IdFactory {
         return result;
     }
 
-    private int createNewId(Class key){
+    private int createNewId(Class key) {
         this.nextid.put(key, currentTimeMillis());
         return this.nextid.get(key);
     }
 
-    private int getNewId(Class key){
+    private int getNewId(Class key) {
         this.nextid.put(key, currentTimeMillis());
         return this.nextid.get(key);
     }

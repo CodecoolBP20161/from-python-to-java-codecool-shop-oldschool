@@ -22,7 +22,6 @@ public abstract class ShopController {
     public static ModelAndView render(Request req, Response res) {
 
         Map params = new HashMap<>();
-        //products and product filters
         params.put("products", productDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", supplierDataStore.getAll());
@@ -37,7 +36,6 @@ public abstract class ShopController {
             params.put("supplier", supplierDataStore.find(Integer.parseInt(req.params(":supplier-id"))));
         }
 
-        // get cart items for display
         if (req.session().attribute("order") != null) {
             Order order = req.session().attribute("order");
             params.put("lineitems", order.sumLineItemQuantitiesInCart());
