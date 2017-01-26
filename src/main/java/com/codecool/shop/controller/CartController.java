@@ -146,15 +146,7 @@ public class CartController extends ShopController {
         return customer;
     }
 
-    public static ModelAndView renderPayment(Request req, Response res) {
-        Map params = new HashMap<>();
-        OrderDao orderDataStore = new OrderDaoJDBC();
-        if (req.session().attribute("order_id") != null) {
-            orderDataStore.setOrderStatus(req.session().attribute("order_id"), OrderStatus.PAID);
-        }
 
-        return new ModelAndView(params, "/payment");
-    }
 
 
 }

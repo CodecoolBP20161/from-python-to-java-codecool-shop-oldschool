@@ -48,7 +48,7 @@ public class Main {
 
         get("/payment", CartController::renderPayment, new ThymeleafTemplateEngine());
 
-        get("/send-email/:order-id", OrderController::renderEmail, new ThymeleafTemplateEngine());
+        get("/send-email/:order-id", EmailController::renderEmail, new ThymeleafTemplateEngine());
 
         post("/review-order", CartController::renderReviewPage, new ThymeleafTemplateEngine());
 
