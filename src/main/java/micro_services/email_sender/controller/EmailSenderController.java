@@ -6,7 +6,8 @@ import micro_services.email_sender.model.Email;
 import micro_services.email_sender.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spark.*;
+import spark.Request;
+import spark.Response;
 
 public class EmailSenderController {
 

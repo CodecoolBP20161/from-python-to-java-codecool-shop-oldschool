@@ -20,8 +20,6 @@ public class EmailSenderService {
 
     private static final Timer timer = new Timer();
 
-    private static final int MAX_SECONDS = 100;
-
     private EmailSenderController controller;
 
     public static void main(String[] args) {
@@ -37,8 +35,8 @@ public class EmailSenderService {
 
             @Override
             public void run() {
-                    System.out.println("every secound" );
-                    EmailSendingController.sendEmail();
+                System.out.println("every secound");
+                EmailSendingController.sendEmail();
             }
         };
 
