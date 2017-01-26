@@ -18,9 +18,6 @@ public class VideoController {
         Product product = productDataStore.find(Integer.parseInt(req.params(":product-id")));
         List<String> embedCodes = VideoService.getInstance().getEmbedCodes(product.getName());
 
-        if (embedCodes == null || embedCodes.size() < 1) {
-            return "<iframe width=\\\"560\\\" height=\\\"315\\\" src=\\\"https://www.youtube.com/embed/bbvVof_bkmc\\\" frameborder=\\\"0\\\" alshortfullscreen></iframe>";
-        }
         return embedCodes.get(1);
     }
 }
