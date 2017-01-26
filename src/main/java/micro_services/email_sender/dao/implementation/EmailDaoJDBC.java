@@ -38,14 +38,14 @@ public class EmailDaoJDBC implements EmailDao {
 
     @Override
     public List<Email> getBy(EmailStatus status) {
-        String query = "SELECT * FROM emails WHERE email_status =?;";
+        String query = "SELECT * FROM emails WHERE email_status =CAST(? AS email_status);";
 
         List<Email> emailList = new ArrayList<>();
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
-            preparedStatement.setString(1, status.toString());
+            preparedStatement.setString(1, status.name());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Email email = new Email(
@@ -70,13 +70,13 @@ public class EmailDaoJDBC implements EmailDao {
     @Override
     public void changeStatus(EmailStatus status, Email email) {
         String query = "UPDATE emails " +
-                "SET email_status = ?" +
+                "SET email_status = CAST(? AS email_status)" +
                 "WHERE to_address = ? AND " +
                 "subject = ?;";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, status.toString());
+            preparedStatement.setString(1, status.name());
             preparedStatement.setString(2, email.getToAddress());
             preparedStatement.setString(3, email.getSubject());
 
