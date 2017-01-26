@@ -74,10 +74,16 @@
 
                         <div class="col-xs-12 col-md-6">
                             <form th:action="'/add-to-cart/' + ${prod.getId()}" method="post">
-                                <button class="btn btn-success" type="submit">Add to cart</button>
+                                <button class=" pull-right btn btn-success" type="submit" style="margin: 2px">Add to cart</button>
+
+                            <a href="#videoModal" class="pull-left btn btn-primary" data-toggle="modal" style="margin: 2px">
+                                <span class="glyphicon glyphicon-facetime-video"></span></a>
                             </form>
+<<<<<<< Updated upstream
                             <a href="#videoModal" class="btn btn-lg btn-primary" data-toggle="modal"><span
                                     class="glyphicon glyphicon-facetime-video"></span></a>
+=======
+>>>>>>> Stashed changes
                             <!--<button class="btn btn-success" id="${prod.getId()}" name="video"><span-->
                             <!--class="glyphicon glyphicon-facetime-video"></span></button>-->
                         </div>
