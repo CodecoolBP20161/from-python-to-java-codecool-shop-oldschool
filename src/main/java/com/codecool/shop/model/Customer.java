@@ -7,7 +7,6 @@ public class Customer {
     private String email;
     private String phone;
 
-    // fixme: should address be a separated model and DB table???
     private String billingCountry;
     private String billingCity;
     private String billingZipcode;

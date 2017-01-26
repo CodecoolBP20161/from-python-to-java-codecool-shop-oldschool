@@ -7,7 +7,6 @@ public class DatabaseSwitcher {
 
     private DatabaseType databaseType = DatabaseType.REAL;
 
-    //singleton pattern
     public static synchronized DatabaseSwitcher getInstance() {
         if (instance == null) {
             instance = new DatabaseSwitcher();
@@ -28,9 +27,6 @@ public class DatabaseSwitcher {
         return result;
     }
 
-    public DatabaseType getDatabaseType() {
-        return databaseType;
-    }
 
     public void setDatabaseType(DatabaseType databaseType) {
         this.databaseType = databaseType;

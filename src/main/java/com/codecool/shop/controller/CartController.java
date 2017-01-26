@@ -142,9 +142,11 @@ public class CartController extends ShopController {
                 req.queryParams("shippingZip"),
                 req.queryParams("shippingAddr")
         );
-
         customerDao.add(customer);
         return customer;
     }
+
+
+
 
 }

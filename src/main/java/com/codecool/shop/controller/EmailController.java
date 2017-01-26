@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 
-public class OrderController {
+public class EmailController {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
     private static final String SERVICE_URL = "http://localhost:60000";
     private static final String CENTRAL_EMAIL = "girhes.cc.2016@gmail.com";
     private static final String PASSWORD = "Girhes2016";

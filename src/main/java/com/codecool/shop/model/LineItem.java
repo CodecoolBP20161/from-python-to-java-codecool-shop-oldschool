@@ -9,8 +9,6 @@ public class LineItem {
     private int quantity;
     private float subtotalPrice;
 
-    //constructor
-
 
     public LineItem() {
         this.id = IdFactory.getInstance().id(this.getClass());
@@ -21,11 +19,6 @@ public class LineItem {
         this.product = product;
         this.quantity = 1;
         this.subtotalPrice = product.getDefaultPrice();
-    }
-
-    public LineItem(Product product, int order) {
-        this(product);
-        this.order = order;
     }
 
 
@@ -48,10 +41,6 @@ public class LineItem {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public float getSubtotalPrice() {
@@ -78,7 +67,6 @@ public class LineItem {
         this.order = order;
     }
 
-    //TODO: testIncreaseQuatntity
     public void increaseQuantity() {
         quantity += 1;
         setSubtotalPrice(quantity * product.getDefaultPrice());

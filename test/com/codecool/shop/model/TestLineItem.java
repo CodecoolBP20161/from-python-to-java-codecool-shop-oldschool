@@ -12,6 +12,9 @@ public class TestLineItem {
     Product mockProduct;
     double DELTA = 1e-15;
 
+    public TestLineItem() {
+    }
+
     @Before
     public void setUp() {
         mockProduct = mock(Product.class);
