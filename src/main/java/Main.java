@@ -52,6 +52,8 @@ public class Main {
 
         post("/review-order", CartController::renderReviewPage, new ThymeleafTemplateEngine());
 
+        get("/video/:product-id", VideoController::getEmbedCodes);
+
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 

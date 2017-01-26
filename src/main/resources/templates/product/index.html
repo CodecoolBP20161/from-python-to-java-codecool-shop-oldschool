@@ -9,41 +9,49 @@
 <div class="container">
     <div class="well well-sm">
 
-    <!-- Dropdown button for product categories -->
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary" th:text="${category} ? ${category.name} : 'Categories'">Categories</button>
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Product Category Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li th:each="category, iterStat: ${categories}"><a th:href="'/product-category/' + ${category.getId()}" th:text="${category.name}"></a></li>
-            <li role="separator" class="divider"></li>
-            <li><a th:href="'/'">All</a></li>
-        </ul>
-    </div>
+        <!-- Dropdown button for product categories -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" th:text="${category} ? ${category.name} : 'Categories'">
+                Categories
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Product Category Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li th:each="category, iterStat: ${categories}"><a th:href="'/product-category/' + ${category.getId()}"
+                                                                   th:text="${category.name}"></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a th:href="'/'">All</a></li>
+            </ul>
+        </div>
 
-    <!-- Dropdown button for suppliers -->
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary" th:text="${supplier} ? ${supplier.name} : 'Suppliers'">Suppliers</button>
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Supplier Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li th:each="supplier, iterStat: ${suppliers}"><a th:href="'/supplier/' + ${supplier.getId()}" th:text="${supplier.name}"></a></li>
-            <li role="separator" class="divider"></li>
-            <li><a th:href="'/'">All</a></li>
-        </ul>
-    </div>
+        <!-- Dropdown button for suppliers -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" th:text="${supplier} ? ${supplier.name} : 'Suppliers'">
+                Suppliers
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Supplier Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li th:each="supplier, iterStat: ${suppliers}"><a th:href="'/supplier/' + ${supplier.getId()}"
+                                                                  th:text="${supplier.name}"></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a th:href="'/'">All</a></li>
+            </ul>
+        </div>
 
-    <!-- Shopping cart icon -->
-    <div class="btn-group pull-right">
-        <a href="/cart">
-            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>
-                <span class="items" th:text="${lineitems} ?: '0'">0</span></button>
-        </a>
-    </div>
+        <!-- Shopping cart icon -->
+        <div class="btn-group pull-right">
+            <a href="/cart">
+                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>
+                    <span class="items" th:text="${lineitems} ?: '0'">0</span></button>
+            </a>
+        </div>
 
 
     </div>
@@ -53,10 +61,12 @@
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" height="450" width="200"/>
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" height="450" width="200"/>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
+                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product
+                        description... </p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
@@ -66,6 +76,10 @@
                             <form th:action="'/add-to-cart/' + ${prod.getId()}" method="post">
                                 <button class="btn btn-success" type="submit">Add to cart</button>
                             </form>
+                            <a href="#videoModal" class="btn btn-lg btn-primary" data-toggle="modal"><span
+                                    class="glyphicon glyphicon-facetime-video"></span></a>
+                            <!--<button class="btn btn-success" id="${prod.getId()}" name="video"><span-->
+                            <!--class="glyphicon glyphicon-facetime-video"></span></button>-->
                         </div>
 
                     </div>
@@ -74,8 +88,22 @@
         </div>
     </div>
 
+    <!--Modal HTML-->
 </div>
-
+<div id="videoModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Product Review Videos</h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="productVideo" width="560" height="315" src="//www.youtube.com/embed/YE7VzlLtp-4"
+                        frameborder="0" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Footer -->
 <div th:replace="footer :: copy"></div>
 
