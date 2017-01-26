@@ -2,7 +2,6 @@ package com.codecool.shop.services;
 
 
 import com.codecool.shop.model.ShippingCostCalculator;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.JSONException;
