@@ -48,7 +48,9 @@ public class Main {
 
         get("/payment", CartController::renderPayment, new ThymeleafTemplateEngine());
 
-        get("/order/:order-id", EmailController::renderEmail, new ThymeleafTemplateEngine());
+        get("/send-email/:order-id", OrderController::renderEmail, new ThymeleafTemplateEngine());
+
+        post("/review-order", CartController::renderReviewPage, new ThymeleafTemplateEngine());
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
