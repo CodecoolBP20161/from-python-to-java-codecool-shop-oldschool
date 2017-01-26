@@ -53,7 +53,7 @@ public class Main {
 
         get("/order/:order-id", OrderController::renderEmail, new ThymeleafTemplateEngine());
 
-        get("/video/:product-id", VideoController::getModal, new ThymeleafTemplateEngine());
+        get("/video/:product-id", VideoController::getEmbedCodes);
 
         // Route for main index page
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
