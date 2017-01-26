@@ -47,7 +47,7 @@
                         <h4 class="text-right">Total: <strong th:text="${total} + ' $'"></strong></h4>
                     </div>
                     <div class="col-xs-3">
-                        <a href="#">
+                        <a th:href="${paymentServiceUrl}">
                             <button type="button" class="btn btn-success btn-block">
                                 Payment
                             </button>
